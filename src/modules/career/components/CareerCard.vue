@@ -64,10 +64,10 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
             </p>
         </div>
 
-        <div class="pt-10 flex gap-8">
+        <div class="pt-10 flex flex-col xl:flex-row gap-8">
             <div class="flex flex-col items-center gap-1">
                 <h2 class="text-xl font-bold text-sky-500 underline underline-offset-8 ">Department</h2>
-                <h4 class="font-bold text-lg">{{career.department}}</h4>
+                <h4 class="font-bold text-lg text-center">{{career.department}}</h4>
             </div>
 
             <div class="pt-3">

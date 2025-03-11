@@ -13,7 +13,7 @@ import getCareers from '../composable/getCareers';
 </script>
 
 <template>
-    <Container className="px-20 2xl:px-36">
+    <Container className="px-0  2xl:px-36">
         <img class="w-full h-[400px] object-cover" src="@/assets/images/careersbanner.jpg" alt="">
 
         <div class="mt-5 pb-20 flex flex-col gap-8">
