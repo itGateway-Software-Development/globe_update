@@ -1,0 +1,38 @@
+nav .phone-icon {
+    position: relative;
+  }
+  
+  nav .phone-icon::before {
+    content: "";
+    position: absolute;
+    -webkit-animation: HeaderPhone 2s linear infinite;
+    animation: HeaderPhone 2s linear infinite;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    top: calc(50% - 9px);
+    left: calc(50% - 9px);
+    background-color: #0a65af;
+    opacity: 0;
+  }
+  
+  nav .phone-icon::after {
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+  }
+
+  @keyframes HeaderPhone {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  
+    50% {
+      opacity: 0.5;
+    }
+  
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
