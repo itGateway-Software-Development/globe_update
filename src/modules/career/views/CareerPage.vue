@@ -1,10 +1,15 @@
 <script setup>
-    import CareerCard from '../components/CareerCard.vue';
+    import { onMounted } from 'vue';
+import CareerCard from '../components/CareerCard.vue';
 import getCareers from '../composable/getCareers';
 
     const {careers, errors, load} = getCareers();
 
     load();
+
+    onMounted(() => {
+        window.scrollTo(0,0)
+    })
 </script>
 
 <template>
