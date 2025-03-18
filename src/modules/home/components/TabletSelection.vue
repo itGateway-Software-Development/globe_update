@@ -107,7 +107,7 @@ const microsoft = [
 </script>
 
 <template>
-    <section class="bg-slate-200 mt-20 py-20">
+    <section class="mt-10 py-10">
         <Container>
             <SectionHeader title="Tablet & E-Reader Selection" link_name="View All" link="/" description="All available tablets" />
 

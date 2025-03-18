@@ -1,4 +1,5 @@
 <script setup>
+import AdreamerSelection from '../components/AdreamerSelection.vue';
 import Brands from '../components/Brands.vue';
 import Carousel from '../components/Carousel.vue';
 import HeadsetSelection from '../components/HeadsetSelection.vue';
@@ -18,6 +19,7 @@ import XppenSelection from '../components/XppenSelection.vue';
         <Promotion />
         <PopularItems />
         <XppenSelection />
+        <AdreamerSelection />
         <LaptopSelection />
         <HeadsetSelection />
         <SpeakerSelection />

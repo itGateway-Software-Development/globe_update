@@ -6,13 +6,13 @@ const currentSelect = ref('dell')
 
 const dellLaptops = [
         {
-            img: require('@/assets/images/laptop/1.png'),
+            img: require('@/assets/images/laptop/5.png'),
             title: "Deco Pro Small",
             price: "22,000 MMK",
             category: "Dell"
         },
         {
-            img: require('@/assets/images/laptop/2.png'),
+            img: require('@/assets/images/laptop/4.png'),
             title: "Deco 03",
             price: "22,000 MMK",
             category: "Dell"
@@ -24,13 +24,13 @@ const dellLaptops = [
             category: "Dell"
         },
         {
-            img: require('@/assets/images/laptop/4.png'),
+            img: require('@/assets/images/laptop/1.png'),
             title: "Star G430",
             price: "22,000 MMK",
             category: "Dell"
         },
         {
-            img: require('@/assets/images/laptop/5.png'),
+            img: require('@/assets/images/laptop/2.png'),
             title: "Star R430",
             price: "22,000 MMK",
             category: "Dell"
@@ -108,9 +108,9 @@ const acerLaptops = [
 </script>
 
 <template>
-    <section class="bg-slate-200 mt-10 py-10">
+    <section class=" mt-10 py-10">
         <Container>
-            <SectionHeader title="Laptop Selection" link_name="View All" link="/" description="All available laptops" />
+            <SectionHeader title="Adreamer Selection" link_name="View All" link="/" description="All available devices" />
 
             <div class="flex justify-center items-center gap-5 mt-8">
                 <button @click="currentSelect = 'dell'" :class="`border ${currentSelect === 'dell' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Dell</button>

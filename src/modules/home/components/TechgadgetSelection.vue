@@ -109,7 +109,7 @@ const webcam = [
 </script>
 
 <template>
-    <section class="mt-10 py-10">
+    <section class="bg-slate-200 mt-10 py-10">
         <Container>
             <SectionHeader title="Tech Gadgets Selection" link_name="View All" link="/" description="All available tech gadgets" />
 

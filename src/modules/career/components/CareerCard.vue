@@ -16,7 +16,7 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
             <div class="flex items-center gap-10">
                 <div class="flex items-center gap-2">
                     <CircleDollarSign :size="20" />
-                    <span class="text-slate-600 text-sm">Negotiable</span>
+                    <span class="text-slate-600 text-sm">{{career.salary == 0 ? 'Negotiable' : career.salary}}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <Navigation :size="20" />
@@ -24,7 +24,7 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
                 </div>
                 <div class="flex items-center gap-2">
                     <Mail :size="20" />
-                    <span class="text-slate-600 text-sm">hr@greenitmm.com</span>
+                    <span class="text-slate-600 text-sm">{{career.contact_mail}}</span>
                 </div>
             </div>
 
@@ -34,33 +34,33 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
                         <Dot :size="24" />
                         <span class="font-bold">Salary  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;Negotiable</p>
+                    <p>: &nbsp;&nbsp;{{career.salary == 0 ? 'Negotiable' : career.salary}}</p>
                 </div>
                 <div class="flex items-center ">
                     <div class="w-[25%] flex items-center gap-2">
                         <Dot :size="24" />
                         <span class="font-bold">Location  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;Kyeemyindaing Township </p>
+                    <p>: &nbsp;&nbsp;{{career.office_location}} </p>
                 </div>
                 <div class="flex items-center">
                     <div class="w-[25%] flex items-center gap-2">
                         <Dot :size="24" />
                         <span class="font-bold">Working Time  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;9:00 AM to 5:00 PM (Mon to Friday)  </p>
+                    <p>: &nbsp;&nbsp; {{ career.working_time }}  </p>
                 </div>
                 <div class="flex items-center">
                     <div class="w-[25%] flex items-center gap-2">
                         <Dot :size="24" />
                         <span class="font-bold">Off Day  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;  Saturday Half, Sunday & Public Holidays   </p>
+                    <p>: &nbsp;&nbsp;  {{ career.off_days }}  </p>
                 </div>
             </div>
 
             <p class="text-slate-600 mt-5">
-                Send your CV directly to our email <b>hr@greenitmm.com</b> or call to <b>09880441215</b> , Viber – <b>09769733646</b>. 
+                Send your CV directly to our email <b>{{career.contact_mail}}</b> or call to <b>{{career.call_phone}}</b> , Viber – <b>{{career.viber_phone}}</b>. 
             </p>
         </div>
 

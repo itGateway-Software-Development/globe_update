@@ -109,7 +109,7 @@ const jbl = [
 </script>
 
 <template>
-    <section class="mt-10 py-10">
+    <section class="bg-slate-200 mt-10 py-10">
         <Container>
             <SectionHeader title="Speaker Selection" link_name="View All" link="/" description="All available speakers" />
 

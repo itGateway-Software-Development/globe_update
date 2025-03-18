@@ -8,7 +8,7 @@ import { MapPinned,PhoneCall,Mail } from 'lucide-vue-next';
         <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pb-10">
             <div class="col-span-1 flex flex-col gap-7">
                 <div class="flex items-center gap-3">
-                    <img class="w-28 rounded-xl" src="@/assets/images/logo-white.jpg" alt="">
+                    <img class="w-28 rounded-xl bg-white" src="@/assets/images/logo.png" alt="">
                     <div>
                         <h1 class="text-3xl font-bold text-slate-200">GLOBE</h1>
                         <h3 class="text-xl font-bold text-slate-300">IT & SMART ELECTRONIC</h3>
