@@ -41,10 +41,18 @@ const carousels = [
       @swiper="onSwiper"
     >
       <swiper-slide v-for="(image, index) in carousels" :key="index">
-        <img class="w-full h-[700px] object-cover" :src="image" alt="" />
+        <img class="w-full h-full xl:h-[500px]  2xl:h-[700px] object-fill md:object-cover carousel-images" :src="image" alt="" />
       </swiper-slide>
     </swiper>
     
    <CarouselNavigationBtn :prev="prev" :next="next" />
   </div>
 </template>
+
+<style scoped>
+  @media (min-width: 1536px) and (max-width: 1836px) {
+    .carousel-images {
+      height: 590px !important;
+    }
+  }
+</style>

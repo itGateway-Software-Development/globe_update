@@ -5,11 +5,9 @@ import { ArrowLeft, Paperclip } from "lucide-vue-next";
 import { onMounted, ref } from "vue";
 import { toast } from "vue3-toastify";
 import { submitCv } from "../composable/submitCv";
-import { tailspin } from 'ldrs'
+import { tailspin } from "ldrs";
 
-tailspin.register()
-
-
+tailspin.register();
 
 const { position, id } = useRoute().params;
 
@@ -30,37 +28,36 @@ const phone_err = ref(false);
 const cv_err = ref(false);
 
 const submitCV = async () => {
-    name_err.value = submitData.value.name == "" ? true : false;
-    email_err.value = submitData.value.email == "" ? true : false;
-    phone_err.value = submitData.value.phone == "" ? true : false;
-    cv_err.value = submitData.value.cv == "" ? true : false;
+  name_err.value = submitData.value.name == "" ? true : false;
+  email_err.value = submitData.value.email == "" ? true : false;
+  phone_err.value = submitData.value.phone == "" ? true : false;
+  cv_err.value = submitData.value.cv == "" ? true : false;
 
-    if (
-        submitData.value.name != "" &&
-        submitData.value.email != "" &&
-        submitData.value.phone != "" &&
-        submitData.value.cv != ""
-    ) {
-        try {
-            loading.value = true;
-            let response = await submitCv(submitData.value, id);
+  if (
+    submitData.value.name != "" &&
+    submitData.value.email != "" &&
+    submitData.value.phone != "" &&
+    submitData.value.cv != ""
+  ) {
+    try {
+      loading.value = true;
+      let response = await submitCv(submitData.value, id);
 
-            console.log(response);
-            if (response.status === 200) {
-                loading.value = false;
-                name_err.value = false;
-                email_err.value = false;
-                phone_err.value = false;
-                cv_err.value = false;
-                toast.success("Your CV is submitted.")
-            }
-        } catch (error) {
-            loading.value = false;
-        }
-    } else {
-        toast.error("All fields are required",);
+      console.log(response);
+      if (response.status === 200) {
+        loading.value = false;
+        name_err.value = false;
+        email_err.value = false;
+        phone_err.value = false;
+        cv_err.value = false;
+        toast.success("Your CV is submitted.");
+      }
+    } catch (error) {
+      loading.value = false;
     }
-    
+  } else {
+    toast.error("All fields are required");
+  }
 };
 
 onMounted(() => {
@@ -69,99 +66,105 @@ onMounted(() => {
 </script>
 
 <template>
-  <Container className="px-20 xl:px-36 py-10">
+  <Container className="2xl:px-36 lg:px-20 px-7 py-10">
     <RouterLink
       to="/career"
-      class="bg-slate-200 hover:bg-[#248091] duration-150 w-10 h-10 flex items-center justify-center rounded-full"
-      ><ArrowLeft class="w-5 h-5 text-slate-700 hover:text-white"
+      class="flex bg-slate-200 h-10 justify-center rounded-full w-10 duration-150 hover:bg-[#248091] items-center"
+      ><ArrowLeft class="h-5 text-slate-700 w-5 hover:text-white"
     /></RouterLink>
 
-    <div class="mt-5 grid grid-cols-12 gap-5">
-      <div class="col-span-8">
-        <h2 class="text-2xl font-bold mb-2 text-slate-700 text-center">
+    <div class="grid grid-cols-12 gap-5 mt-5">
+      <div class="col-span-12 lg:col-span-8">
+        <h2 class="text-2xl text-center text-slate-700 font-bold mb-2">
           {{ career.position }}
         </h2>
-        <h4 class="font-bold text-lg text-slate-600 text-center">
+        <h4 class="text-center text-lg text-slate-600 font-bold">
           {{ career.department }} - Department
         </h4>
 
         <div class="mt-8">
-          <h4
-            class="font-semibold text-lg text-slate-600 underline underline-offset-4"
-          >
+          <h4 class="text-lg text-slate-600 font-semibold underline underline-offset-4">
             Job Respoinsibilities
           </h4>
           <div
             v-html="career ? career.responsibilities : ''"
-            class="mt-2 text-slate-600 career-ul"
+            class="text-slate-600 career-ul mt-2"
           />
         </div>
 
         <div class="mt-7">
-          <h4
-            class="font-semibold text-lg text-slate-600 underline underline-offset-4"
-          >
+          <h4 class="text-lg text-slate-600 font-semibold underline underline-offset-4">
             Job Requirements
           </h4>
           <div
             v-html="career ? career.requirements : ''"
-            class="mt-2 text-slate-600 career-ul"
+            class="text-slate-600 career-ul mt-2"
           />
         </div>
       </div>
 
-      <div class="col-span-4">
-        <div class="border rounded-lg p-5 mt-20 shadow-xl">
-          <h2 class="text-2xl font-bold text-slate-700 text-center mb-3">
-            Apply Now
-          </h2>
+      <div class="col-span-12 lg:col-span-4">
+        <div class="border p-5 rounded-lg shadow-xl mt-20">
+          <h2 class="text-2xl text-center text-slate-700 font-bold mb-3">Apply Now</h2>
           <hr />
 
           <div class="mt-3">
             <input
               v-model="submitData.name"
               type="text"
-              class="border  rounded-lg px-5 py-[10px] w-full text-slate-700 placeholder:italic placeholder:text-base bg-transparent focus:outline-none mb-3"
-              :class="name_err ? 'border-red-500' : 'border-slate-500'"
+              :class="{
+                'border-red-500': name_err,
+                'border-slate-700': !name_err,
+                'bg-transparent border rounded-lg text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]': true
+              }"
               placeholder="Name"
             />
             <input
               v-model="submitData.email"
               type="text"
-              class="border  rounded-lg px-5 py-[10px] w-full text-slate-700 placeholder:italic placeholder:text-base bg-transparent focus:outline-none mb-3"
-              :class="email_err ? 'border-red-500' : 'border-slate-500'"
+              :class="{
+                'border-red-500': email_err,
+                'border-slate-700': !email_err,
+                'bg-transparent border rounded-lg text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]': true
+              }"
               placeholder="Email"
             />
             <input
               v-model="submitData.phone"
               type="text"
-              class="border  rounded-lg px-5 py-[10px] w-full text-slate-700 placeholder:italic placeholder:text-base bg-transparent focus:outline-none mb-3"
-              :class="phone_err ? 'border-red-500' : 'border-slate-500'"
+              :class="{
+                'border-red-500': phone_err,
+                'border-slate-700': !phone_err,
+                'bg-transparent border rounded-lg text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]': true
+              }"
               placeholder="Phone"
             />
 
-            <div class="relative mb-3">
+            <div class="mb-3 relative">
               <input
                 type="file"
                 @change="submitData.cv = $event.target.files[0]"
                 accept="application/pdf"
-                class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-20"
+                class="h-full w-full absolute cursor-pointer left-0 opacity-0 top-0 z-20"
               />
               <input
                 type="text"
-                class="border  rounded-lg px-5 py-[10px] w-full text-slate-700 placeholder:italic placeholder:text-base bg-slate-200 focus:outline-none mb-3"
-                :value="`      ${ submitData.cv ? submitData.cv.name : 'Upload you cv'}`"
-                :class="cv_err ? 'border-red-500' : 'border-slate-500'"
+                :class="{
+                  'border-red-500': cv_err,
+                  'border-slate-700': !cv_err,
+                  'bg-transparent border rounded-lg text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]': true
+                }"
+                :value="`      ${submitData.cv ? submitData.cv.name : 'Upload you cv'}`"
                 readonly
               />
               <Paperclip
-                class="absolute top-3 left-5 w-6 h-6 text-slate-600 cursor-pointer z-10"
+                class="h-6 text-slate-600 w-6 absolute cursor-pointer left-5 top-3 z-10"
               />
             </div>
 
             <button
               @click="submitCV"
-              class="bg-sky-400 hover:bg-sky-600 duration-150 text-white w-full py-3 flex items-center justify-center gap-4 rounded-lg active:scale-95"
+              class="flex bg-sky-400 justify-center rounded-lg text-white w-full active:scale-95 duration-150 gap-4 hover:bg-sky-600 items-center py-3"
               :disabled="loading"
             >
               Apply
@@ -169,9 +172,9 @@ onMounted(() => {
                 v-if="loading"
                 size="20"
                 stroke="5"
-                speed="0.9" 
-                color="black" 
-                ></l-tailspin>
+                speed="0.9"
+                color="black"
+              ></l-tailspin>
             </button>
           </div>
         </div>

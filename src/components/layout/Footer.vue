@@ -4,30 +4,30 @@ import { MapPinned,PhoneCall,Mail } from 'lucide-vue-next';
 </script>
 
 <template>
-    <footer class="mt-auto bg-sky-500 pt-10">
-        <Container className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 pb-10">
+    <footer class="bg-sky-500 mt-auto pt-10">
+        <Container className="grid grid-cols-1 gap-5 lg:grid-cols-3 md:grid-cols-2 pb-10 xl:grid-cols-4">
             <div class="col-span-1 flex flex-col gap-7">
-                <div class="flex items-center gap-3">
-                    <img class="w-28 rounded-xl bg-white" src="@/assets/images/logo.png" alt="">
+                <div class="flex gap-3 items-center">
+                    <img class="bg-white rounded-xl w-28" src="@/assets/images/logo.png" alt="">
                     <div>
-                        <h1 class="text-3xl font-bold text-slate-200">GLOBE</h1>
-                        <h3 class="text-xl font-bold text-slate-300">IT & SMART ELECTRONIC</h3>
+                        <h1 class="text-3xl text-slate-200 font-bold">GLOBE</h1>
+                        <h3 class="text-slate-300 text-xl font-bold">TRADING</h3>
                     </div>
                 </div>
-                <div class="flex flex-col gap-4 -ms-4">
-                    <div class="flex items-start gap-3">
+                <div class="flex flex-col -ms-4 gap-4">
+                    <div class="flex gap-3 items-start">
                         <MapPinned :stroke-width="3" class="text-amber-400 w-[15%]" />
                         <p class="text-white w-[85%]">
                             No.508 A, Lower Kyee Myin daing Road, (Home Lan Bus Stop), Kyee Myin Daing Township. Yangon.
                         </p>
                     </div>
-                    <div class="flex items-start gap-3">
+                    <div class="flex gap-3 items-start">
                         <PhoneCall :stroke-width="3" class="text-amber-400 w-[15%]" />
                         <p class="text-white w-[85%]">
                             +959 880 441 046
                         </p>
                     </div>
-                    <div class="flex items-start gap-3">
+                    <div class="flex gap-3 items-start">
                         <Mail :stroke-width="3" class="text-amber-400 w-[15%]" />
                         <p class="text-white w-[85%]">
                             info@globetradingmm.com
@@ -36,46 +36,52 @@ import { MapPinned,PhoneCall,Mail } from 'lucide-vue-next';
                 </div>
             </div>
 
-            <div class="col-span-1 flex justify-center ">
+            <div class="col-span-1 flex justify-center">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-200 mb-7">XP-Pens</h2>
+                    <h2 class="text-2xl text-slate-200 font-bold mb-7">XP-Pens</h2>
                     <div class="flex flex-col gap-3">
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Drawing Tablets</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Drawing Displays</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Accessories</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Android Tablet</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Drawing Tablets</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Drawing Displays</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Accessories</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Android Tablet</RouterLink>
                     </div>
                 </div>
             </div>
 
-            <div class="col-span-1 flex justify-center ">
+            <div class="col-span-1 flex justify-center">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-200 mb-7">Globe Solar Solution</h2>
+                    <h2 class="text-2xl text-slate-200 font-bold mb-7">Globe Solar Solution</h2>
                     <div class="flex flex-col gap-3">
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Power Master</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Sunboost</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">JA</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Solar Solutions</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 underline underline-offset-4 hover:text-slate-700">Power Station</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Power Master</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Sunboost</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">JA</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Solar Solutions</RouterLink>
+                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Power Station</RouterLink>
                     </div>
                 </div>
             </div>
 
-            <div class="col-span-1 flex justify-center ">
+            <div class="col-span-1 flex flex-wrap justify-center">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-200 mb-7">Follow Us</h2>
-                    <div class="flex items-center gap-3">
-                        <a href="https://www.facebook.com/globe.trading" target="_blank" class="w-12 h-12 bg-slate-200 rounded-lg flex justify-center items-center hover:bg-slate-500 group duration-200">
-                            <i class="fa-brands fa-facebook-f text-[23px] group-hover:text-white text-blue-500"></i>
+                    <h2 class="text-2xl text-slate-200 font-bold mb-7">Follow Us</h2>
+                    <div class="flex gap-3 items-center">
+                        <a href="https://www.facebook.com/globe.trading" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] text-blue-500 fa-brands fa-facebook-f group-hover:text-white"></i>
                         </a>
-                        <a href="https://www.facebook.com/globe.trading" target="_blank" class="w-12 h-12 bg-slate-200 rounded-lg flex justify-center items-center hover:bg-slate-500 group duration-200">
-                            <i class="fa-brands fa-youtube text-[23px] group-hover:text-white text-red-600"></i>
+                        <a href="https://www.youtube.com/@GlobeTrading" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] text-red-600 fa-brands fa-youtube group-hover:text-white"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@globe_trading1?is_from_webapp=1&sender_device=pc" target="_blank" class="w-12 h-12 bg-slate-200 rounded-lg flex justify-center items-center hover:bg-slate-500 group duration-200">
-                            <i class="fa-brands fa-tiktok text-[23px] group-hover:text-white"></i>
+                        <a href="https://www.linkedin.com/company/globe-trading-co-ltd" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] text-blue-800 fa-linkedin fab group-hover:text-white"></i>
                         </a>
-                        <a href="https://www.instagram.com/globetrading4?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-12 h-12 bg-slate-200 rounded-lg flex justify-center items-center hover:bg-slate-500 group duration-200">
-                            <i class="fa-brands fa-instagram text-[23px] group-hover:text-white text-rose-600"></i>
+                        <!-- <a href="https://www.tiktok.com/@globe_trading1?is_from_webapp=1&sender_device=pc" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] fa-brands fa-tiktok group-hover:text-white"></i>
+                        </a> -->
+                        <a href="https://twitter.com/globe_trading" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] text-blue-400 fa-twitter fab group-hover:text-white"></i>
+                        </a>
+                        <a href="https://www.instagram.com/globetrading4?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
+                            <i class="text-[23px] text-rose-600 fa-brands fa-instagram group-hover:text-white"></i>
                         </a>
                     </div>
                 </div>
@@ -83,8 +89,8 @@ import { MapPinned,PhoneCall,Mail } from 'lucide-vue-next';
             
         </Container>
 
-        <div class="bg-slate-700 ">
-            <Container className="flex justify-between items-center py-3 ">
+        <div class="bg-slate-700">
+            <Container className="flex justify-between items-center py-3">
                 <p class="text-white">
                     © Copyright <span class="text-amber-500 font-bold">itGateway Technology Group Ltd.</span> All RightsReserved.
                 </p>

@@ -10,52 +10,52 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
 </script>
 
 <template>
-    <div class="bg-slate-200 p-10 rounded-lg shadow-xl flex justify-between items-start">
+    <div class="flex flex-col bg-slate-200 justify-between rounded-lg shadow-xl items-start md:flex-row md:p-10 px-3 py-5">
         <div>
-            <h2 class="text-2xl font-bold mb-4 text-slate-700">{{career.position}}</h2>
-            <div class="flex items-center gap-10">
-                <div class="flex items-center gap-2">
+            <h2 class="text-2xl text-slate-700 font-bold mb-4">{{career.position}}</h2>
+            <div class="flex flex-wrap gap-10 items-center">
+                <div class="flex gap-2 items-center">
                     <CircleDollarSign :size="20" />
                     <span class="text-slate-600 text-sm">{{career.salary == 0 ? 'Negotiable' : career.salary}}</span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex gap-2 items-center">
                     <Navigation :size="20" />
                     <span class="text-slate-600 text-sm">Yangon  </span>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex gap-2 items-center">
                     <Mail :size="20" />
                     <span class="text-slate-600 text-sm">{{career.contact_mail}}</span>
                 </div>
             </div>
 
-            <div class="py-3 px-5 flex flex-col gap-2 mt-5">
+            <div class="flex flex-col gap-2 md:px-5 mt-5 px-0 py-3">
                 <div class="flex items-center">
-                    <div class="w-[25%] flex items-center gap-2">
+                    <div class="flex w-[40%] gap-2 items-center md:w-[25%]">
                         <Dot :size="24" />
                         <span class="font-bold">Salary  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;{{career.salary == 0 ? 'Negotiable' : career.salary}}</p>
+                    <p class="w-[60%] md:w-[75%]">: &nbsp;&nbsp;{{career.salary == 0 ? 'Negotiable' : career.salary}}</p>
                 </div>
-                <div class="flex items-center ">
-                    <div class="w-[25%] flex items-center gap-2">
+                <div class="flex items-center">
+                    <div class="flex w-[40%] gap-2 items-center md:w-[25%]">
                         <Dot :size="24" />
                         <span class="font-bold">Location  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;{{career.office_location}} </p>
+                    <p class="w-[60%] md:w-[75%]">: &nbsp;&nbsp;{{career.office_location}} </p>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-[25%] flex items-center gap-2">
+                    <div class="flex w-[40%] gap-2 items-center md:w-[25%]">
                         <Dot :size="24" />
                         <span class="font-bold">Working Time  </span>
                     </div>
-                    <p>: &nbsp;&nbsp; {{ career.working_time }}  </p>
+                    <p class="w-[60%] md:w-[75%]">: &nbsp;&nbsp; {{ career.working_time }}  </p>
                 </div>
                 <div class="flex items-center">
-                    <div class="w-[25%] flex items-center gap-2">
+                    <div class="flex w-[40%] gap-2 items-center md:w-[25%]">
                         <Dot :size="24" />
                         <span class="font-bold">Off Day  </span>
                     </div>
-                    <p>: &nbsp;&nbsp;  {{ career.off_days }}  </p>
+                    <p class="w-[60%] md:w-[75%]">: &nbsp;&nbsp;  {{ career.off_days }}  </p>
                 </div>
             </div>
 
@@ -64,14 +64,14 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
             </p>
         </div>
 
-        <div class="pt-10 flex flex-col xl:flex-row gap-8">
-            <div class="flex flex-col items-center gap-1">
-                <h2 class="text-xl font-bold text-sky-500 underline underline-offset-8 ">Department</h2>
-                <h4 class="font-bold text-lg text-center">{{career.department}}</h4>
+        <div class="flex flex-row gap-8 md:flex-col pt-10 xl:flex-row">
+            <div class="flex flex-col gap-1 items-center">
+                <h2 class="text-sky-500 text-xl font-bold underline underline-offset-8">Department</h2>
+                <h4 class="text-center text-lg font-bold">{{career.department}}</h4>
             </div>
 
             <div class="pt-3">
-                <RouterLink :to="`/career-detail/${career.position_slug}/${career.id}`" class="bg-sky-700 text-white px-4 py-2 w-full rounded-lg hover:bg-sky-800 duration-200 font-bold">JD & Apply</RouterLink>
+                <RouterLink :to="`/career-detail/${career.position_slug}/${career.id}`" class="bg-sky-700 rounded-lg text-white w-full duration-200 font-bold hover:bg-sky-800 px-4 py-2">JD & Apply</RouterLink>
             </div>
         </div>
     </div>

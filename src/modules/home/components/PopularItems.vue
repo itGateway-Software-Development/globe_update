@@ -41,7 +41,7 @@
     <Container className="pt-28">
         <SectionHeader title="Popular Items" link_name="View All" link="/" />
 
-        <div class="mt-8 grid grid-cols-3 lg:grid-cols-6 gap-14">
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-14">
             <div class="col-span-1" v-for="(item, index) in items" :key="index">
                 <RouterLink to="/">
                     <div :style="{ backgroundColor: bgColors[index] }" class="w-full max-h-[200px] group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
