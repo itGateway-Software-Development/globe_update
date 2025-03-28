@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import './assets/css/tailwind.css'
@@ -16,7 +17,8 @@ const options = {
 }
 
 const app = createApp(App)
+const pinia = createPinia();
 
 initGlobalComponents(app)
 
-app.use(router).use(Vue3Toastify, options).use(ElementPlus).mount('#app')
+app.use(pinia).use(router).use(Vue3Toastify, options).use(ElementPlus).mount('#app')

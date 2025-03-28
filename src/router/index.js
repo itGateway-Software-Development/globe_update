@@ -12,6 +12,11 @@ const routes = [
         component: () => import('@/modules/home/views/HomePage.vue')
       },
       {
+        path: '/xp-pen/:slug',
+        name: 'XpPen',
+        component: () => import('@/modules/xppen/views/XpPenPage.vue')
+      },
+      {
         path: '/career',
         name: 'Career',
         component: () => import('@/modules/career/views/CareerPage.vue')

@@ -3,8 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import { Scrollbar, Autoplay } from "swiper/modules";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import CarouselNavigationBtn from "../../../components/common/CarouselNavigationBtn.vue";
+import getSliders from "../composable/getSliders";
 
 const modules = [Scrollbar, Autoplay];
 const swiperRef = ref(null);
@@ -19,18 +20,16 @@ const next = () => {
   swiperRef.value.slideNext();
 };
 
-const carousels = [
-  require("@/assets/images/carousel/slider-1.jpg"),
-  require("@/assets/images/carousel/slider-2.jpg"),
-  require("@/assets/images/carousel/slider-3.jpg"),
-  require("@/assets/images/carousel/slider-4.jpg"),
-  require("@/assets/images/carousel/slider-5.jpg"),
-  require("@/assets/images/carousel/slider-6.jpg"),
-];
+const { sliders, error, load } = getSliders();
+
+onMounted(async() => {
+    await load()
+})
+
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" v-if="sliders.length > 0">
     <swiper
       :modules="modules"
       :slides-per-view="1"
@@ -40,8 +39,8 @@ const carousels = [
       :loop="true"
       @swiper="onSwiper"
     >
-      <swiper-slide v-for="(image, index) in carousels" :key="index">
-        <img class="w-full h-full xl:h-[500px]  2xl:h-[700px] object-fill md:object-cover carousel-images" :src="image" alt="" />
+      <swiper-slide v-for="(slider, index) in sliders" :key="index">
+        <img class="w-full h-full xl:h-[500px]  2xl:h-[700px] object-fill md:object-cover carousel-images" :src="slider.image" alt="" />
       </swiper-slide>
     </swiper>
     
