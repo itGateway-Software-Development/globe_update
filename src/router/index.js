@@ -25,6 +25,10 @@ const routes = [
         path: '/career-detail/:position/:id',
         name: 'CareerDetail',
         component: () => import('@/modules/career/views/CareerDetailPage.vue')
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/components/common/NotFound.vue')
       }
     ]
   }

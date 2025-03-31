@@ -107,9 +107,9 @@ const microsoft = [
 </script>
 
 <template>
-    <section class="mt-10 py-10">
+    <section class="bg-slate-200 mt-10 py-10">
         <Container>
-            <SectionHeader title="Tablet & E-Reader Selection" link_name="View All" link="/" description="All available tablets" />
+            <SectionHeader title="Tablet Selection" link_name="View All" link="/" description="All available tablets" />
 
             <div class="flex justify-center items-center gap-5 mt-8">
                 <button @click="currentSelect = 'lenovo'" :class="`border ${currentSelect === 'lenovo' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Lenovo</button>

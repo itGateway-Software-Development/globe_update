@@ -6,7 +6,7 @@
     import { Atom, ChevronRight, ChevronsLeftRightEllipsis } from 'lucide-vue-next';
     import Divider from '@/components/common/Divider.vue';
     import { slugToCap } from '@/utils/textFormat';
-import ItemCard from '../components/ItemCard.vue';
+    import ItemCard from '../components/ItemCard.vue';
 
     const route = useRoute();
     const slug = ref(route.params.slug);

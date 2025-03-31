@@ -108,9 +108,9 @@ const acerLaptops = [
 </script>
 
 <template>
-    <section class="mt-10 py-10">
+    <section class="bg-slate-200 mt-10 py-10">
         <Container>
-            <SectionHeader title="Laptop Selection" link_name="View All" link="/" description="All available laptops" />
+            <SectionHeader title="Solar Solution Selection" link_name="View All" link="/" description="All available solar solutions" />
 
             <div class="flex justify-center items-center gap-5 mt-8">
                 <button @click="currentSelect = 'dell'" :class="`border ${currentSelect === 'dell' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Dell</button>
