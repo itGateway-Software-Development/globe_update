@@ -9,6 +9,7 @@
     import ItemCard from '../components/ItemCard.vue';
 
     const route = useRoute();
+    const router = useRouter();
     const slug = ref(route.params.slug);
     const category_name = ref('');
 
@@ -23,8 +24,8 @@
     }, { immediate: true }); // Run immediately on mount
 
    
-
     onMounted(async () => {
+        window.scrollTo(0, 0);
         await loadSeries();
     });
 
@@ -59,8 +60,12 @@
 
                 return priceMatchesMMK || priceMatchesUSD;  // return true if either MMK or USD is within the range
             }
+        })
     })
-})
+
+    const goDetail = (slug) => {
+        router.push('/xp-pen-detail/'+slug)
+    }
 
 </script>
 
@@ -120,7 +125,8 @@
                 <div class="col-span-4">
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                         <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
-                           <ItemCard :item="item" />
+                           <ItemCard :item="item" :goDetail="goDetail"/>
+                           
                         </div>
                     </div>
 

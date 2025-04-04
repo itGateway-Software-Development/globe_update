@@ -1,11 +1,22 @@
 <script setup>
+import Modal from '@/components/common/Modal.vue';
 import { Eye, ShoppingCart, ZoomIn, DollarSign } from 'lucide-vue-next';
+import { ref } from 'vue';
 
-defineProps({
+const props  = defineProps({
     item: {
         type: Object
-    }
+    },
+    goDetail: {
+        type: Function
+    },
 })
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+    isModalOpen.value = true
+}
 </script>
 
 <template>
@@ -13,13 +24,15 @@ defineProps({
         <div class="bg-slate-200 relative group h-[270px]">
             <span class="absolute top-3 left-3 z-20 text-white text-xs font-semibold bg-sky-600 px-3 py-1 rounded-lg">{{ item.category }}</span>
             <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-3 z-20">
-                <span class="cursor-pointer"><Eye :size="22" class="text-slate-600" /></span>
-                <span class="cursor-pointer"><ZoomIn :size="22" class="text-slate-600" /></span>
+                <span class="cursor-pointer bg-slate-300 rounded-full p-2" @click="goDetail(item.slug)"><Eye :size="22" class="text-black" /></span>
+                <span class="cursor-pointer bg-slate-300 rounded-full p-2" @click="openModal"><ZoomIn :size="22" class="text-black" /></span>
             </div>
+
+            <Modal :item="item"  :isOpen="isModalOpen" @close="isModalOpen = false"  />
             
-            <img class="w-full h-[270px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out group-hover:opacity-0" :src="item.preview_images[0].image_url" alt="" />
+            <img @click="goDetail(item.slug)" class="cursor-pointer w-full h-[270px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out group-hover:opacity-0" :src="item.preview_images[0].image_url" alt="" />
         
-            <img class="w-full h-[270px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100" :src="item.preview_images[1].image_url" alt="" />
+            <img @click="goDetail(item.slug)" class="cursor-pointer w-full h-[270px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 group-hover:opacity-100" :src="item.preview_images[1].image_url" alt="" />
         </div>
         
 

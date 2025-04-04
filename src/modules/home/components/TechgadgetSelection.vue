@@ -103,9 +103,6 @@ const webcam = [
         },
     ]
 
-
-
-
 </script>
 
 <template>
