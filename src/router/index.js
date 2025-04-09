@@ -12,6 +12,16 @@ const routes = [
         component: () => import('@/modules/home/views/HomePage.vue')
       },
       {
+        path: '/category/:slug',
+        name: 'Category',
+        component: () => import('@/modules/category/views/CategoryPage.vue')
+      },
+      {
+        path: '/product-detail/:slug',
+        name: 'ProductDetail',
+        component: () => import('@/modules/category/views/ProductDetail.vue')
+      },
+      {
         path: '/xp-pen/:slug',
         name: 'XpPen',
         component: () => import('@/modules/xppen/views/XpPenPage.vue')

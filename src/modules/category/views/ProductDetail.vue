@@ -10,6 +10,8 @@ const route = useRoute();
 const slug = ref(route.params.slug);
 const currentImage = ref();
 const router = useRouter()
+const variation_price = ref(0)
+const current_variation_id = ref(0)
 
 const { product,relatedProducts, errors, load } = getProduct();
 
@@ -19,11 +21,17 @@ watch(() => route.params.slug, async (newSlug) => {
     slug.value = newSlug;
     await load(slug.value);
     currentImage.value = product?.value?.images[0]?.image_url;
+    variation_price.value = product.value?.is_attribute ? (product.value?.variations[0].price_us == 0 ? product.value?.variations[0]?.price_mmk : product.value?.variations[0]?.price_us) : 0
+    current_variation_id.value = product.value?.is_attribute ? product.value?.variations[0]?.id : 0
     window.scrollTo(0,0)
 
 }, { immediate: true }); // Run immediately on mount
 
-
+const handleActiveVariaton = (id) => {
+      let selectVariation = product.value.variations.find(variation => variation.id == id);
+      variation_price.value = selectVariation.price_us == 0 ? selectVariation.price_mmk : selectVariation.price_us
+      current_variation_id.value = id
+    }
 
 
 const isMagnifierVisible = ref(false);
@@ -70,7 +78,7 @@ const moveMagnifier = (e) => {
 };
 
 const goDetail = (slug) => {
-        router.push('/xp-pen-detail/'+slug)
+        router.push('/product-detail/'+slug)
   }
 
 </script>
@@ -122,8 +130,7 @@ const goDetail = (slug) => {
           <Layers2 class="text-slate-700" :size="20" />{{ product.category }}
         </h4>
         <!-- <div v-html="product.specification" class="line-clamp-2 flex flex-col gap-2 text-slate-700 ps-2 mb-7"></div> -->
-
-        <p class="text-slate-600 leading-9 ps-2">{{product.description}}</p>
+         <p class="text-slate-600 leading-9 ps-2">{{product.description}}</p>
 
         <p class="my-7">
           Stock - 
@@ -132,14 +139,20 @@ const goDetail = (slug) => {
           </span>
         </p>
 
-        <div class="mb-7">
-          <span class="text-amber-700 text-2xl font-bold" v-if="product.price_usd == 0">
-            {{ product.price_mmk }} MMK
-          </span>
-          <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>
-            {{ product.price_us }} 
-            <DollarSign class="text-green-700" :size="20" />
-          </span>
+        <div class="mb-10" v-if="!product.is_attribute">
+          <span class="text-amber-700 text-2xl font-bold" v-if="product.price_us == 0">{{product.price_mmk}} MMK</span>
+          <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{product.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
+        </div>
+
+        <div class="mb-10" v-else>
+          <span class="text-amber-700 text-2xl font-bold" v-if="product.currency == 'MMK'">{{variation_price}} MMK</span>
+          <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{variation_price}} <DollarSign class="text-green-700" :size="20" /></span>
+
+          <div class="mt-3 flex flex-wrap gap-2">
+            <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-slate-200 border-slate-300 text-slate-700 shadow-lg' : 'bg-slate-200  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in product.variations" :key="i">
+              <span class="text-sm ">{{ Object.values(variation.attributes).join(', ') }}</span>
+            </div>
+          </div>
         </div>
 
         <hr />

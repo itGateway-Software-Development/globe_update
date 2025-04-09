@@ -6,7 +6,7 @@
     import { Atom, ChevronRight, ChevronsLeftRightEllipsis } from 'lucide-vue-next';
     import Divider from '@/components/common/Divider.vue';
     import { slugToCap } from '@/utils/textFormat';
-    import ItemCard from '../components/ItemCard.vue';
+    import ProductCard from '@/components/common/ProductCard.vue';
 
     const route = useRoute();
     const router = useRouter();
@@ -50,13 +50,14 @@
     const filteredProducts = computed(() => {
         return xppen_products.value.filter(product => {
             if (filterData.value.series_slugs.length > 0) {
+
                 return filterData.value.series_slugs.includes(product.series_slug)
             } else {
                 const isPriceInRange = (price) => parseInt(price) >= parseInt(filterData.value.price[0]) && parseInt(price) <= parseInt(filterData.value.price[1]);
                 
                 // Check price for MMK and USD
-                const priceMatchesMMK = product.price_usd == 0 && isPriceInRange(product.price_mmk);
-                const priceMatchesUSD = product.price_usd > 0 && isPriceInRange(product.price_usd);
+                const priceMatchesMMK = product.price_us == 0 && isPriceInRange(product.price_mmk);
+                const priceMatchesUSD = product.price_us > 0 && isPriceInRange(product.price_us);
 
                 return priceMatchesMMK || priceMatchesUSD;  // return true if either MMK or USD is within the range
             }
@@ -125,7 +126,7 @@
                 <div class="col-span-4">
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                         <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
-                           <ItemCard :item="item" :goDetail="goDetail"/>
+                           <ProductCard :item="item" :goDetail="goDetail"/>
                            
                         </div>
                     </div>

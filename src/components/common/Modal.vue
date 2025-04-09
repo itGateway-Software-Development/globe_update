@@ -9,6 +9,8 @@ import PButton from './PButton.vue';
     });
 
     const currentImage = ref(props.item.images[0])
+    const variation_price = ref(props.item.is_attribute ? (props.item.variations[0].price_us == 0 ? props.item.variations[0]?.price_mmk : props.item.variations[0]?.price_us) : 0)
+    const current_variation_id = ref(props.item.is_attribute ? props.item.variations[0]?.id : 0)
 
     const emit = defineEmits(["close"]);
 
@@ -24,6 +26,12 @@ import PButton from './PButton.vue';
             document.body.style.overflow = '';  
         }
     });
+
+    const handleActiveVariaton = (id) => {
+      let selectVariation = props.item.variations.find(variation => variation.id == id);
+      variation_price.value = selectVariation.price_us == 0 ? selectVariation.price_mmk : selectVariation.price_us
+      current_variation_id.value = id
+    }
 
 
 </script>
@@ -68,13 +76,25 @@ import PButton from './PButton.vue';
                 <div class="col-span-1">
                     <h3 class="font-bold text-2xl mb-3">{{item.name}}</h3>
                     <h4 class="bg-emerald-400 py-1 px-3 rounded-lg text-slate-600 mb-5 inline-flex items-center gap-2"><Layers2 class="text-slate-700" :size="20" />{{item.category}}</h4>
-                    <div v-html="item.specification" class="line-clamp-2 flex flex-col gap-2 text-slate-700 ps-2 mb-7" ></div>
+                    <!-- <p class="line-clamp-6"  v-html="item.specification" ></p> -->
+                     <p class="text-slate-600 leading-9">{{item.description}}</p>
 
-                    <p class="mb-7">Stock - <span :class="`${item.qty > 0 ? 'bg-lime-300' : 'bg-rose-600'} py-1 px-2 rounded-lg text-sm`">{{item.qty}}</span></p>
+                    <p class="my-7">Stock - <span :class="`${item.qty > 0 ? 'bg-lime-300' : 'bg-rose-600'} py-1 px-2 rounded-lg text-sm`">{{item.qty}}</span></p>
 
-                    <div class="mb-7">
-                      <span class="text-amber-700 text-2xl font-bold" v-if="item.price_usd == 0">{{item.price_mmk}} MMK</span>
-                      <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{item.price_usd}} <DollarSign class="text-green-700" :size="20" /></span>
+                    <div class="mb-10" v-if="!item.is_attribute">
+                      <span class="text-amber-700 text-2xl font-bold" v-if="item.price_us == 0">{{item.price_mmk}} MMK</span>
+                      <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{item.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
+                    </div>
+
+                    <div class="mb-10" v-else>
+                      <span class="text-amber-700 text-2xl font-bold" v-if="item.currency == 'MMK'">{{variation_price}} MMK</span>
+                      <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{variation_price}} <DollarSign class="text-green-700" :size="20" /></span>
+
+                      <div class="mt-3 flex flex-wrap gap-2">
+                        <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-slate-200 border-slate-300 text-slate-700 shadow-lg' : 'bg-slate-200  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in item.variations" :key="i">
+                          <span class="text-sm ">{{ Object.values(variation.attributes).join(', ') }}</span>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="flex justify-end gap-3">

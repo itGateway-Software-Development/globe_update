@@ -28,7 +28,7 @@ const navigate = (route) => {
                     <div class="flex gap-3 items-start">
                         <PhoneCall :stroke-width="3" class="text-amber-400 w-[15%]" />
                         <p class="text-white w-[85%]">
-                            +959 880 441 046
+                            +959 880 441 216
                         </p>
                     </div>
                     <div class="flex gap-3 items-start">

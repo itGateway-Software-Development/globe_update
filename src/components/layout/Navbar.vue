@@ -154,7 +154,7 @@ const handleClickOutside = (event) => {
               <div class="phone-icon">
                 <PhoneCall :size="18" :strokeWidth="3" />
               </div>
-              <span class="text-base">Call us: <b>+959 880 441 046</b></span>
+              <span class="text-base">Call us: <b>+959 880441216</b></span>
             </RouterLink>
           </div>
         </div>

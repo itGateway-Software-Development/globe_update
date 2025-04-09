@@ -28,10 +28,10 @@
         img: require("@/assets/images/logo/9.jpg"),
       },
       {
-        img: require("@/assets/images/logo/10.jpg"),
+        img: require("@/assets/images/logo/10.png"),
       },
       {
-        img: require("@/assets/images/logo/11.jpg"),
+        img: require("@/assets/images/logo/11.png"),
       },
       {
         img: require("@/assets/images/logo/12.jpg"),

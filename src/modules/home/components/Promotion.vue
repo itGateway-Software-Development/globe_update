@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <Container className="pt-10 md:pt-24">
+    <Container className="pt-10 md:pt-24" v-if="promotions.length > 0">
         <SectionHeader title="Promotion" link_name="View All" link="/" description="Here are top promotions for you" />
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-14 mt-8">

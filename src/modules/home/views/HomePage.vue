@@ -19,14 +19,14 @@ import XppenSelection from '../components/XppenSelection.vue';
         <Carousel />
         <Promotion />
         <PopularItems />
-        <XppenSelection />
+        <!-- <XppenSelection />
         <AdreamerSelection />
         <SolarSolutionSection />
         <LaptopSelection />
         <TabletSelection />
         <HeadsetSelection />
         <SpeakerSelection />
-        <TechgadgetSelection />
+        <TechgadgetSelection /> -->
         <Brands />
     </div>
 </template>
