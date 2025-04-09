@@ -1,5 +1,5 @@
 <script setup>
-import ProductCard from '@/components/common/ProductCard.vue';
+import ProductCardTemp from '@/components/common/ProductCardTemp.vue';
 import { ref } from 'vue';
 
 const currentSelect = ref('drawing_tablets')
@@ -154,19 +154,19 @@ const androidTablets = [
             <div class="mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                     <div class="col-span-1" v-for="(product, index) in drawingTables" :key="index" v-if="currentSelect === 'drawing_tablets'">
-                       <ProductCard :product="product" />
+                       <ProductCardTemp :product="product" />
                     </div>
 
                     <div class="col-span-1" v-for="(product, index) in drawingDisplays" :key="index" v-if="currentSelect === 'drawing_display'">
-                        <ProductCard :product="product" />
+                        <ProductCardTemp :product="product" />
                      </div>
 
                      <div class="col-span-1" v-for="(product, index) in accessories" :key="index" v-if="currentSelect === 'accessories'">
-                        <ProductCard :product="product" />
+                        <ProductCardTemp :product="product" />
                      </div>
 
                      <div class="col-span-1" v-for="(product, index) in androidTablets" :key="index" v-if="currentSelect === 'android_tablet'">
-                        <ProductCard :product="product" />
+                        <ProductCardTemp :product="product" />
                      </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <script setup>
-import ProductCard from '@/components/common/ProductCard.vue';
+import ProductCardTemp from '@/components/common/ProductCardTemp.vue';
 import { ref } from 'vue';
 
 const currentSelect = ref('headsets')
@@ -122,15 +122,15 @@ const headphones = [
             <div class="mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                     <div class="col-span-1" v-for="(product, index) in headsets" :key="index" v-if="currentSelect === 'headsets'">
-                       <ProductCard :product="product" />
+                       <ProductCardTemp :product="product" />
                     </div>
 
                     <div class="col-span-1" v-for="(product, index) in earbuds" :key="index" v-if="currentSelect === 'ear_buds'">
-                        <ProductCard :product="product" />
+                        <ProductCardTemp :product="product" />
                      </div>
 
                      <div class="col-span-1" v-for="(product, index) in headphones" :key="index" v-if="currentSelect === 'headphones'">
-                        <ProductCard :product="product" />
+                        <ProductCardTemp :product="product" />
                      </div>
                 </div>
             </div>
