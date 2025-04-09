@@ -22,6 +22,7 @@ import PButton from './PButton.vue';
     watch(() => props.isOpen, (newValue) => {
         if (newValue) {
             document.body.style.overflow = 'hidden'; 
+            currentImage.value = props.item.images[0]
         } else {
             document.body.style.overflow = '';  
         }
