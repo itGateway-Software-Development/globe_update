@@ -84,21 +84,20 @@ const navigate = (route) => {
         <Container className="mb-3">
             <hr>
 
-            <div class="flex justify-between ">
-                <div class="flex gap-8 mt-3">
+            <div class="flex flex-col lg:flex-row justify-between ">
+                <div class="flex justify-between gap-8 mt-3">
                     <div>
                         <h2 class="text-xl text-slate-200 font-bold mb-3 ">Our Group of Companies </h2>
                         <RouterLink @click="navigate('https://greenitmm.com/')" to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4 flex items-center gap-3 mb-3">GreenIT Myanmar <ExternalLink :size="19" /></RouterLink>
                         <RouterLink @click="navigate('https://www.greenit-sg.com/')" to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4 flex items-center gap-3 mb-3">GreenIT Singapore <ExternalLink :size="19" /></RouterLink>
                     </div>
-                    <div>
-                        <h2 class="text-xl text-slate-200 font-bold mb-3 ">Group of Business </h2>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Our Partners</RouterLink>
-                    </div>
+                </div>
+                <div class="mt-3">
+                    <RouterLink to="/partners" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Our Partners</RouterLink>
                 </div>
                 <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7 mt-3">Follow Us</h2>
-                    <div class="flex gap-3 items-center">
+                    <div class="flex flex-wrap gap-3 items-center">
                         <a href="https://www.facebook.com/globe.trading" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
                             <i class="text-[23px] text-blue-500 fa-brands fa-facebook-f group-hover:text-white"></i>
                         </a>
