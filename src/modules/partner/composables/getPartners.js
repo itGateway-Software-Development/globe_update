@@ -12,7 +12,7 @@ const getPartners = () => {
     const load = async() => {
         generalStore.toggleLoading();
         try {
-            let response = await axios.get(api + "partners/" );
+            let response = await axios.get(api + "partners" );
 
             if (response.status === 404) {
                 throw new Error("page not found");
