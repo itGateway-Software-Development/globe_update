@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import getProduct from '../composables/getProduct';
 import PButton from '@/components/common/PButton.vue';
-import { DollarSign, Layers2, Heart } from 'lucide-vue-next';
+import { DollarSign, Layers2, Heart, ChevronRight } from 'lucide-vue-next';
 import ProductCard from '@/components/common/ProductCard.vue';
 
 const route = useRoute();
@@ -81,11 +81,22 @@ const goDetail = (slug) => {
         router.push('/product-detail/'+slug)
   }
 
+  onMounted(() => {
+    window.scrollTo(0,0)
+  })
+
 </script>
 
 
 <template>
   <Container class="py-5 px-0 lg:px-28">
+    <div class="flex gap-2 items-center my-3">
+        <h3 class="text-slate-500">Home</h3>
+        <ChevronRight :size="20" class="text-slate-500" />
+        <h3 class="text-slate-500">Product Detail</h3>
+        <ChevronRight :size="20" class="text-slate-500" />
+        <h3 class="text-slate-500">{{product?.name}}</h3>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-5" v-if="product && currentImage">
       <div class="col-span-1 ">
         <div class="border border-3 rounded-lg shadow-lg overflow-hidden flex justify-center max-w-[700px] relative">

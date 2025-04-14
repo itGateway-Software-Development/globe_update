@@ -57,6 +57,11 @@ const routes = [
         component: () => import('@/modules/partner/views/PartnerPage.vue')
       },
       {
+        path: '/promotions',
+        name: 'Promotions',
+        component: () => import('@/modules/promotion/views/PromotionPage.vue')
+      },
+      {
         path: '/:pathMatch(.*)*',
         component: () => import('@/components/common/NotFound.vue')
       }

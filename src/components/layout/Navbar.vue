@@ -355,10 +355,10 @@ const handleClickOutside = (event) => {
           <GlobeSolorMenus />
         </li>
         <li>
-          <RouterLink to="/promotion">
+          <RouterLink to="/promotions">
             <span
               :class="`font-bold text-[14px] xl:text-[17px] ${
-                getCurrentRoute() === 'promotion' ? 'text-slate-700' : 'text-white'
+                getCurrentRoute() === 'promotions' ? 'text-slate-700' : 'text-white'
               } hover:text-slate-700`"
               >Promotion</span
             >

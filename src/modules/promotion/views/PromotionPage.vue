@@ -1,20 +1,21 @@
 <script setup>
-    import { onMounted } from 'vue';
-    import getPromotions from '../composable/getPromotions';
+    import getPromotions from '@/modules/home/composable/getPromotions';
+import { onMounted } from 'vue';
 
 
     const { promotions, error, load } = getPromotions();
 
     onMounted(async() => {
-        await load(3)
+        await load()
+        window.scrollTo(0,0)
     })
 </script>
 
 <template>
-    <Container className="pt-10 md:pt-24" v-if="promotions.length > 0">
-        <SectionHeader title="Promotion" link_name="View All" link="/promotions" description="Here are top promotions for you" />
+    <Container className="py-10 md:pt-24" >
+        <SectionHeader title="Promotion"  />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-14 mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-14 mt-8" v-if="promotions.length > 0">
             <div class="col-span-1 overflow-hidden rounded-lg" v-for="(item, index) in promotions" :key="index">
                 <RouterLink to="/" class="flex flex-col items-center gap-5"> 
                     <img class="w-full h-[300px] object-cover rounded-lg hover:scale-110 duration-300" :src="item.image" alt="" />
@@ -23,6 +24,10 @@
                     </p>
                 </RouterLink>
             </div>
+        </div>
+
+        <div v-else>
+            <h3 class="text-2xl font-bold text-rose-700 text-center mt-20">No Promotion Today</h3>
         </div>
     </Container>
 </template>

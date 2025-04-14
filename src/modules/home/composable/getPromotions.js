@@ -9,10 +9,10 @@ const getPromotions = () => {
     const promotions = ref([]);
     const errors = ref();
 
-    const load = async() => {
+    const load = async(count = 0) => {
         generalStore.toggleLoading();
         try {
-            let response = await axios.get(api + "promotions");
+            let response = await axios.get(api + "promotions?count="+ count);
 
             if (response.status === 404) {
                 throw new Error("page not found");
