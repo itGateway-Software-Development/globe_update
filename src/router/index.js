@@ -17,6 +17,16 @@ const routes = [
         component: () => import('@/modules/category/views/CategoryPage.vue')
       },
       {
+        path: '/adreamer/:slug',
+        name: 'Adreamer',
+        component: () => import('@/modules/adreamer/views/AdreamerPage.vue')
+      },
+      {
+        path: '/adreamer-product-detail/:slug',
+        name: 'AdreamerProductDetail',
+        component: () => import('@/modules/adreamer/views/ProductDetail.vue')
+      },
+      {
         path: '/product-detail/:slug',
         name: 'ProductDetail',
         component: () => import('@/modules/category/views/ProductDetail.vue')

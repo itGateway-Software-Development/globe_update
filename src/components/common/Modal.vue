@@ -92,7 +92,7 @@ import PButton from './PButton.vue';
                       <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{variation_price}} <DollarSign class="text-green-700" :size="20" /></span>
 
                       <div class="mt-3 flex flex-wrap gap-2">
-                        <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-slate-200 border-slate-300 text-slate-700 shadow-lg' : 'bg-slate-200  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in item.variations" :key="i">
+                        <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-green-200 border-slate-300 text-slate-700 ' : 'bg-transparent  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in item.variations" :key="i">
                           <span class="text-sm ">{{ Object.values(variation.attributes).join(', ') }}</span>
                         </div>
                       </div>
