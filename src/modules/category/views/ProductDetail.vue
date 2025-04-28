@@ -3,15 +3,19 @@ import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import getProduct from '../composables/getProduct';
 import PButton from '@/components/common/PButton.vue';
-import { DollarSign, Layers2, Heart, ChevronRight } from 'lucide-vue-next';
+import { DollarSign, Layers2, Heart, ChevronRight, Check } from 'lucide-vue-next';
 import ProductCard from '@/components/common/ProductCard.vue';
+import useCart from '@/composables/useCart';
+import { toastSuccess } from '@/utils/sweetalert';
 
 const route = useRoute();
 const slug = ref(route.params.slug);
+const {existsInCart, addProduct} = useCart()
 const currentImage = ref();
 const router = useRouter()
 const variation_price = ref(0)
 const current_variation_id = ref(0)
+const selectVariation = ref()
 
 const { product,relatedProducts, errors, load } = getProduct();
 
@@ -23,13 +27,14 @@ watch(() => route.params.slug, async (newSlug) => {
     currentImage.value = product?.value?.images[0]?.image_url;
     variation_price.value = product.value?.is_attribute ? (product.value?.variations[0].price_us == 0 ? product.value?.variations[0]?.price_mmk : product.value?.variations[0]?.price_us) : 0
     current_variation_id.value = product.value?.is_attribute ? product.value?.variations[0]?.id : 0
+    selectVariation.value = product.value?.is_attribute ? product.value?.variations[0] : null
     window.scrollTo(0,0)
 
 }, { immediate: true }); // Run immediately on mount
 
 const handleActiveVariaton = (id) => {
-      let selectVariation = product.value.variations.find(variation => variation.id == id);
-      variation_price.value = selectVariation.price_us == 0 ? selectVariation.price_mmk : selectVariation.price_us
+      selectVariation.value = product.value.variations.find(variation => variation.id == id);
+      variation_price.value = selectVariation.value.price_us == 0 ? selectVariation.value.price_mmk : selectVariation.value.price_us
       current_variation_id.value = id
     }
 
@@ -84,6 +89,16 @@ const goDetail = (slug) => {
   onMounted(() => {
     window.scrollTo(0,0)
   })
+
+  const handleAddCart = (product) => {
+    const result = addProduct(product, current_variation_id.value);
+
+    if(!result.ok && result.message == 'unauthenticated') {
+        router.push('/login');
+    } else {
+        toastSuccess('Product added to cart');
+    }
+}
 
 </script>
 
@@ -160,17 +175,26 @@ const goDetail = (slug) => {
           <span class="text-amber-700 text-2xl font-bold flex items-center gap-2" v-else>{{variation_price}} <DollarSign class="text-green-700" :size="20" /></span>
 
           <div class="mt-3 flex flex-wrap gap-2">
-            <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-slate-200 border-slate-300 text-slate-700 shadow-lg' : 'bg-slate-200  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in product.variations" :key="i">
+            <div @click="handleActiveVariaton(variation.id)" :class="`border ${current_variation_id == variation.id ? 'bg-green-200 border-green-300 text-slate-700 shadow-lg' : 'bg-slate-200  border-slate-400 text-slate-600'} cursor-pointer py-1 px-2 rounded-lg`" v-for="(variation, i) in product.variations" :key="i">
               <span class="text-sm ">{{ Object.values(variation.attributes).join(', ') }}</span>
             </div>
           </div>
         </div>
 
         <hr />
-        <div class="flex items-center gap-5 my-3">
-          <PButton text="Add To Cart" :cartbtn="true" :isAddable="product.qty > 0" />
+        <div class="flex items-center gap-5 my-3 ">
+          <div v-if="!product.is_attribute">
+              <PButton v-if="!existsInCart(product.id, product.sku)" :onClick="() => handleAddCart(product)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="product.qty > 0" />
+              <PButton v-else text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+          </div>
+          <div v-else>
+            <PButton v-if="!existsInCart(product.id, selectVariation?.sku)" :onClick="() => handleAddCart(product)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="product.qty > 0" />
+            <PButton v-else text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+          </div>
           <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
         </div>
+        
+        
         <hr />
       </div>
     </div>

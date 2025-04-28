@@ -1,16 +1,24 @@
 <script setup>
     import { DollarSign, Layers2 } from 'lucide-vue-next';
-import { defineProps, defineEmits, ref, watch } from 'vue';
-import PButton from './PButton.vue';
+    import { defineProps, defineEmits, ref, watch } from 'vue';
+    import PButton from './PButton.vue';
+    import useCart from '@/composables/useCart';
+    import { toastSuccess } from '@/utils/sweetalert';
+import { useRouter } from 'vue-router';
+
 
     const props = defineProps({
         isOpen: Boolean,
         item: Object,
     });
 
+    const {addProduct, existsInCart} = useCart();
+    const router = useRouter();
+
     const currentImage = ref(props.item.images[0])
     const variation_price = ref(props.item.is_attribute ? (props.item.variations[0].price_us == 0 ? props.item.variations[0]?.price_mmk : props.item.variations[0]?.price_us) : 0)
     const current_variation_id = ref(props.item.is_attribute ? props.item.variations[0]?.id : 0)
+    const selectVariation = ref(props.item.is_attribute ? props.item.variations[0] : null)
 
     const emit = defineEmits(["close"]);
 
@@ -29,11 +37,20 @@ import PButton from './PButton.vue';
     });
 
     const handleActiveVariaton = (id) => {
-      let selectVariation = props.item.variations.find(variation => variation.id == id);
-      variation_price.value = selectVariation.price_us == 0 ? selectVariation.price_mmk : selectVariation.price_us
+      selectVariation.value = props.item.variations.find(variation => variation.id == id);
+      variation_price.value = selectVariation.value.price_us == 0 ? selectVariation.value.price_mmk : selectVariation.value.price_us
       current_variation_id.value = id
     }
 
+    const handleAddCart = (product) => {
+        const result = addProduct(product, current_variation_id.value);
+
+        if(!result.ok && result.message == 'unauthenticated') {
+            router.push('/login');
+        } else {
+            toastSuccess('Product added to cart');
+        }
+    }
 
 </script>
 
@@ -98,10 +115,18 @@ import PButton from './PButton.vue';
                       </div>
                     </div>
 
-                    <div class="flex justify-end gap-3">
-                      <PButton text="Add To Cart"  :cartbtn="true" :isAddable="item.qty > 0 ? true : false" />
-                      <PButton text="View Cart" className="bg-red-500"  />
+                    <div class="flex items-center gap-5 my-3 ">
+                      <div v-if="!item.is_attribute">
+                          <PButton v-if="!existsInCart(item.id, item.sku)" :onClick="() => handleAddCart(item)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="item.qty > 0 ? true : false" />
+                          <PButton v-else text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+                      </div>
+                      <div v-else>
+                        <PButton v-if="!existsInCart(item.id, selectVariation?.sku)" :onClick="() => handleAddCart(item)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="item.qty > 0 ? true : false" />
+                        <PButton v-else text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+                      </div>
+                      <RouterLink to='/cart'><PButton text="View Cart" className="bg-red-500"  /></RouterLink>
                     </div>
+                  
                 </div>
             </div>
           </div>

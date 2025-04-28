@@ -7,7 +7,7 @@ import {
   CircleUserRound,
   AlignJustify,
 } from "lucide-vue-next";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import CategoryMenus from "../navDropdown/CategoryMenus.vue";
 import AdreamerMenus from "../navDropdown/AdreamerMenus.vue";
@@ -15,12 +15,17 @@ import XpMenus from "../navDropdown/XpMenus.vue";
 import GlobeSolorMenus from "../navDropdown/GlobeSolorMenus.vue";
 import GroupMenus from "../navDropdown/GroupMenus.vue";
 import AboutusMenus from "../navDropdown/AboutusMenus.vue";
+import useCart from "@/composables/useCart";
+import CartDrawer from "../common/CartDrawer.vue";
 
 const searchInput = ref("");
 const isSearch = ref(false);
 const isScroll = ref(false);
 const router = useRouter();
 const searchBox = ref(null);
+
+const {cartItems} = useCart();
+const cartCount = computed(() => cartItems.value.length);
 
 const getCurrentRoute = () => {
   let route_segment = router.currentRoute.value.path.split("/").filter(Boolean);
@@ -228,13 +233,31 @@ const handleClickOutside = (event) => {
           <RouterLink
             to="#"
             class="flex gap-2 items-center cursor-pointer group"
+            data-drawer-target="cart-drawer" data-drawer-show="cart-drawer" data-drawer-placement="right" aria-controls="cart-drawer"
           >
             <ShoppingCart :size="24" />
             <span
               class="relative text-xs text-white flex items-center justify-center bg-sky-400 px-[5px] py-[3px] rounded before:absolute before:w-0 before:h-0 before:border-8 before:border-t-transparent before:border-l-transparent before:border-b-transparent before:border-r-sky-400 before:border-solid before:-left-[12px] group-hover:scale-110 transition-transform"
-              >0</span
-            >
+              >{{ cartCount }}</span>
+              
           </RouterLink>
+
+          <!-- cart drawer component -->
+          <div id="cart-drawer" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-96 " tabindex="-1" aria-labelledby="drawer-right-label">
+              <h5 id="drawer-right-label" class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 ">
+                  <ShoppingCart :size="20" class="mr-2" />
+                  Shopping Cart
+              </h5>
+              <button type="button" data-drawer-hide="cart-drawer" aria-controls="cart-drawer" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center " >
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                  </svg>
+                  <span class="sr-only">Close menu</span>
+              </button>
+
+              <CartDrawer />
+          </div>
+          
           <RouterLink
             to="#"
             class="flex gap-2 items-center cursor-pointer group"
@@ -245,7 +268,11 @@ const handleClickOutside = (event) => {
               >0</span
             >
           </RouterLink>
-          <CircleUserRound :size="24" />
+          <RouterLink
+            to="/login"
+          >
+            <CircleUserRound :size="24" />
+          </RouterLink>
         </div>
       </nav>
     </Container>

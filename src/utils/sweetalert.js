@@ -38,24 +38,23 @@ export const successProcess = (title = 'Success !', text = 'Process Success') =>
 };
 
 export const warning = (title = "Warning !", text = '') => {
-    Swal.fire({
-        icon: "warning",
-        title: title,
-        text,
-        customClass: {
-            confirmButton:
-            "text-white btn border bg-[#1162ad] border-[#1162ad] hover:text-slate-700 px-7 py-3 rounded-full hover:bg-transparent"
-        },
-        buttonsStyling: false,
-        showCloseButton: true,
-        });
+  return Swal.fire({
+      icon: "warning",
+      title: title,
+      text,
+      customClass: {
+          confirmButton:
+          "text-white btn border bg-[#1162ad] border-[#1162ad] hover:text-slate-700 px-7 py-3 rounded-full hover:bg-transparent"
+      },
+      buttonsStyling: false,
+      showCloseButton: true,
+  });
 }
 
 //Toast message
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
-    iconColor: 'white',
     customClass: {
       popup: 'colored-toast',
     },
@@ -72,6 +71,7 @@ const Toast = Swal.mixin({
 export const toastSuccess = (text) => {
     Toast.fire({
         icon: "success",
+        iconColor: 'green',
         title: text,
     });
 };
@@ -80,6 +80,7 @@ export const toastSuccess = (text) => {
 export const toastError = (text ) => {
     Toast.fire({
         icon: "error",
+        iconColor: 'red',
         title: text,
     });
 };

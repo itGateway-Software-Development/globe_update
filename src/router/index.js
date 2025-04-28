@@ -72,6 +72,21 @@ const routes = [
         component: () => import('@/modules/promotion/views/PromotionPage.vue')
       },
       {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/modules/cartCheckout/views/CartDetailPage.vue')
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/modules/auth/views/Login.vue')
+      },
+      {
+        path: '/register',
+        name: 'Register',
+        component: () => import('@/modules/auth/views/Register.vue')
+      },
+      {
         path: '/:pathMatch(.*)*',
         component: () => import('@/components/common/NotFound.vue')
       }

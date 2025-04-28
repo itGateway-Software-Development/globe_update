@@ -5,9 +5,12 @@ import getProduct from '../composables/getProduct';
 import PButton from '@/components/common/PButton.vue';
 import { DollarSign, Layers2, Heart } from 'lucide-vue-next';
 import ProductCard from '@/components/common/ProductCard.vue';
+import useCart from '@/composables/useCart';
+import { toastSuccess } from '@/utils/sweetalert';
 
 const route = useRoute();
 const slug = ref(route.params.slug);
+const {existsInCart, addProduct} = useCart()
 const currentImage = ref();
 const router = useRouter()
 
@@ -72,6 +75,17 @@ const moveMagnifier = (e) => {
 const goDetail = (slug) => {
         router.push('/xp-pen-detail/'+slug)
   }
+
+  const handleAddCart = (product) => {
+    console.log(product)
+    const result = addProduct(product);
+
+    if(!result.ok && result.message == 'unauthenticated') {
+        router.push('/login');
+    } else {
+        toastSuccess('Product added to cart');
+    }
+}
 
 </script>
 
@@ -143,10 +157,14 @@ const goDetail = (slug) => {
         </div>
 
         <hr />
-        <div class="flex items-center gap-5 my-3">
-          <PButton text="Add To Cart" :cartbtn="true" :isAddable="product.qty > 0" />
-          <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
-        </div>
+          <div v-if="!existsInCart(product.id, product.sku)" class="flex items-center gap-5 my-3 ">
+            <PButton :onClick="() => handleAddCart(product)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="product.qty > 0" />
+            <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
+          </div>
+          <div v-else class="flex items-center gap-5 my-3">
+            <PButton text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+            <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
+          </div>
         <hr />
       </div>
     </div>

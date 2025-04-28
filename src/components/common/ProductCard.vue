@@ -1,7 +1,10 @@
 <script setup>
 import Modal from '@/components/common/Modal.vue';
-import { Eye, ShoppingCart, ZoomIn, DollarSign } from 'lucide-vue-next';
+import { Eye, ShoppingCart, ZoomIn, DollarSign, Check, Heart } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { toastSuccess, warning } from '@/utils/sweetalert';
+import useCart from '@/composables/useCart';
 
 const props  = defineProps({
     item: {
@@ -12,10 +15,36 @@ const props  = defineProps({
     },
 })
 
+const { existsInCart } = useCart();
+
 const isModalOpen = ref(false);
+const router = useRouter();
+const {addProduct} = useCart();
 
 const openModal = () => {
     isModalOpen.value = true
+}
+
+const handleAddCart = (product) => {
+
+    if(product.is_attribute) {
+        warning('Please select variation before adding to cart').then((result) => {
+            if(result.isConfirmed) {
+                isModalOpen.value = true;
+                return;
+            }
+        });
+        return;
+    }
+
+    const result = addProduct(product);
+
+
+    if(!result.ok && result.message == 'unauthenticated') {
+        router.push('/login');
+    } else {
+        toastSuccess('Product added to cart');
+    }
 }
 </script>
 
@@ -23,9 +52,10 @@ const openModal = () => {
     <div class="flex flex-col gap-2 shadow-xl border border-slate-300 rounded-lg overflow-hidden">
         <div class="bg-slate-200 relative group h-[270px]">
             <span class="absolute top-3 left-3 z-20 text-white text-xs font-semibold bg-sky-600 px-3 py-1 rounded-lg">{{ item.category }}</span>
-            <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-3 z-20">
-                <span class="cursor-pointer bg-slate-300 rounded-full p-2" @click="goDetail(item.slug)"><Eye :size="22" class="text-black" /></span>
-                <span class="cursor-pointer bg-slate-300 rounded-full p-2" @click="openModal"><ZoomIn :size="22" class="text-black" /></span>
+            <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-2 z-20">
+                <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" ><Heart :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
+                <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="goDetail(item.slug)"><Eye :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
+                <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="openModal"><ZoomIn :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
             </div>
 
             <Modal :item="item"  :isOpen="isModalOpen" @close="isModalOpen = false"  />
@@ -64,8 +94,11 @@ const openModal = () => {
                     <span class="text-amber-700 text-lg font-bold" v-if="item.currency == 'MMK'">{{item.price_range}} MMK</span>
                     <span class="text-amber-700 text-lg font-bold flex items-center gap-2" v-else>{{item.price_range}} <DollarSign class="text-green-700" :size="20" /></span>
                 </div>
-                <div class="flex justify-center items-center w-10 h-10 rounded-lg bg-sky-400 cursor-pointer overflow-hidden p-2 group">
+                <div v-if="!existsInCart(item.id, item.sku)" @click="handleAddCart(item)" class="flex justify-center items-center w-10 h-10 rounded-lg bg-sky-400 cursor-pointer overflow-hidden p-2 group">
                     <ShoppingCart class="text-white group-hover:scale-125 duration-200" :size="20" />
+                </div>
+                <div v-else @click="warning('Already added to cart')" class="flex justify-center items-center w-10 h-10 rounded-lg bg-green-700 cursor-pointer overflow-hidden p-2 group">
+                    <Check class="text-white group-hover:scale-125 duration-200" :size="20" />
                 </div>
             </div>
         </div>
