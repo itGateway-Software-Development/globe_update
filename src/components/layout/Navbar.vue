@@ -17,12 +17,15 @@ import GroupMenus from "../navDropdown/GroupMenus.vue";
 import AboutusMenus from "../navDropdown/AboutusMenus.vue";
 import useCart from "@/composables/useCart";
 import CartDrawer from "../common/CartDrawer.vue";
+import LocalStorage from "@/utils/localstorage";
 
 const searchInput = ref("");
 const isSearch = ref(false);
 const isScroll = ref(false);
 const router = useRouter();
 const searchBox = ref(null);
+const token = ref(LocalStorage.get('token'));
+const user = ref(LocalStorage.get('user'));
 
 const {cartItems} = useCart();
 const cartCount = computed(() => cartItems.value.length);
@@ -269,9 +272,13 @@ const handleClickOutside = (event) => {
             >
           </RouterLink>
           <RouterLink
+            v-if="!token"
             to="/login"
           >
             <CircleUserRound :size="24" />
+          </RouterLink>
+          <RouterLink to="/" v-else>
+            <img class="w-8 h-8 rounded-full" :src="`https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=${user.name}`" alt="">
           </RouterLink>
         </div>
       </nav>

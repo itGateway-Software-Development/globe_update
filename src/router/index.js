@@ -42,6 +42,16 @@ const routes = [
         component: () => import('@/modules/xppen/views/XpPenDetailPage.vue')
       },
       {
+        path: '/solar/:slug',
+        name: 'Solar',
+        component: () => import('@/modules/solar/views/SolarPage.vue')
+      },
+      {
+        path: '/solar-product-detail/:slug',
+        name: 'SolarProductDetail',
+        component: () => import('@/modules/solar/views/ProductDetail.vue')
+      },
+      {
         path: '/career',
         name: 'Career',
         component: () => import('@/modules/career/views/CareerPage.vue')

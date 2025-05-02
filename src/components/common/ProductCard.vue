@@ -26,7 +26,7 @@ const openModal = () => {
 }
 
 const handleAddCart = (product) => {
-
+    console.log(product)
     if(product.is_attribute) {
         warning('Please select variation before adding to cart').then((result) => {
             if(result.isConfirmed) {
