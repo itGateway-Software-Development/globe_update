@@ -3,7 +3,6 @@
     import { DollarSign, X } from 'lucide-vue-next';
 
     const {cartItems, removeCartItem} = useCart();
-    console.log(cartItems);
 
     const removeFromCart = (id, sku) => {
         removeCartItem(id, sku);
@@ -18,7 +17,7 @@
 
     <div class="flex flex-col gap-3 mt-5">
         <div v-for="item in cartItems" :key="item.id" class="flex items-center gap-4 border border-slate-300 rounded-lg p-3 relative">
-            <div @click="removeFromCart(item.id, item.sku)" class="absolute top-0 right-0 rounded-lg cursor-pointer bg-slate-300">
+            <div @click="removeFromCart(item.id, item.is_attribute ? item.variations.sku : item.sku)" class="absolute top-0 right-0 rounded-lg cursor-pointer bg-slate-300">
                 <X :size="20" />
             </div>
             <img class="w-16 h-16 object-cover" :src="item.preview_images[0]?.image_url" alt="">

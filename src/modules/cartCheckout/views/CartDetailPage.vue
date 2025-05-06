@@ -11,7 +11,7 @@ import { DollarSign, Minus, Plus, Trash2 } from 'lucide-vue-next';
             <h3 class="text-2xl font-bold text-slate-700 text-center">Shopping Cart List</h3>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
             <div class="col-span-1 md:col-span-2 lg:col-span-3">
                 <div class="overflow-x-auto" v-if="cartItems.length > 0">
                     <table class="w-full table-auto">
@@ -95,7 +95,22 @@ import { DollarSign, Minus, Plus, Trash2 } from 'lucide-vue-next';
             </div>
 
             <div class="col-span-1">
-
+                <h3 class="font-bold text-xl text-center">Order Summary</h3>
+                <div class="w-full h-[2px] bg-slate-500 my-3"></div>
+                <div class="flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <p>Subtotal</p>
+                        <p>{{ cartTotal }} MMK</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p>Shipping</p>
+                        <p>Free</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <p class="font-bold">Total</p>
+                        <p class="font-bold">{{ cartTotal }} MMK</p>
+                    </div>
+                </div>
             </div>
 
         </div>
