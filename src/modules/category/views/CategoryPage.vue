@@ -25,7 +25,7 @@
             }
         });
 
-        filterData.value.price = [0, 2000000];
+        filterData.value.price = [0, 5000000];
 
         window.scrollTo(0, 0);
 
@@ -37,7 +37,7 @@
 
     const filterData = ref({
         brand_slugs: [],
-        price: [0, 2000000],
+        price: [0, 5000000],
         attributes: {}
     })
 
@@ -132,7 +132,7 @@
                         <Divider />
                         <div class="mt-3 px-5">
                             <div class="slider-demo-block">
-                                <el-slider v-model="filterData.price" range :max="2000000"  />
+                                <el-slider v-model="filterData.price" range :max="5000000"  />
                             </div>
 
                             <div class="mt-2 flex items-center gap-1">
