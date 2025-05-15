@@ -1,11 +1,8 @@
 <script setup>
-    import getCategoryList from '@/composables/getCategoryList';
-    import { onMounted } from 'vue';
-
-    const {category_lists, errors, load} = getCategoryList();
-
-    onMounted(async() => {
-        await load();
+    const props = defineProps({
+        category_lists: {
+            type: Array
+        }
     })
 </script>
 

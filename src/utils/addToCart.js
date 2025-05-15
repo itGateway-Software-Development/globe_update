@@ -1,4 +1,5 @@
 import LocalStorage from "./localstorage";
+import { warning } from "./sweetalert";
 
 const CART_KEY = "cart"; // cart key in local storage
 
@@ -55,13 +56,29 @@ const addToCart = {
         cart = cart.map(item => {
             if(item.is_attribute) {
                 if(item.id === id && item.variations.sku === sku) {
-                    return { ...item, quantity: item.quantity + 1 };
+                    let itemQty = item.variations.qty;
+                    let increasedCartQty = item.quantity + 1;
+
+                    if(itemQty < increasedCartQty) { 
+                        warning('Maximun quantity reached');
+                        return { ...item, quantity: item.quantity };
+                    } else {
+                        return { ...item, quantity: item.quantity + 1 };
+                    }
                 } else {
                     return item;
                 }
             } else {
                 if(item.id === id && item.sku === sku) {
-                    return { ...item, quantity: item.quantity + 1 };
+                    let itemQty = item.qty;
+                    let increasedCartQty = item.quantity + 1;
+
+                    if(itemQty < increasedCartQty) {
+                        warning('Maximun quantity reached');
+                        return { ...item, quantity: item.quantity };
+                    } else {
+                        return { ...item, quantity: item.quantity + 1 };
+                    }
                 } else {
                     return item;
                 }
@@ -84,6 +101,9 @@ const addToCart = {
                 }
             } else {
                 if(item.id === id && item.sku === sku) {
+                    if(item.quantity === 1)  {
+                        return { ...item, quantity: 1 };
+                    }
                     return { ...item, quantity: item.quantity - 1 };
                 } else {
                     return item;

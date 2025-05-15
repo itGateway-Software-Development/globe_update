@@ -144,7 +144,7 @@ const androidTablets = [
         <Container>
             <SectionHeader title="XP Pen Selection" link_name="View All" link="/" description="All available laptops" />
 
-            <div class="flex justify-center items-center gap-5 mt-8">
+            <div class="flex justify-center items-center flex-wrap gap-5 mt-8">
                 <button @click="currentSelect = 'drawing_tablets'" :class="`border ${currentSelect === 'drawing_tablets' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Drawing Tablets</button>
                 <button @click="currentSelect = 'drawing_display'" :class="`border ${currentSelect === 'drawing_display' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Drawing Display</button>
                 <button @click="currentSelect = 'accessories'" :class="`border ${currentSelect === 'accessories' ? 'border-sky-500 bg-sky-500 text-white' : 'border-slate-500'} shadow px-3 py-2 rounded-lg`">Accessories</button>

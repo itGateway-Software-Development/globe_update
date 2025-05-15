@@ -1,10 +1,8 @@
 <script setup>
-import getXpPenCategory from '@/composables/getXpPenCategory';
-import { onMounted } from 'vue';
-
-    const {xp_pens_category, error, load} = getXpPenCategory();
-    onMounted(async() => {
-        await load()
+    const props = defineProps({
+        xp_pens_category: {
+            type: Array
+        }
     })
 </script>
 

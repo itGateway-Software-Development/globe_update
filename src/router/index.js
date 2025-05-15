@@ -92,6 +92,11 @@ const routes = [
         component: () => import('@/modules/cartCheckout/views/CheckoutPage.vue')
       },
       {
+        path: '/profile',
+        name: 'Profile',
+        component: () => import('@/modules/profile/views/UserProfile.vue')
+      },
+      {
         path: '/login',
         name: 'Login',
         component: () => import('@/modules/auth/views/Login.vue')

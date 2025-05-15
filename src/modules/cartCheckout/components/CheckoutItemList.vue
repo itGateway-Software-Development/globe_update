@@ -1,31 +1,15 @@
 <script setup>
-    import getCurrencyRate from '@/composables/getCurrencyRate';
-    import useCart from '@/composables/useCart';
-import { computed } from 'vue';
+    import { DollarSign } from 'lucide-vue-next';
+    import { computed } from 'vue';
 
-
-    const {cartItems} = useCart();
-    const {usd_mmk_rate, error, load} = getCurrencyRate();
-    load()
-
-    const subtotalMMK = computed(() => {
-      return cartItems.value.reduce((sum, item) => {
-        const price_us = item.is_attribute ? item.variations.price_us : item.price_us;
-        const price_mmk = item.is_attribute ? item.variations.price_mmk : item.price_mmk;
-
-        if (price_us === 0) {
-          return sum + price_mmk * item.quantity;
-        } else {
-          return sum + price_us * item.quantity * usd_mmk_rate.value;
-        }
-      }, 0);
-    });
-
-    const totalQty = computed(() => {
-        return cartItems.value.reduce((sum, item) => {
-            return sum + item.quantity
-        },0)
+    const props = defineProps({
+        shippingFee: Number,
+        cartItems: Array,
+        subtotalMMK: Number,
+        totalQty: Number,
+        usd_mmk_rate: Number|Array
     })
+
 
 </script>
 
@@ -64,7 +48,7 @@ import { computed } from 'vue';
             </div>
         </div>  
 
-        <div class="mt-8 flex flex-col gap-3">
+        <div class="mt-16 flex flex-col gap-3">
             <div class="flex justify-between">
                 <div class="font-semibold text-base">Sub Total - <span class="text-sky-700 text-sm">{{totalQty}} items</span></div>
                 <div>
@@ -77,10 +61,21 @@ import { computed } from 'vue';
                 <div class="font-semibold text-base">Shipping</div>
                 <div>
                     <span class="text-amber-700 text-base font-bold flex items-center gap-1">
-                        <span class="text-slate-700">Ks</span> {{ subtotalMMK.toLocaleString() }}
+                        <span class="text-slate-700">Ks</span> {{ shippingFee.toLocaleString() }}
                       </span>
                 </div>
             </div>
         </div>
+
+        <div class="bg-slate-300 w-full h-[2px] mt-5"></div>
+
+        <div class="flex justify-between mt-3">
+          <div class="font-semibold text-base">Total </div>
+          <div>
+              <span class="text-amber-700 text-base font-bold flex items-center gap-1">
+                  <span class="text-slate-700">Ks</span> {{ (subtotalMMK + shippingFee).toLocaleString() }}
+                </span>
+          </div>
+      </div>
     </div>
 </template>

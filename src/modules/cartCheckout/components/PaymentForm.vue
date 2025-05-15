@@ -4,6 +4,10 @@ import { Paperclip } from 'lucide-vue-next';
     const props = defineProps({
         formData: Object
     })
+
+    const handleKpaySlipChange = (event) => {
+        props.formData.kpay_slip = event.target.files[0];
+    }
 </script>
 
 <template>
@@ -53,7 +57,11 @@ import { Paperclip } from 'lucide-vue-next';
                         <p>Name - <span class="font-bold">Globe Trading</span></p>
                     </div>
                     <div class="relative flex flex-col gap-1">
-                        <input type="file" class="border border-slate-300 rounded-lg w-full py-1 z-20">
+                        <input 
+                            type="file" 
+                            class="border border-slate-300 rounded-lg w-full py-1 z-20"
+                            @change="handleKpaySlipChange" 
+                        >
                         <Paperclip class="absolute top-2 left-2 h-6 w-6 text-slate-600 z-10 pointer-events-none" />
                         <span class="text-sm text-rose-500">Please upload Kpay slip.</span>
                     </div>
