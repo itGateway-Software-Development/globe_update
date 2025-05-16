@@ -42,7 +42,7 @@ const storeWishList = async (product) => {
                window.location.href = '/login';
            }
        });
-       return;
+       return {ok: false, message: 'unauthenticated'};
     }
 
     const wishListStore = useWishListStore();

@@ -64,6 +64,8 @@ const handleAddWish = async() => {
     
     const response = await wishList.storeWishList(payload);
 
+    console.log(response)
+
     if(response.ok) {
         toastSuccess('Product added to wishlist');
     }

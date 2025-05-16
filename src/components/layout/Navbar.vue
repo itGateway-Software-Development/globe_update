@@ -353,18 +353,29 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
 
               <!-- show when search  -->
               <div v-else>
-                <div class="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-3" v-if="!loading">
-                  <div class="col-span-1" v-for="(item, index) in results" :key="index">
-                      <RouterLink 
-                        :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`" 
-                        @click="isSearch = false"
-                      >
+                <div v-if="!loading">
+                  <div class="max-h-[60vh] overflow-y-auto scroll-smooth pr-1">
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3" v-if="results.length > 0">
+                      <div class="col-span-1" v-for="(item, index) in results" :key="index">
+                        <RouterLink 
+                          :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`" 
+                          @click="isSearch = false"
+                        >
                           <div class="w-full h-[150px] max-h-[150px] bg-slate-200 group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
-                              <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">
+                            <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">
                           </div>
-                          <p class="text-center mt-2 text-base px-2 font-bold">{{item.name}}</p>
-                      </RouterLink>
+                          <p class="text-center mt-2 text-base px-2 font-bold">{{ item.name }}</p>
+                        </RouterLink>
+                      </div>
+                    </div>
+
+                    <!-- No result fallback -->
+                    <div v-else>
+                      <p class="text-center">No Result Found</p>
+                    </div>
                   </div>
+
+                  
                 </div>
                 <div v-else>
                   <p class="text-center">Searching ...</p>
