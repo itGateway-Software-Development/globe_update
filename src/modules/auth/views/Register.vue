@@ -31,7 +31,7 @@ import { useRouter } from 'vue-router';
                 LocalStorage.store('token', response.data.token);
                 LocalStorage.store('user', response.data.user);
                 toastSuccess('Registration successful');
-                router.push('/profile');
+                window.location.href = '/profile';
                 return;
             }
 

@@ -29,7 +29,7 @@ import { useRouter } from 'vue-router';
                 LocalStorage.store('token', response.data.token);
                 LocalStorage.store('user', response.data.user);
                 toastSuccess('Login successful');
-                router.push('/profile');
+                window.location.href = '/profile';
                 return;
             }
 
