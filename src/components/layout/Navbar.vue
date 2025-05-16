@@ -21,6 +21,9 @@ import LocalStorage from "@/utils/localstorage";
 import getCategoryList from '@/composables/getCategoryList';
 import getXpPenCategory from '@/composables/getXpPenCategory';
 import getSolarCategoryList from '@/composables/getSolarCategoryList';
+import { useWishListStore } from "@/store/useWishListStore";
+import { storeToRefs } from "pinia";
+import wishList from "@/utils/wishList";
 
 const searchInput = ref("");
 const isSearch = ref(false);
@@ -29,6 +32,9 @@ const router = useRouter();
 const searchBox = ref(null);
 const token = ref(LocalStorage.get('token'));
 const user = ref(LocalStorage.get('user'));
+const wishListStore = useWishListStore();
+
+const { wishLists } = storeToRefs(wishListStore);
 
 const {cartItems} = useCart();
 const cartCount = computed(() => cartItems.value.length);
@@ -52,6 +58,7 @@ const handleClickOutside = (event) => {
       await categoryLoad();
       await xpPenLoad();
       await solarCategoryLoad();
+      await wishList.getWishList();
 
 
         document.addEventListener("click", handleClickOutside);
@@ -378,13 +385,13 @@ const handleClickOutside = (event) => {
           </div>
           
           <RouterLink
-            to="#"
+            to="/profile"
             class="flex gap-2 items-center cursor-pointer group"
           >
             <Heart :size="24" />
             <span
               class="relative text-xs text-white flex items-center justify-center bg-sky-400 px-[5px] py-[3px] rounded before:absolute before:w-0 before:h-0 before:border-8 before:border-t-transparent before:border-l-transparent before:border-b-transparent before:border-r-sky-400 before:border-solid before:-left-[12px] group-hover:scale-110 transition-transform"
-              >0</span
+              >{{ wishLists ? wishLists.length : 0 }}</span
             >
           </RouterLink>
           <RouterLink

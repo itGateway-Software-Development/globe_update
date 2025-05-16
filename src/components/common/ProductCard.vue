@@ -1,10 +1,14 @@
 <script setup>
 import Modal from '@/components/common/Modal.vue';
 import { Eye, ShoppingCart, ZoomIn, DollarSign, Check, Heart } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toastSuccess, warning } from '@/utils/sweetalert';
 import useCart from '@/composables/useCart';
+import wishList from '@/utils/wishList';
+import { storeToRefs } from 'pinia';
+import { useWishListStore } from '@/store/useWishListStore';
+
 
 const props  = defineProps({
     item: {
@@ -14,6 +18,10 @@ const props  = defineProps({
         type: Function
     },
 })
+
+const wishListStore = useWishListStore();
+
+const {wishLists} = storeToRefs(wishListStore)
 
 const { existsInCart } = useCart();
 
@@ -46,6 +54,24 @@ const handleAddCart = (product) => {
         toastSuccess('Product added to cart');
     }
 }
+
+const handleAddWish = async() => {
+    if(isAlreadyWishList.value) {
+      toastSuccess('Product already added to wishlist');
+      return
+    }
+    const payload = {product_id: props.item.id, product_type: props.item.product_type}
+    
+    const response = await wishList.storeWishList(payload);
+
+    if(response.ok) {
+        toastSuccess('Product added to wishlist');
+    }
+}
+
+const isAlreadyWishList = computed(() => {
+  return wishLists.value.some(item => item.id == props.item?.id && item.sku == props.item?.sku)
+})
 </script>
 
 <template>
@@ -53,7 +79,7 @@ const handleAddCart = (product) => {
         <div class="bg-slate-200 relative group h-[270px]">
             <span class="absolute top-3 left-3 z-20 text-white text-xs font-semibold bg-sky-600 px-3 py-1 rounded-lg">{{ item.category }}</span>
             <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-2 z-20">
-                <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" ><Heart :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
+                <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="handleAddWish"><Heart :size="20" :fill="isAlreadyWishList ? 'red' : 'transparent'" :class="`${isAlreadyWishList ? 'text-rose-800' : 'text-slate-700'} group-hover/icon:text-rose-800`" /></span>
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="goDetail(item.slug)"><Eye :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="openModal"><ZoomIn :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
             </div>

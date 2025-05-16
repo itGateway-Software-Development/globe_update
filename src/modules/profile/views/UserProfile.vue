@@ -6,6 +6,7 @@
     import ProfileForm from '../components/ProfileForm.vue';
     import { askConfirmation, toastSuccess, warning } from '@/utils/sweetalert';
     import useUserService from '../services/useUserService';
+import WishList from '../components/WishList.vue';
 
 
     let user = LocalStorage.get('user')
@@ -111,6 +112,7 @@
                 <div class="flex gap-1">
                     <button @click="currentTab = 'profile'" :class="`active:scale-75 duration-75 border border-sky-500 ${currentTab === 'profile' ? 'bg-sky-500 text-slate-50' : 'text-slate-700'} font-bold px-3 py-1 rounded-lg`">Profile</button>
                     <button @click="currentTab = 'order'" :class="`active:scale-75 duration-75 border border-sky-500 ${currentTab === 'order' ? 'bg-sky-500 text-slate-50' : 'text-slate-700'} font-bold px-3 py-1 rounded-lg`">My Orders</button>
+                    <button @click="currentTab = 'wishlist'" :class="`active:scale-75 duration-75 border border-sky-500 ${currentTab === 'wishlist' ? 'bg-sky-500 text-slate-50' : 'text-slate-700'} font-bold px-3 py-1 rounded-lg`">Wish List</button>
                 </div>
                 <div class="mt-3 ">
                     <ProfileForm 
@@ -124,6 +126,10 @@
                     <OrderLists
                         v-if="currentTab === 'order'"
                         :orders="orders"
+                    />
+
+                    <WishList
+                        v-if="currentTab === 'wishlist'"
                     />
                 </div>
             </div>

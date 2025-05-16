@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import getProduct from '../composables/getProduct';
 import PButton from '@/components/common/PButton.vue';
@@ -7,15 +7,20 @@ import { DollarSign, Layers2, Heart } from 'lucide-vue-next';
 import ProductCard from '@/components/common/ProductCard.vue';
 import useCart from '@/composables/useCart';
 import { toastSuccess } from '@/utils/sweetalert';
+import wishList from '@/utils/wishList';
+import { useWishListStore } from '@/store/useWishListStore';
+import { storeToRefs } from 'pinia';
+
 
 const route = useRoute();
 const slug = ref(route.params.slug);
 const {existsInCart, addProduct} = useCart()
 const currentImage = ref();
 const router = useRouter()
+const wishListStore = useWishListStore();
 
 const { product,relatedProducts, errors, load } = getProduct();
-
+const {wishLists} = storeToRefs(wishListStore)
 
 // Watch for changes in the route and update slug
 watch(() => route.params.slug, async (newSlug) => {
@@ -87,6 +92,26 @@ const goDetail = (slug) => {
     }
 }
 
+const handleAddWish = async(product) => {
+    if(isAlreadyWishList.value) {
+      toastSuccess('Product already added to wishlist');
+      return
+    }
+    
+    const payload = {product_id: product.id, product_type: product.product_type}
+
+    const response = await wishList.storeWishList(payload);
+
+    if(response.ok) {
+        toastSuccess('Product added to wishlist');
+    }
+}
+
+const isAlreadyWishList = computed(() => {
+  return wishLists.value.some(item => item.id == product.value?.id && item.sku == product.value?.sku)
+})
+
+
 </script>
 
 
@@ -157,13 +182,14 @@ const goDetail = (slug) => {
         </div>
 
         <hr />
-          <div v-if="!existsInCart(product.id, product.sku)" class="flex items-center gap-5 my-3 ">
-            <PButton :onClick="() => handleAddCart(product)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="product.qty > 0" />
-            <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
-          </div>
-          <div v-else class="flex items-center gap-5 my-3">
-            <PButton text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
-            <Heart :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
+          <div class="flex gap-6 items-center">
+            <div v-if="!existsInCart(product.id, product.sku)" class="flex items-center gap-5 my-3 ">
+              <PButton :onClick="() => handleAddCart(product)"  text="Add To Cart" class="cursor-pointer" :cartbtn="true" :isAddable="product.qty > 0" />
+            </div>
+            <div v-else class="flex items-center gap-5 my-3">
+              <PButton text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
+            </div>
+            <Heart @click="handleAddWish(product)" :fill="isAlreadyWishList ? 'red' : 'white'" :size="24" class="text-red-500 cursor-pointer hover:scale-110 duration-200" />
           </div>
         <hr />
       </div>
