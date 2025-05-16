@@ -24,8 +24,14 @@ import getSolarCategoryList from '@/composables/getSolarCategoryList';
 import { useWishListStore } from "@/store/useWishListStore";
 import { storeToRefs } from "pinia";
 import wishList from "@/utils/wishList";
+import getRandomProducts from "@/composables/getRandomProducts";
+import { api } from "@/utils/api";
+import axios from "axios";
 
 const searchInput = ref("");
+const results = ref([])
+const loading = ref(false)
+let debounceTimer = null
 const isSearch = ref(false);
 const isScroll = ref(false);
 const router = useRouter();
@@ -42,67 +48,68 @@ const cartCount = computed(() => cartItems.value.length);
 const {category_lists, errors: categoryErrors, load: categoryLoad} = getCategoryList();
 const {xp_pens_category, error: xpPenErrors, load: xpPenLoad} = getXpPenCategory();
 const {category_lists: solar_category_lists, errors: solarErrors, load: solarCategoryLoad} = getSolarCategoryList();
+const {products, errors: productError, load: productLoad} = getRandomProducts();
 
-const getCurrentRoute = () => {
-  let route_segment = router.currentRoute.value.path.split("/").filter(Boolean);
-  return route_segment[0] || "/";
-};
+    const getCurrentRoute = () => {
+      let route_segment = router.currentRoute.value.path.split("/").filter(Boolean);
+      return route_segment[0] || "/";
+    };
 
-const handleClickOutside = (event) => {
+    const handleClickOutside = (event) => {
       if (searchBox.value && !searchBox.value.contains(event.target)) {
         isSearch.value = false;
       }
     };
 
-  onMounted(async() => {
+    onMounted(async() => {
       await categoryLoad();
       await xpPenLoad();
       await solarCategoryLoad();
+      await productLoad();
       await wishList.getWishList();
 
 
         document.addEventListener("click", handleClickOutside);
       });
 
-      onUnmounted(() => {
-        document.removeEventListener("click", handleClickOutside);
-      });
+    onUnmounted(() => {
+      document.removeEventListener("click", handleClickOutside);
+    });
 
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 10) {
-          isScroll.value = true;
-        } else {
-          isScroll.value = false;
-        }
-      });
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 10) {
+        isScroll.value = true;
+      } else {
+        isScroll.value = false;
+      }
+    });
 
-  const items = [
-        {
-            img: require('@/assets/images/popular/1.png'),
-            title: "Earphone",
-        },
-        {
-            img: require('@/assets/images/popular/2.png'),
-            title: "Power Bank",
-        },
-        {
-            img: require('@/assets/images/popular/3.png'),
-            title: "Earphone",
-        },
-        {
-            img: require('@/assets/images/popular/4.png'),
-            title: "Tablet",
-        },
-        {
-            img: require('@/assets/images/popular/5.png'),
-            title: "Drawing Tablet",
-        },
-        {
-            img: require('@/assets/images/popular/6.png'),
-            title: "XP Pen Drawing Display",
-        },
-        
-    ]
+    const handleSearch = async () => {
+      if (!searchInput.value.trim()) {
+        results.value = []
+        return
+      }
+
+      loading.value = true
+      try {
+        const response = await axios.get(api + 'search-products', {
+          params: { q: searchInput.value }
+        })
+        results.value = response.data.results // Adjust based on your API response
+      } catch (error) {
+        console.error('Search error:', error)
+      } finally {
+        loading.value = false
+      }
+    }
+
+    // Debounced search to avoid too many API calls
+    const debouncedSearch = () => {
+      clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(handleSearch, 500)
+    }
+
+
 </script>
 
 
@@ -299,6 +306,7 @@ const handleClickOutside = (event) => {
               class="border border-slate-400 rounded-lg px-5 pe-14 py-[6px] w-full text-slate-700 placeholder:italic placeholder:text-sm focus:outline-none min-w-[400px]   xl:min-w-[600px]"
               v-model="searchInput"
               placeholder="Search..."
+              @input="debouncedSearch"
             />
             <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
               <Search :size="19" class="text-sky-700" />
@@ -309,46 +317,58 @@ const handleClickOutside = (event) => {
               v-if="isSearch"
               class="absolute top-11 left-0 w-full bg-white border border-slate-400 rounded-lg p-5 z-[9999] shadow-lg"
             >
-              <div class="mb-8">
-                <h3 class="font-semibold">Trending Now</h3>
-                <hr>
-                <div class="flex gap-3 mt-3">
-                  <RouterLink
-                    to="#"
-                    class="flex items-center gap-2 text-slate-600 hover:text-sky-600 bg-slate-200 py-1 px-2 rounded-lg"
-                  >
-                    <Search :size="17" class="text-slate-700" />
-                    <span class="text-sm text-slate-600">Power Bank</span>
-                  </RouterLink>
-                  <RouterLink
-                    to="#"
-                    class="flex items-center gap-2 text-slate-600 hover:text-sky-600 bg-slate-200 py-1 px-2 rounded-lg"
-                  >
-                    <Search :size="17" class="text-slate-700" />
-                    <span class="text-sm text-slate-600">Power Bank</span>
-                  </RouterLink>
-                  <RouterLink
-                    to="#"
-                    class="flex items-center gap-2 text-slate-600 hover:text-sky-600 bg-slate-200 py-1 px-2 rounded-lg"
-                  >
-                    <Search :size="17" class="text-slate-700" />
-                    <span class="text-sm text-slate-600">Power Bank</span>
-                  </RouterLink>
+             <!-- show default items -->
+              <div v-if="!searchInput">
+                <div class="mb-8">
+                  <h3 class="font-semibold">Trending Now</h3>
+                  <hr>
+                  <div class="flex gap-3 mt-3">
+                    <RouterLink
+                      :to="`/category/${item.slug}`"
+                      class="flex items-center gap-2 text-slate-600 hover:text-sky-600 bg-slate-200 py-1 px-2 rounded-lg"
+                      v-for="(item, index) in category_lists"
+                      @click="isSearch = false"
+                    >
+                      <Search :size="17" class="text-slate-700" />
+                      <span class="text-sm text-slate-600">{{ item.name }}</span>
+                    </RouterLink>
+                    
+                  </div>
+                </div>
+                  <div class="mb-5">
+                    <h3 class="font-semibold">Popular Products</h3>
+                    <hr>
+                    <div class="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-3">
+                      <div class="col-span-1" v-for="(item, index) in products" :key="index">
+                          <RouterLink :to="`/product-detail/${item.slug}`" @click="isSearch = false">
+                              <div class="w-full h-[150px] max-h-[150px] bg-slate-200 group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
+                                  <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">
+                              </div>
+                              <p class="text-center mt-2 text-base px-2 font-bold">{{item.name}}</p>
+                          </RouterLink>
+                      </div>
+                    </div>
                 </div>
               </div>
-              <div class="mb-5">
-                <h3 class="font-semibold">Popular Products</h3>
-                <hr>
-                <div class="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-3">
-                  <div class="col-span-1" v-for="(item, index) in items" :key="index">
-                      <RouterLink to="/">
-                          <div class="w-full max-h-[150px] bg-slate-200 group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
-                              <img class="group-hover:scale-110 duration-300" :src="item.img" alt="">
+
+              <!-- show when search  -->
+              <div v-else>
+                <div class="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-3" v-if="!loading">
+                  <div class="col-span-1" v-for="(item, index) in results" :key="index">
+                      <RouterLink 
+                        :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`" 
+                        @click="isSearch = false"
+                      >
+                          <div class="w-full h-[150px] max-h-[150px] bg-slate-200 group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
+                              <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">
                           </div>
-                          <p class="text-center mt-2 text-base px-2">{{item.title}}</p>
+                          <p class="text-center mt-2 text-base px-2 font-bold">{{item.name}}</p>
                       </RouterLink>
                   </div>
-              </div>
+                </div>
+                <div v-else>
+                  <p class="text-center">Searching ...</p>
+                </div>
               </div>
             </div>
           </div>
