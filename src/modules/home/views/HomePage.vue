@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import AdreamerSelection from '../components/AdreamerSelection.vue';
 import Brands from '../components/Brands.vue';
 import Carousel from '../components/Carousel.vue';
@@ -11,6 +12,18 @@ import SpeakerSelection from '../components/SpeakerSelection.vue';
 import TabletSelection from '../components/TabletSelection.vue';
 import TechgadgetSelection from '../components/TechgadgetSelection.vue';
 import XppenSelection from '../components/XppenSelection.vue';
+import { useGeneralStore } from "@/store/useGeneralStore";
+
+
+const generalStore = useGeneralStore();
+
+
+onMounted(() => {
+  generalStore.toggleLoading(true); // show loading
+  setTimeout(() => {
+    generalStore.toggleLoading(false); // hide loading after 4s
+  }, 1500);
+});
 
 </script>
 
@@ -19,14 +32,14 @@ import XppenSelection from '../components/XppenSelection.vue';
         <Carousel />
         <Promotion />
         <PopularItems />
-        <XppenSelection />
-        <AdreamerSelection />
         <SolarSolutionSection />
+        <!-- <AdreamerSelection /> -->
         <LaptopSelection />
+        <XppenSelection />
         <TabletSelection />
         <HeadsetSelection />
         <SpeakerSelection />
-        <TechgadgetSelection />
+        <!-- <TechgadgetSelection /> -->
         <Brands />
     </div>
 </template>

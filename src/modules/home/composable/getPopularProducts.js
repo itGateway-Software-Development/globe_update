@@ -5,19 +5,19 @@ import { api } from "@/utils/api";
 
 const generalStore = useGeneralStore();
 
-const getSectionProducts = () => {
-    const sliders = ref([]);
+const getPopularProducts = () => {
+    const products = ref([]);
     const errors = ref();
 
     const load = async() => {
         generalStore.toggleLoading();
         try {
-            let response = await axios.get(api + "sliders");
+            let response = await axios.get(api + "popular-products");
 
             if (response.status === 404) {
                 throw new Error("page not found");
             }
-            sliders.value = response.data.sliders;
+            products.value = response.data.products;
             generalStore.toggleLoading();
 
         } catch (error) {
@@ -26,7 +26,7 @@ const getSectionProducts = () => {
         }
     }
 
-    return {sliders, errors, load}
+    return {products, errors, load}
 }
 
-export default getSectionProducts
+export default getPopularProducts

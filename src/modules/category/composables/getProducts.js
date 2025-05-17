@@ -12,7 +12,7 @@ const getProducts = () => {
     const errors = ref();
 
     const load = async(category_slug) => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "products/" + category_slug);
 
@@ -22,7 +22,7 @@ const getProducts = () => {
             products.value = response.data.products;
             brands.value = response.data.brands;
             attributes.value = response.data.attributes;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;

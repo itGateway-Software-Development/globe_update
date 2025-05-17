@@ -1,9 +1,24 @@
 <script setup >
 import { MapPinned,PhoneCall,Mail, ExternalLink } from 'lucide-vue-next';
+import getXpPenCategory from '@/composables/getXpPenCategory';
+import getSolarCategoryList from '@/composables/getSolarCategoryList';
+import {onMounted} from 'vue'
+
+
+
+const {xp_pens_category, error: xpPenErrors, load: xpPenLoad} = getXpPenCategory();
+const {category_lists: solar_category_lists, errors: solarErrors, load: solarCategoryLoad} = getSolarCategoryList();
+
+
+onMounted(async() => {
+    await xpPenLoad();
+    await solarCategoryLoad();
+})
 
 const navigate = (route) => {
         window.open(route, "_blank");
     }
+    
 
 </script>
 
@@ -44,10 +59,7 @@ const navigate = (route) => {
                 <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7">XP-Pens</h2>
                     <div class="flex flex-col gap-3">
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Drawing Tablets</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Drawing Displays</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Accessories</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Android Tablet</RouterLink>
+                        <RouterLink v-for="category in xp_pens_category" :key="category.id" :to="`/xp-pen/${category.slug}`" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">{{category.name}}</RouterLink> 
                     </div>
                 </div>
             </div>
@@ -56,17 +68,21 @@ const navigate = (route) => {
                 <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7">Globe Solar Solution</h2>
                     <div class="flex flex-col gap-3">
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Power Master</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Sunboost</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">JA</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Solar Solutions</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Power Station</RouterLink>
+                        <RouterLink 
+                            v-for="category in solar_category_lists" 
+                            :key="category.id" 
+                            :to="`/solar/${category.children.length > 0 ? category.children[0].slug : category.slug}`" 
+                            class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4"
+                        >
+                            {{category.children.length > 0 ? category.children[0].name : category.name}}
+                        </RouterLink>
+                       
                     </div>
                 </div>
             </div>
 
             <div class="col-span-1 flex flex-wrap justify-center">
-                <div>
+                <!-- <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7">Adreamer </h2>
                     <div class="flex flex-col gap-3">
                         <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Laptops</RouterLink>
@@ -75,7 +91,7 @@ const navigate = (route) => {
                         <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Portable</RouterLink>
                         <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Interactive Display</RouterLink>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </Container>
