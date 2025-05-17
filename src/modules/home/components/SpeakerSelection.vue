@@ -16,7 +16,7 @@ import { useRouter } from 'vue-router';
 </script>
 
 <template>
-    <section class="mt-10 py-10" v-if="products.length > 0">
+    <section class="bg-slate-200 mt-20 py-20" v-if="products.length > 0">
         <Container>
             <SectionHeader title="Speaker Selection" link_name="View All" link="/category/speaker" description="Top available speaker" />
     

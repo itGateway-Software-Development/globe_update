@@ -36,7 +36,7 @@ import ProductCard from '@/components/common/ProductCard.vue';
 </script>
 
 <template>
-    <section class="bg-slate-200 mt-10 py-10" v-if="products.length > 0">
+    <section class=" mt-10 py-10" v-if="products.length > 0">
         <Container>
             <SectionHeader title="Solar Solution Selection" link_name="View All" :link="`/solar/${currentSelect}`" description="All available solar solutions" />
 

@@ -32,12 +32,12 @@ onMounted(() => {
         <Carousel />
         <Promotion />
         <PopularItems />
+        <XppenSelection />
         <SolarSolutionSection />
         <AdreamerSelection />
         <LaptopSelection />
-        <XppenSelection />
-        <TabletSelection />
         <HeadsetSelection />
+        <TabletSelection />
         <SpeakerSelection />
         <!-- <TechgadgetSelection /> -->
         <Brands />
