@@ -36,7 +36,7 @@ import ProductCard from '@/components/common/ProductCard.vue';
 </script>
 
 <template>
-    <section class="bg-slate-200 mt-10 py-10">
+    <section class="bg-slate-200 mt-10 py-10" v-if="products.length > 0">
         <Container>
             <SectionHeader title="Solar Solution Selection" link_name="View All" :link="`/solar/${currentSelect}`" description="All available solar solutions" />
 
@@ -58,7 +58,7 @@ import ProductCard from '@/components/common/ProductCard.vue';
             <div class="mt-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                     <div class="col-span-1" v-for="(product, index) in products" :key="index" >
-                        <ProductCard v-if="index < 6" :item="product" :goDetail="goDetail"/>
+                        <ProductCard v-if="index < 5" :item="product" :goDetail="goDetail"/>
                     </div>
 
 
