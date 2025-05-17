@@ -17,12 +17,12 @@ const routes = [
         component: () => import('@/modules/category/views/CategoryPage.vue')
       },
       {
-        path: '/adreamer/:slug',
+        path: '/chuwi/:slug',
         name: 'Adreamer',
         component: () => import('@/modules/adreamer/views/AdreamerPage.vue')
       },
       {
-        path: '/adreamer-product-detail/:slug',
+        path: '/chuwi-product-detail/:slug',
         name: 'AdreamerProductDetail',
         component: () => import('@/modules/adreamer/views/ProductDetail.vue')
       },

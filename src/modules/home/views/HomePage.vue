@@ -33,7 +33,7 @@ onMounted(() => {
         <Promotion />
         <PopularItems />
         <SolarSolutionSection />
-        <!-- <AdreamerSelection /> -->
+        <AdreamerSelection />
         <LaptopSelection />
         <XppenSelection />
         <TabletSelection />

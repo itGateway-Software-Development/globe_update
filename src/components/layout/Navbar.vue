@@ -19,6 +19,7 @@ import useCart from "@/composables/useCart";
 import CartDrawer from "../common/CartDrawer.vue";
 import LocalStorage from "@/utils/localstorage";
 import getCategoryList from '@/composables/getCategoryList';
+import getAdreamerCategoryList from '@/composables/getAdreamerCategoryList';
 import getXpPenCategory from '@/composables/getXpPenCategory';
 import getSolarCategoryList from '@/composables/getSolarCategoryList';
 import { useWishListStore } from "@/store/useWishListStore";
@@ -46,6 +47,7 @@ const {cartItems} = useCart();
 const cartCount = computed(() => cartItems.value.length);
 
 const {category_lists, errors: categoryErrors, load: categoryLoad} = getCategoryList();
+const {category_lists: adreamer_category_lists, errors: adreamerErrors, load: adreamerLoad} = getAdreamerCategoryList();
 const {xp_pens_category, error: xpPenErrors, load: xpPenLoad} = getXpPenCategory();
 const {category_lists: solar_category_lists, errors: solarErrors, load: solarCategoryLoad} = getSolarCategoryList();
 const {products, errors: productError, load: productLoad} = getRandomProducts();
@@ -66,6 +68,7 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
       await xpPenLoad();
       await solarCategoryLoad();
       await productLoad();
+      await adreamerLoad();
       await wishList.getWishList();
 
 
@@ -358,7 +361,7 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
                     <div class="grid grid-cols-2 lg:grid-cols-3 gap-3" v-if="results.length > 0">
                       <div class="col-span-1" v-for="(item, index) in results" :key="index">
                         <RouterLink 
-                          :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`" 
+                        :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': (item.product_type == 'solar_product' ? 'solar-product-detail': 'chuwi-product-detail'))}/${item.slug}`" 
                           @click="isSearch = false"
                         >
                           <div class="w-full h-[150px] max-h-[150px] bg-slate-200 group flex items-center justify-center rounded-lg p-4 shadow overflow-hidden">
@@ -473,12 +476,12 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
           </svg>
           <CategoryMenus :category_lists="category_lists" />
         </li>
-        <!-- <li
+        <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
             class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
-            >Adreamer</span
+            >CHUWI</span
           >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -494,8 +497,8 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
               d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
-          <AdreamerMenus />
-        </li> -->
+          <AdreamerMenus :category_lists="adreamer_category_lists" />
+        </li>
         <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >

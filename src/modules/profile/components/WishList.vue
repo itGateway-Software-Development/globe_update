@@ -27,7 +27,7 @@ import wishList from '@/utils/wishList';
                     <p class="font-bold">{{item.category}}</p>
                 </div>
                 <div class="col-span-1 flex justify-center">
-                    <RouterLink :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`">
+                    <RouterLink :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': (item.product_type == 'solar_product' ? 'solar-product-detail': 'chuwi-product-detail'))}/${item.slug}`">
                         <Eye class="hover:text-slate-700 cursor-pointer" />
                     </RouterLink>
                 </div>

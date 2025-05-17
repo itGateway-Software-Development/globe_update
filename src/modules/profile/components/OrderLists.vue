@@ -14,6 +14,7 @@ import OrderDetail from './OrderDetail.vue';
         selectedOrder.value = order
         isShowDetail.value = true
     }
+
 </script>
 
 <template>

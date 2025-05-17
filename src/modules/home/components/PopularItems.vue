@@ -15,7 +15,7 @@ import getPopularProducts from '../composable/getPopularProducts';
             <div class="col-span-1" v-for="(item, index) in products" :key="index">
                 <RouterLink 
                     v-if="index < 6"
-                    :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': 'solar-product-detail')}/${item.slug}`"
+                    :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': (item.product_type == 'solar_product' ? 'solar-product-detail': 'chuwi-product-detail'))}/${item.slug}`"
                 >
                     <div :style="{ backgroundColor: bgColors[index] }" class="w-full h-[200px] group flex items-center justify-center rounded-lg  shadow overflow-hidden">
                         <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">

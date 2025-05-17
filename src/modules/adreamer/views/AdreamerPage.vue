@@ -32,7 +32,7 @@
     }, { immediate: true }); // Run immediately on mount
 
     const goDetail = (product_slug) => {
-        router.push('/adreamer-product-detail/'+product_slug)
+        router.push('/chuwi-product-detail/'+product_slug)
     }
 
     const filterData = ref({
