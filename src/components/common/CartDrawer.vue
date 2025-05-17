@@ -30,7 +30,7 @@
                 </div>
                 <div v-else>
                     <span class="text-amber-700 text-lg font-bold" v-if="item.currency == 'MMK'">{{item.variations.price_mmk}} MMK</span>
-                    <span class="text-amber-700 text-lg font-bold flex items-center gap-1" v-else>{{item.variations.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
+                    <span class="text-amber-700 text-lg font-bold flex items-center gap-1" v-else>{{item.variations?.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
                 </div>
             </div>
         </div>

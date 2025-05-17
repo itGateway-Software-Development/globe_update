@@ -116,7 +116,6 @@
                                   </span>
                                   <span class="text-amber-700 text-lg font-bold flex items-center gap-1" v-else>
                                     {{ ((item.price_us * item.quantity) * usd_mmk_rate).toLocaleString() }} 
-                                    <DollarSign class="text-green-700" :size="20" />
                                   </span>
                                 </div>
                               

@@ -37,11 +37,11 @@
                       </div>
                     
                       <div class="flex justify-end pe-2" v-else>
-                        <span class="text-amber-700 text-base font-bold" v-if="item.variations.price_us == 0">
-                          <span class="text-slate-700">Ks</span> {{ (item.variations.price_mmk * item.quantity).toLocaleString() }} 
+                        <span class="text-amber-700 text-base font-bold" v-if="item.variations?.price_us == 0">
+                          <span class="text-slate-700">Ks</span> {{ (item.variations?.price_mmk * item.quantity).toLocaleString() }} 
                         </span>
                         <span class="text-amber-700 text-base font-bold flex items-center gap-1" v-else>
-                          <span class="text-slate-700">Ks</span> {{ ((item.variations.price_us * item.quantity) * usd_mmk_rate).toLocaleString() }}
+                          <span class="text-slate-700">Ks</span> {{ ((item.variations?.price_us * item.quantity) * usd_mmk_rate).toLocaleString() }}
                         </span>
                       </div>
                 </div>
