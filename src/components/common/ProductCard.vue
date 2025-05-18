@@ -1,79 +1,89 @@
 <script setup>
-import Modal from '@/components/common/Modal.vue';
-import { Eye, ShoppingCart, ZoomIn, DollarSign, Check, Heart } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { toastSuccess, warning } from '@/utils/sweetalert';
-import useCart from '@/composables/useCart';
-import wishList from '@/utils/wishList';
-import { storeToRefs } from 'pinia';
-import { useWishListStore } from '@/store/useWishListStore';
+    import Modal from '@/components/common/Modal.vue';
+    import { Eye, ShoppingCart, ZoomIn, DollarSign, Check, Heart } from 'lucide-vue-next';
+    import { computed, ref } from 'vue';
+    import { useRouter } from 'vue-router';
+    import { toastSuccess, warning } from '@/utils/sweetalert';
+    import useCart from '@/composables/useCart';
+    import wishList from '@/utils/wishList';
+    import { storeToRefs } from 'pinia';
+    import { useWishListStore } from '@/store/useWishListStore';
 
 
-const props  = defineProps({
-    item: {
-        type: Object
-    },
-    goDetail: {
-        type: Function
-    },
-})
+    const props  = defineProps({
+        item: {
+            type: Object
+        },
+        goDetail: {
+            type: Function
+        },
+    })
 
-const wishListStore = useWishListStore();
+    const wishListStore = useWishListStore();
 
-const {wishLists} = storeToRefs(wishListStore)
+    const {wishLists} = storeToRefs(wishListStore)
 
-const { existsInCart } = useCart();
+    const { existsInCart } = useCart();
 
-const isModalOpen = ref(false);
-const router = useRouter();
-const {addProduct} = useCart();
+    const isModalOpen = ref(false);
+    const router = useRouter();
+    const {addProduct} = useCart();
 
-const openModal = () => {
-    isModalOpen.value = true
-}
-
-const handleAddCart = (product) => {
-    console.log(product)
-    if(product.is_attribute) {
-        warning('Please select variation before adding to cart').then((result) => {
-            if(result.isConfirmed) {
-                isModalOpen.value = true;
-                return;
-            }
-        });
-        return;
+    const openModal = () => {
+        isModalOpen.value = true
     }
 
-    const result = addProduct(product);
+    const handleAddCart = (product) => {
+        console.log(product)
+        if(product.is_attribute) {
+            warning('Please select variation before adding to cart').then((result) => {
+                if(result.isConfirmed) {
+                    isModalOpen.value = true;
+                    return;
+                }
+            });
+            return;
+        }
+
+        const result = addProduct(product);
 
 
-    if(!result.ok && result.message == 'unauthenticated') {
-        router.push('/login');
-    } else {
-        toastSuccess('Product added to cart');
+        if(!result.ok && result.message == 'unauthenticated') {
+            router.push('/login');
+        } else {
+            toastSuccess('Product added to cart');
+        }
     }
-}
 
-const handleAddWish = async() => {
-    if(isAlreadyWishList.value) {
-      toastSuccess('Product already added to wishlist');
-      return
+    const handleAddWish = async() => {
+        if(isAlreadyWishList.value) {
+        toastSuccess('Product already added to wishlist');
+        return
+        }
+        const payload = {product_id: props.item.id, product_type: props.item.product_type}
+        
+        const response = await wishList.storeWishList(payload);
+
+        console.log(response)
+
+        if(response.ok) {
+            toastSuccess('Product added to wishlist');
+        }
     }
-    const payload = {product_id: props.item.id, product_type: props.item.product_type}
-    
-    const response = await wishList.storeWishList(payload);
 
-    console.log(response)
+    const isAlreadyWishList = computed(() => {
+    return wishLists.value.some(item => item.id == props.item?.id && item.sku == props.item?.sku)
+    })
 
-    if(response.ok) {
-        toastSuccess('Product added to wishlist');
-    }
-}
+    let qty = computed(() => {
+        if(props.item.is_attribute) {
+            return props.item.variations.reduce((sum, item) => {
+                return sum + item.qty
+            }, 0)
+        }
+        return props.item.qty
+    })
 
-const isAlreadyWishList = computed(() => {
-  return wishLists.value.some(item => item.id == props.item?.id && item.sku == props.item?.sku)
-})
 </script>
 
 <template>
@@ -108,8 +118,8 @@ const isAlreadyWishList = computed(() => {
                     <i class="fas fa-star text-slate-600"></i>
                 </div>
                 <div class="flex items-center gap-1 px-2">
-                    <span class="text-slate-600 text-sm">{{ item.qty > 0 ? 'Stock' : 'Out of Stock' }}</span>
-                    <span class="bg-green-300 px-1 rounded-md text-zinc-700">{{item.qty}}</span>
+                    <span v-if="item.qty > 0" class="bg-green-300 px-1 rounded-md text-zinc-700">{{qty}}</span>
+                    <span v-else class="text-rose-600 font-bold text-sm">Out of stock</span>
                 </div>
             </div>
 

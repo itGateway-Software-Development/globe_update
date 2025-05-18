@@ -97,7 +97,9 @@ import { useRouter } from 'vue-router';
                     <!-- <p class="line-clamp-6"  v-html="item.specification" ></p> -->
                      <p class="text-slate-600 leading-9">{{item.description}}</p>
 
-                    <p class="my-7">Stock - <span :class="`${item.qty > 0 ? 'bg-lime-300' : 'bg-rose-600'} py-1 px-2 rounded-lg text-sm`">{{item.qty}}</span></p>
+                    <p class="my-7" v-if="(item.is_attribute ? selectVariation.qty : item.qty) > 0">Stock - <span :class="`bg-lime-300 py-1 px-2 rounded-lg text-sm`">{{item.is_attribute ? selectVariation.qty : item.qty}}</span></p>
+
+                    <p v-else class="text-rose-700 font-bold text-sm">Out of stock</p>
 
                     <div class="mb-10" v-if="!item.is_attribute">
                       <span class="text-amber-700 text-2xl font-bold" v-if="item.price_us == 0">{{item.price_mmk}} MMK</span>
