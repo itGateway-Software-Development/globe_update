@@ -137,8 +137,8 @@
                     <AddressForm :user="user" :formData="formData" :formError="formError" />
                 </div>
                 <div class="mb-10">
-                    <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Shipping Method</h5>
-                    <p v-if="formError.city_id" class="text-sm text-rose-500">Please select a shipping method</p>
+                    <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Delivery Option</h5>
+                    <p v-if="formError.city_id" class="text-sm text-rose-500">Please select a delivery option</p>
                     <ShippingMethod 
                         :states="states" 
                         :formData="formData" 

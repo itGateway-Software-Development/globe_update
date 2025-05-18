@@ -10,7 +10,7 @@ const getPromotions = () => {
     const errors = ref();
 
     const load = async(count = 0) => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "promotions?count="+ count);
 
@@ -18,7 +18,7 @@ const getPromotions = () => {
                 throw new Error("page not found");
             }
             promotions.value = response.data.promotions;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;

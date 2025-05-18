@@ -10,7 +10,7 @@ const getRandomProducts = () => {
     const errors = ref();
 
     const load = async() => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "random-products");
 
@@ -18,7 +18,7 @@ const getRandomProducts = () => {
                 throw new Error("page not found");
             }
             products.value = response.data.products;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;

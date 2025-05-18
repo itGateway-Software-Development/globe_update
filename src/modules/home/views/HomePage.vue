@@ -18,12 +18,12 @@ import { useGeneralStore } from "@/store/useGeneralStore";
 const generalStore = useGeneralStore();
 
 
-onMounted(() => {
-  generalStore.toggleLoading(true); // show loading
-  setTimeout(() => {
-    generalStore.toggleLoading(false); // hide loading after 4s
-  }, 1500);
-});
+// onMounted(() => {
+//   generalStore.toggleLoading(true); 
+//   setTimeout(() => {
+//     generalStore.toggleLoading(false);
+//   }, 1500);
+// });
 
 </script>
 

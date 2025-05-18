@@ -10,7 +10,7 @@ const getCurrencyRate = () => {
     const errors = ref();
 
     const load = async() => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "usd-mmk-rate");
 
@@ -18,7 +18,7 @@ const getCurrencyRate = () => {
                 throw new Error("page not found");
             }
             usd_mmk_rate.value = response.data.rate;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;

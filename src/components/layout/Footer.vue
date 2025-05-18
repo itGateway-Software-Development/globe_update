@@ -2,17 +2,21 @@
 import { MapPinned,PhoneCall,Mail, ExternalLink } from 'lucide-vue-next';
 import getXpPenCategory from '@/composables/getXpPenCategory';
 import getSolarCategoryList from '@/composables/getSolarCategoryList';
+import getAdreamerCategoryList from '@/composables/getAdreamerCategoryList';
 import {onMounted} from 'vue'
 
 
 
 const {xp_pens_category, error: xpPenErrors, load: xpPenLoad} = getXpPenCategory();
 const {category_lists: solar_category_lists, errors: solarErrors, load: solarCategoryLoad} = getSolarCategoryList();
+const {category_lists: adreamer_category_lists, errors: adreamerErrors, load: adreamerLoad} = getAdreamerCategoryList();
+
 
 
 onMounted(async() => {
     await xpPenLoad();
     await solarCategoryLoad();
+    await adreamerLoad();
 })
 
 const navigate = (route) => {
@@ -55,7 +59,7 @@ const navigate = (route) => {
                 </div>
             </div>
 
-            <div class="col-span-1 flex justify-center">
+            <div class="col-span-1 flex justify-start md:justify-center">
                 <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7">XP-Pens</h2>
                     <div class="flex flex-col gap-3">
@@ -64,7 +68,7 @@ const navigate = (route) => {
                 </div>
             </div>
 
-            <div class="col-span-1 flex justify-center">
+            <div class="col-span-1 flex justify-start md:justify-center">
                 <div>
                     <h2 class="text-2xl text-slate-200 font-bold mb-7">Globe Solar Solution</h2>
                     <div class="flex flex-col gap-3">
@@ -81,17 +85,13 @@ const navigate = (route) => {
                 </div>
             </div>
 
-            <div class="col-span-1 flex flex-wrap justify-center">
-                <!-- <div>
-                    <h2 class="text-2xl text-slate-200 font-bold mb-7">Adreamer </h2>
+            <div class="col-span-1 flex flex-wrap justify-start md:justify-center">
+                <div>
+                    <h2 class="text-2xl text-slate-200 font-bold mb-7">CHUWI </h2>
                     <div class="flex flex-col gap-3">
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Laptops</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Tablet</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">All in one PC</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Portable</RouterLink>
-                        <RouterLink to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">Interactive Display</RouterLink>
+                        <RouterLink v-for="category in adreamer_category_lists" :key="category.id" :to="`/chuwi/${category.slug}`" to="/" class="text-lg text-slate-200 hover:text-slate-700 underline underline-offset-4">{{category.name}}</RouterLink>
                     </div>
-                </div> -->
+                </div>
             </div>
 
         </Container>

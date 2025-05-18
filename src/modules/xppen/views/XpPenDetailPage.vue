@@ -164,12 +164,9 @@ const isAlreadyWishList = computed(() => {
 
         <p class="text-slate-600 leading-9 ps-2">{{product.description}}</p>
 
-        <p class="my-7">
-          Stock - 
-          <span :class="`${product.qty > 0 ? 'bg-lime-300' : 'bg-rose-600'} py-1 px-2 rounded-lg text-sm`">
-            {{ product.qty }}
-          </span>
-        </p>
+        <p class="my-7" v-if="(product.is_attribute ? selectVariation.qty : product.qty) > 0">Stock - <span :class="`bg-lime-300 py-1 px-2 rounded-lg text-sm`">{{product.is_attribute ? selectVariation.qty : product.qty}}</span></p>
+
+         <p v-else class="text-rose-700 font-bold text-sm">Out of stock</p>
 
         <div class="mb-7">
           <span class="text-amber-700 text-2xl font-bold" v-if="product.price_usd == 0">

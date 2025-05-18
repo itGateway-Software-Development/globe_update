@@ -10,7 +10,7 @@ const getXpPenCategory = () => {
     const errors = ref();
 
     const load = async() => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "xp-pens-category");
 
@@ -18,7 +18,7 @@ const getXpPenCategory = () => {
                 throw new Error("page not found");
             }
             xp_pens_category.value = response.data.categories;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;

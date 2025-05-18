@@ -18,7 +18,7 @@
          >
       <Navbar />
     </div>
-    <main class="flex-1 mt-[80px] md:mt-[133px] main-layout">
+    <main class="flex-1 mt-[80px] md:mt-[0px] xl:mt-[133px]  main-layout">
       <router-view />
     </main>
     <Footer />
@@ -29,9 +29,15 @@
 
 
 <style scoped>
-  @media (min-width: 768px) and (max-width: 903px) {
+  @media (min-width: 768px) and (max-width: 787px) {
     .main-layout {
       margin-top: 190px !important;
+    }
+  }
+
+  @media (min-width: 787px) and (max-width: 1279px) {
+    .main-layout {
+      margin-top: 140px !important;
     }
   }
 </style>

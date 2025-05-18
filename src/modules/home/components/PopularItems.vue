@@ -17,8 +17,8 @@ import getPopularProducts from '../composable/getPopularProducts';
                     v-if="index < 6"
                     :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': (item.product_type == 'solar_product' ? 'solar-product-detail': 'chuwi-product-detail'))}/${item.slug}`"
                 >
-                    <div :style="{ backgroundColor: bgColors[index] }" class="w-full h-[200px] group flex items-center justify-center rounded-lg  shadow overflow-hidden">
-                        <img class="group-hover:scale-110 duration-300" :src="item.images[0]?.image_url" alt="">
+                    <div :style="{ backgroundColor: bgColors[index] }" class="w-full h-[120px] xl:h-[200px] group flex items-center justify-center rounded-lg  shadow overflow-hidden">
+                        <img class="group-hover:scale-110 duration-300 w-full h-full" :src="item.images[0]?.image_url" alt="">
                     </div>
                     <p class="text-center mt-2 text-base px-2">{{item.name}}</p>
                 </RouterLink>

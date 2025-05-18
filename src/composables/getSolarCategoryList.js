@@ -10,7 +10,7 @@ const getSolarCategoryList = () => {
     const errors = ref();
 
     const load = async() => {
-        generalStore.toggleLoading();
+        // generalStore.toggleLoading();
         try {
             let response = await axios.get(api + "solar-category-lists");
 
@@ -18,7 +18,7 @@ const getSolarCategoryList = () => {
                 throw new Error("page not found");
             }
             category_lists.value = response.data.categories;
-            generalStore.toggleLoading();
+            // generalStore.toggleLoading();
 
         } catch (error) {
             errors.value = error;
