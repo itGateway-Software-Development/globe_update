@@ -1,11 +1,12 @@
 <script setup>
     import { useRoute, useRouter } from 'vue-router';
     import getProducts from '../composables/getProducts';
-    import { computed, ref, watch } from 'vue';
+    import { computed, onMounted, ref, watch } from 'vue';
     import { slugToCap } from '@/utils/textFormat';
-    import { ChevronRight, ChevronsLeftRightEllipsis } from 'lucide-vue-next';
+    import { ChevronRight, ChevronsLeftRightEllipsis, TextSearch } from 'lucide-vue-next';
     import Divider from '@/components/common/Divider.vue';
     import ProductCard from '@/components/common/ProductCard.vue';
+    import { initFlowbite } from 'flowbite';
 
     const route = useRoute();
     const router = useRouter();
@@ -86,13 +87,88 @@
         });
     })
 
+    onMounted(() => {
+        initFlowbite();
+        window.scrollTo(0, 0);
+    })
+
 </script>
 
 <template>
     <Container className="py-10">
-        <div class="grid grid-cols-5 gap-16">
-            <div class="col-span-1 sticky top-[160px]">
-                <div class="flex flex-col gap-7 sticky top-[160px] h-[calc(100vh-40px)] overflow-y-auto">
+        <div class="grid grid-cols-5 gap-1 xl:gap-10 2xl:gap-16">
+            <div class="col-span-1 sticky top-[160px] h-[calc(100vh-160px)] overflow-y-auto hidden lg:block">
+                <div class="flex flex-col gap-7 ">
+                    <div class="flex gap-2 items-center">
+                        <h3 class="text-slate-500">Home</h3>
+                        <ChevronRight :size="20" class="text-slate-500" />
+                        <h3 class="text-slate-500">{{category_name}}</h3>
+                    </div>
+
+
+                    <div v-for="(attribute, index) in attributes">
+                        <h3 class="text-xl text-slate-700 font-bold">{{attribute.name}}</h3>
+                        <Divider />
+                        <div class="mt-3 ps-2">
+                            <div class="flex items-center" v-for="(attr_value, i) in attribute.attribute_values" :key="i">
+                                <input 
+                                    :id="`attr-checkbox-${attr_value.id}-${i}`"
+                                    type="checkbox"
+                                    :value="attr_value.name"
+                                    v-model="filterData.attributes[attribute.name]"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-500 rounded-sm focus:ring-transparent"
+                                />
+                                <label :for="`attr-checkbox-${attr_value.id}-${i}`" class="ms-2 text-base font-medium text-slate-600 ">{{attr_value.name}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl text-slate-700 font-bold">Price</h3>
+                        <Divider />
+                        <div class="mt-3 px-0 xl:px-5">
+                            <div class="slider-demo-block">
+                                <el-slider v-model="filterData.price" range :max="2000000"  />
+                            </div>
+
+                            <div class="mt-2 flex flex-col 2xl:flex-row items-center gap-1">
+                                <input type="number" v-model="filterData.price[0]" class="border border-slate-400 rounded-lg px-1 py-[6px] w-full text-slate-700 placeholder:italic placeholder:text-sm focus:outline-none" placeholder="Min">
+                                <span><ChevronsLeftRightEllipsis :size="20" /></span>
+                                <input type="number" v-model="filterData.price[1]" class="border border-slate-400 rounded-lg px-1 py-[6px] w-full text-slate-700 placeholder:italic placeholder:text-sm focus:outline-none" placeholder="Max">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-5 lg:col-span-4">
+                <div class="lg:hidden">
+                    <button
+                        type="button"
+                        class="flex items-center gap-2 mb-5"
+                        data-drawer-target="adreamer-filter-drawer" 
+                        data-drawer-show="adreamer-filter-drawer" 
+                        data-drawer-placement="left" 
+                        aria-controls="adreamer-filter-drawer"
+                    >
+                        <TextSearch :size="20" class="text-slate-600" />
+                        Filter
+                    </button>
+                </div>
+
+                <div id="adreamer-filter-drawer" class="fixed top-0 left-0 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80  z-[999]" tabindex="-1" aria-labelledby="drawer-left-label">
+                    <h5 id="drawer-left-label" class="inline-flex items-center gap-5 mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+                        <TextSearch :size="20" class="text-slate-600" />
+                        Filter
+                    </h5>
+                   <button type="button" data-drawer-hide="adreamer-filter-drawer" aria-controls="adreamer-filter-drawer" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center " >
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close menu</span>
+                   </button>
+
+                   <div class="flex flex-col gap-7 ">
                     <div class="flex gap-2 items-center">
                         <h3 class="text-slate-500">Home</h3>
                         <ChevronRight :size="20" class="text-slate-500" />
@@ -133,9 +209,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                    
+                </div>
 
-            <div class="col-span-4">
+
+
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
                        <ProductCard :item="item" :goDetail="goDetail"/>

@@ -214,7 +214,7 @@ const isAlreadyWishList = computed(() => {
       <h3 class="font-semibold text-2xl">Related Products</h3>
       <hr>
       <div class="mt-5">
-          <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               <div class="col-span-1" v-for="(item, index) in relatedProducts" :key="index">
                   <ProductCard :item="item" :goDetail="goDetail" />
               </div>

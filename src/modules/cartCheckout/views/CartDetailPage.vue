@@ -41,7 +41,7 @@
             <p v-if="cartItems.length > 0" class="text-lg font-bold">Today exchange rate is <span class="text-red-500 underline">{{usd_mmk_rate}}</span></p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-10">
             <div class="col-span-1 md:col-span-2 lg:col-span-3">
                 <div class="overflow-x-auto" v-if="cartItems.length > 0">
                     <table class="w-full table-auto">

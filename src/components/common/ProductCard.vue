@@ -88,7 +88,7 @@
 
 <template>
     <div class="flex flex-col gap-2 shadow-xl border border-slate-300 rounded-lg overflow-hidden">
-        <div class="bg-slate-200 relative group h-[310px]">
+        <div class="bg-slate-200 relative group h-[380px] lg:h-[310px]">
             <!-- <span class="absolute top-3 left-3 z-20 text-white text-xs font-semibold bg-sky-600 px-3 py-1 rounded-lg">{{ item.category }}</span> -->
             <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-2 z-20">
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="handleAddWish"><Heart :size="20" :fill="isAlreadyWishList ? 'red' : 'transparent'" :class="`${isAlreadyWishList ? 'text-rose-800' : 'text-slate-700'} group-hover/icon:text-rose-800`" /></span>
@@ -98,9 +98,9 @@
 
             <Modal :item="item"  :isOpen="isModalOpen" @close="isModalOpen = false"  />
             
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`" :src="item.preview_images[0]?.image_url" alt="" />
+            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`" :src="item.preview_images[0]?.image_url" alt="" />
         
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`" :src="item.preview_images[1]?.image_url" alt="" />
+            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`" :src="item.preview_images[1]?.image_url" alt="" />
         </div>
 
         <div class="p-2">

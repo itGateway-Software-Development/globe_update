@@ -128,7 +128,7 @@
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 md:grid-cols-2 px-5 xl:px-0">
         <div class="col-span-1 pe-10 border-r-2 border-slate-300 py-10">
             <div class="max-w-[550px] ms-auto ">
                 <h3 class="text-2xl font-bold text-slate-700">Checkout</h3>
