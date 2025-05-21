@@ -60,7 +60,7 @@ import { useRouter } from 'vue-router';
         v-if="isOpen"
         class="fixed top-0 left-0 right-0 z-[999] w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 flex justify-center items-center"
       >
-        <div class="relative p-4 w-full max-w-6xl md:max-w-4xl sm:max-w-sm bg-white rounded-lg shadow-sm mx-2">
+        <div class="relative p-4 w-full max-w-6xl md:max-w-4xl sm:max-w-2xl bg-white rounded-lg shadow-sm mx-2">
           <!-- Modal header -->
           <div class="flex items-center justify-between p-2 md:p-2 border-b border-gray-200 rounded-t sticky top-0 bg-white z-10">
             <h3 class="text-xl font-semibold text-gray-900">
@@ -78,7 +78,7 @@ import { useRouter } from 'vue-router';
             </button>
           </div>
           <!-- Modal body -->
-          <div class="p-4 md:p-5 space-y-4 mt-[200px] lg:mt-[100px] xl:mt-auto">
+          <div class="p-4 md:p-5 space-y-4 mt-[250px] md:mt-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="col-span-1">
                     <div class="border border-3 rounded-lg shadow-lg overflow-hidden flex justify-center max-w-[500px] ">

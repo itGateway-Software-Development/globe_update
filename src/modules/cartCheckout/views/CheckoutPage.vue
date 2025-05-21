@@ -12,10 +12,13 @@
     import { askConfirmation, toastSuccess, warning } from '@/utils/sweetalert';
     import { useRouter } from 'vue-router';
     import getBankAccounts from '../composables/getBankAccounts';
+    import { spiral } from 'ldrs'
+
 
     const user = LocalStorage.get('user')
     const { cartItems, clearCart } = useCart();
     const router = useRouter();
+    const isSubmittingOrder = ref(false)
 
     const {states, error, load} = getDeliveryStates();
     const {usd_mmk_rate, error: currencyError, load: currencyLoad} = getCurrencyRate();
@@ -58,6 +61,7 @@
         await load();
         await currencyLoad();
         await accountLoad();
+        spiral.register()
 
         formData.value.state_id = states.value[0]?.id;
 
@@ -118,13 +122,16 @@
 
         askConfirmation('Are you sure to submit order?', 'Yes, Submit').then(async(result) => {
             if(result.isConfirmed) {
+                isSubmittingOrder.value = true
                 let response = await submit(formData.value, user.id);
                 if(response.data.ok) {
                     toastSuccess('Order submitted successfully');
+                    isSubmittingOrder.value = false
                     clearCart();
                     router.push('/profile');
                 } else {
-                    warning(response.message)
+                    isSubmittingOrder.value = false
+                    warning('Something went wrong')
                 }
             }
         })
@@ -138,7 +145,7 @@
             <div class="max-w-[580px] ms-auto ">
                 <h3 class="text-2xl font-bold text-slate-700">Checkout</h3>
                 <div class="mb-10">
-                    <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Shipping Information</h5>
+                    <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Delivery Information</h5>
                     <AddressForm :user="user" :formData="formData" :formError="formError" />
                 </div>
                 <div class="mb-10">
@@ -149,6 +156,8 @@
                         :formData="formData" 
                         @cityChange="handleCityChange"
                     />
+
+                    <p class="mt-3 text-sm text-rose-700 font-semibold">နယ် မှ မှာယူ သူများ သည် ရန်ကုန် ကားဂိတ် ထိ ဖေါ်ပြထားသည့် delivery fee အတိုင်း ငွေလွှဲ ပေးပို့ပေးပါရန် နှင့် "တန်ဆာခ (Freight charge) ကို ကား မှ သတ်မှတ်နှုန်းထား အတိုင်း ပေးဆောင်ပြီး ပစ္စည်းရွေးယူရပါမည်။</p>
                 </div>
                 <div class="mb-10">
                     <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Payment Method</h5>
@@ -170,9 +179,19 @@
                 <div class="mt-5">
                     <button 
                         @click="handleSubmit"
+                        v-if="!isSubmittingOrder"
                         class="bg-[#1162ad] text-white py-2 px-10 rounded-full mt-3 border border-[#1162ad] hover:bg-transparent hover:text-slate-700 duration-200 w-full font-bold"
                     >
                         Submit Order
+                    </button>
+
+                    <button v-else class="border border-[#1162adcb] bg-[#1162adcb] text-center text-lg font-bold text-white w-full rounded-full py-2 flex items-center justify-center gap-4">
+                        Submitting Your Order
+                        <l-spiral
+                            size="25"
+                            speed="0.9" 
+                            color="white" 
+                        ></l-spiral>
                     </button>
                 </div>
             </div>

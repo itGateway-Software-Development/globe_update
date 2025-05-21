@@ -94,6 +94,7 @@ import WishList from '../components/WishList.vue';
 
     onMounted(async() => {
         orders.value = await useUserService.getOrders(user.id, token)
+        window.scrollTo(0,0)
     })
 
 </script>

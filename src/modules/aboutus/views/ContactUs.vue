@@ -1,10 +1,38 @@
 <script setup>
-import { warning } from '@/utils/sweetalert';
+import { toastSuccess, warning } from '@/utils/sweetalert';
 import { Clock, Headset, Mail, Map, MapPinned, MessagesSquare, Minus, PhoneCall, PhoneOutgoing } from 'lucide-vue-next';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { sendMessage } from '../services/sendMessage';
 
 const showContactNo = () => {
     warning('+959 880441216', 'Here our number call us')
+}
+
+const isSending = ref(false)
+const formData = ref({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+})
+
+const handleSubmit = async() => {
+    if(!formData.value.name || !formData.value.email || !formData.value.phone || !formData.value.message) {
+        warning('Please fill all the fields', 'Error')
+        return
+    }
+
+    isSending.value = true
+    let resopnse = await sendMessage(formData.value)
+    
+    if(resopnse.data.ok) {
+        isSending.value = false
+        toastSuccess('Message sent successfully')
+        formData.value.name = ""
+        formData.value.email = ""
+        formData.value.phone = ""
+        formData.value.message = ""
+    }
 }
 
 onMounted(() => {
@@ -120,23 +148,28 @@ onMounted(() => {
                     <div class="flex gap-5 w-full ">
                         <div class="flex flex-col gap-1 w-[50%]">
                             <label for="">Name</label>
-                            <input type="text" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. John">
+                            <input v-model="formData.name" type="text" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. John">
                         </div>
                         <div class="flex flex-col gap-1 w-[50%]">
                             <label for="">Email</label>
-                            <input type="text" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. john@gmail.com">
+                            <input v-model="formData.email" type="email" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. john@gmail.com">
                         </div>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="">Phone</label>
-                        <input type="number" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. 09xxxxxxx">
+                        <input v-model="formData.phone" type="number" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="eg. 09xxxxxxx">
                     </div>
                     <div class="flex flex-col gap-1">
                         <label for="">Message</label>
-                        <textarea name="" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="Enter your message" id=""></textarea>
+                        <textarea v-model="formData.message" name="" class="border border-slate-600 rounded-lg bg-transparent placeholder:text-sm placeholder:italic placeholder:text-slate-600 w-full" placeholder="Enter your message" id=""></textarea>
                     </div>
                     <div>
-                        <button class="bg-[#1162ad] text-center text-lg font-bold text-white w-full rounded-full py-3">Send Message</button>
+                        <button v-if="!isSending" @click="handleSubmit" class="bg-[#1162ad] text-center text-lg font-bold text-white w-full rounded-full py-3">
+                            Send Message
+                        </button>
+                        <button v-else class="bg-[#5ea9ee] text-center text-lg font-bold text-white w-full rounded-full py-3">
+                            Sending Message ...
+                        </button>
                     </div>
                 </div>
             </div>
