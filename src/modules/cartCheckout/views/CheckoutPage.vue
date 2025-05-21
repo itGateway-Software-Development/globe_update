@@ -11,6 +11,7 @@
     import { submit } from '../composables/useOrder';
     import { askConfirmation, toastSuccess, warning } from '@/utils/sweetalert';
     import { useRouter } from 'vue-router';
+    import getBankAccounts from '../composables/getBankAccounts';
 
     const user = LocalStorage.get('user')
     const { cartItems, clearCart } = useCart();
@@ -18,6 +19,7 @@
 
     const {states, error, load} = getDeliveryStates();
     const {usd_mmk_rate, error: currencyError, load: currencyLoad} = getCurrencyRate();
+    const {accounts, error: accountError, load: accountLoad} = getBankAccounts();
 
     const formData = ref({
         name: user?.name,
@@ -31,7 +33,8 @@
         city_id: '',
         shipping_fee: 0,
         payment_method: 'cod',
-        kpay_slip: '',
+        bank_account_id: null,
+        payment_slip: '',
         total_qty: 0,
         subtotal_mmk: 0,
         cart_items: cartItems,
@@ -48,12 +51,14 @@
         state_id: false,
         city_id: false,
         payment_method: false,
-        kpay_slip: false,
+        payment_slip: false,
     })
 
     onMounted(async() => {
         await load();
         await currencyLoad();
+        await accountLoad();
+
         formData.value.state_id = states.value[0]?.id;
 
         formData.value.subtotal_mmk = cartItems.value.reduce((sum, item) => {
@@ -95,8 +100,8 @@
         });
 
         // Conditional validation
-        if (formData.payment_method === 'kpay' && !formData.kpay_slip) {
-            formError.kpay_slip = true;
+        if (formData.payment_method === 'bank_pay' && !formData.payment_slip) {
+            formError.payment_slip = true;
             hasError = true;
         }
 
@@ -130,7 +135,7 @@
 <template>
     <div class="grid grid-cols-1 md:grid-cols-2 px-5 xl:px-0">
         <div class="col-span-1 pe-10 border-r-2 border-slate-300 py-10">
-            <div class="max-w-[550px] ms-auto ">
+            <div class="max-w-[580px] ms-auto ">
                 <h3 class="text-2xl font-bold text-slate-700">Checkout</h3>
                 <div class="mb-10">
                     <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Shipping Information</h5>
@@ -147,8 +152,8 @@
                 </div>
                 <div class="mb-10">
                     <h5 class="text-lg font-bold text-slate-500 mt-5 mb-3">Payment Method</h5>
-                    <p v-if="formData.payment_method == 'kpay' && formError.kpay_slip" class="text-sm text-rose-500">Please upload Kpay slip</p>
-                    <PaymentForm :formData="formData" />
+                    <p v-if="formData.payment_method == 'bank_pay' && formError.payment_slip" class="text-sm text-rose-500">Please upload payment slip</p>
+                    <PaymentForm :formData="formData" :accounts="accounts" />
                 </div>
             </div>
         </div>

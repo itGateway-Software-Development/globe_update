@@ -77,10 +77,13 @@
                         <p class="text-end font-bold">Payment Method</p>
                     </td>
                     <td class="py-3 pe-3">
-                        <p class="text-end font-bold">{{order.payment_method?.toUpperCase()}}</p>
+                        <p class="text-end font-bold">
+                            {{order.payment_method?.toUpperCase()}} <br>
+                            <span class="text-cyan-500 text-sm">({{order.bank_account?.toUpperCase()}})</span>
+                        </p>
                     </td>
                 </tr>
-                <tr v-if="order.payment_method == 'kpay'">
+                <tr v-if="order.payment_method == 'bank_pay'">
                     <td colspan="3"></td>
                     <td class="py-3 " colspan="2">
                         <img class="w-full" :src="order.slip" alt="">

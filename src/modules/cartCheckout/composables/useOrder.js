@@ -15,7 +15,8 @@ export const submit = (payload, id) => {
     formData.append("city_id", payload.city_id);
     formData.append("shipping_fee", payload.shipping_fee);
     formData.append("payment_method", payload.payment_method);
-    formData.append("kpay_slip", payload.kpay_slip);
+    formData.append("bank_account_id", payload.bank_account_id);
+    formData.append("payment_slip", payload.payment_slip);
     formData.append("rate", payload.rate);
     formData.append("total_qty", payload.total_qty);
     formData.append("subtotal_mmk", payload.subtotal_mmk);
