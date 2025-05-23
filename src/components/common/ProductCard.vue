@@ -62,8 +62,14 @@
 
     const handleAddWish = async() => {
         if(isAlreadyWishList.value) {
-        toastSuccess('Product already added to wishlist');
-        return
+            const response = await wishList.removeWishList(props.item.id, props.item.product_type);
+
+            if(response.ok) {
+                toastSuccess('Product is removed from wishlist');
+                return
+            }
+
+            return;
         }
         const payload = {product_id: props.item.id, product_type: props.item.product_type}
         

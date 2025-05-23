@@ -59,6 +59,7 @@ import { useRouter } from 'vue-router';
       <div 
         v-if="isOpen"
         class="fixed top-0 left-0 right-0 z-[999] w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-50 flex justify-center items-center"
+        @click.self="closeModal"
       >
         <div class="relative p-4 w-full max-w-6xl md:max-w-4xl sm:max-w-2xl bg-white rounded-lg shadow-sm mx-2">
           <!-- Modal header -->
