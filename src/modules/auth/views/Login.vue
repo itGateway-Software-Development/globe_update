@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 
     const formValue = ref({
         email: "",
-        phone: "",
+        password: "",
     });
 
     const router = useRouter();
@@ -52,8 +52,8 @@ import { useRouter } from 'vue-router';
 
             <div class="mt-8 flex flex-col gap-5">
                 <div class="flex flex-col gap-1">
-                    <label for="" class="text-base text-slate-600 font-bold">Email</label>
-                    <input v-model="formValue.email" type="email" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
+                    <label for="" class="text-base text-slate-600 font-bold">Email (or) Phone</label>
+                    <input v-model="formValue.email" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="" class="text-base text-slate-600 font-bold">Password</label>
