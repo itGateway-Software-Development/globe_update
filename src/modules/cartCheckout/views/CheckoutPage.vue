@@ -123,12 +123,16 @@
         askConfirmation('Are you sure to submit order?', 'Yes, Submit').then(async(result) => {
             if(result.isConfirmed) {
                 isSubmittingOrder.value = true
-                let response = await submit(formData.value, user.id);
+                let response = await submit(formData.value, user ? user.id : null);
                 if(response.data.ok) {
                     toastSuccess('Order submitted successfully');
                     isSubmittingOrder.value = false
                     clearCart();
-                    router.push('/profile');
+                    if(user) {
+                        router.push('/profile');
+                    } else {
+                        router.push('/');
+                    }
                 } else {
                     isSubmittingOrder.value = false
                     warning('Something went wrong')

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const submit = (payload, id) => {
     const formData = new FormData();
-    formData.append("user_id", id);
+    formData.append("user_id", id ?? null);
     formData.append("name", payload.name);
     formData.append("email", payload.email);
     formData.append("phone", payload.phone);

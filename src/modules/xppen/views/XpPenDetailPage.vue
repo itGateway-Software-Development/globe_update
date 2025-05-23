@@ -85,11 +85,13 @@ const goDetail = (slug) => {
     console.log(product)
     const result = addProduct(product);
 
-    if(!result.ok && result.message == 'unauthenticated') {
-        router.push('/login');
-    } else {
-        toastSuccess('Product added to cart');
-    }
+    toastSuccess('Product added to cart');
+
+    // if(!result.ok && result.message == 'unauthenticated') {
+    //     router.push('/login');
+    // } else {
+    //     toastSuccess('Product added to cart');
+    // }
 }
 
 const handleAddWish = async(product) => {

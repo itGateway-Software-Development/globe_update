@@ -5,11 +5,6 @@ const CART_KEY = "cart"; // cart key in local storage
 
 const addToCart = {
     add: (product, variation_id) => {
-        let token = LocalStorage.get("token");
-
-        if (!token) {
-            return { ok: false, message: "unauthenticated" };
-        }
 
         // Get existing cart or empty array
         let cart = LocalStorage.get(CART_KEY) || [];

@@ -10,9 +10,10 @@
     <div class="flex flex-col gap-4">
         <input 
             type="email" 
-            :class="`bg-slate-100 border ${formError.email ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-base px-5 py-[10px]`" 
+            :class="`${user ? 'bg-slate-100' : 'bg-white'} border ${formError.email ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-slate-500 placeholder:text-base px-5 py-[10px]`" 
             v-model="formData.email"
-            readonly
+            placeholder="Enter Email"
+            :readonly="user ? true : false"
         >
 
         <input 

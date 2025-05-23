@@ -99,11 +99,13 @@ const goDetail = (slug) => {
   const handleAddCart = (product) => {
     const result = addProduct(product, current_variation_id.value);
 
-    if(!result.ok && result.message == 'unauthenticated') {
-        router.push('/login');
-    } else {
-        toastSuccess('Product added to cart');
-    }
+    toastSuccess('Product added to cart');
+
+    // if(!result.ok && result.message == 'unauthenticated') {
+    //     router.push('/login');
+    // } else {
+    //     toastSuccess('Product added to cart');
+    // }
 }
 
 const handleAddWish = async(product) => {

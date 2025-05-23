@@ -51,12 +51,13 @@
 
         const result = addProduct(product);
 
+        toastSuccess('Product added to cart');
 
-        if(!result.ok && result.message == 'unauthenticated') {
-            router.push('/login');
-        } else {
-            toastSuccess('Product added to cart');
-        }
+        // if(!result.ok && result.message == 'unauthenticated') {
+        //     router.push('/login');
+        // } else {
+        //     toastSuccess('Product added to cart');
+        // }
     }
 
     const handleAddWish = async() => {
