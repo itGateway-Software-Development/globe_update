@@ -41,11 +41,12 @@ import { onMounted } from 'vue';
     const filterData = ref({
         brand_slugs: [],
         price: [0, 2000000],
-        attributes: {}
+        attributes: {},
+        price_order: 'asc'
     })
 
     const filteredProducts = computed(() => {
-        return products.value.filter(product => {
+        const filtered = products.value.filter(product => {
             const matchesBrand = filterData.value.brand_slugs.length === 0 
                 || filterData.value.brand_slugs.includes(product.brand_slug);
 
@@ -57,37 +58,53 @@ import { onMounted } from 'vue';
 
             const isPriceInRange = (price_mmk, price_us) => {
                 const isPriceInRange = (price) => parseInt(price) >= parseInt(filterData.value.price[0]) && parseInt(price) <= parseInt(filterData.value.price[1]);
-                
-                // Check price for MMK and USD
                 const priceMatchesMMK = price_us == 0 && isPriceInRange(price_mmk);
                 const priceMatchesUSD = price_us > 0 && isPriceInRange(price_us);
+                return priceMatchesMMK || priceMatchesUSD;
+            };
 
-                return priceMatchesMMK || priceMatchesUSD;  // return true if either MMK or USD is within the range
-            }
-
-            const matchesPrice = product.price_range ? isPriceInRangeForVariation(product.price_range) : isPriceInRange(product.price_mmk, product.price_us);
+            const matchesPrice = product.price_range 
+                ? isPriceInRangeForVariation(product.price_range) 
+                : isPriceInRange(product.price_mmk, product.price_us);
 
             const matchesAttributes = () => {
-            const selectedAttrs = filterData.value.attributes;
+                const selectedAttrs = filterData.value.attributes;
+                const isAnyAttrSelected = Object.values(selectedAttrs).some(arr => arr.length > 0);
+                if (!isAnyAttrSelected) return true;
 
-            
-            // If no attributes selected, it's a match
-            const isAnyAttrSelected = Object.values(selectedAttrs).some(arr => arr.length > 0);
-            if (!isAnyAttrSelected) return true;
-
-            // Check if any variation matches all selected attributes
-            return product.variations?.some(variation => {
-                return Object.entries(selectedAttrs).every(([attrName, selectedValues]) => {
-                    if (selectedValues.length === 0) return true;
-                    const variationAttrValue = variation.attributes?.[attrName];
-                    return selectedValues.includes(variationAttrValue);
+                return product.variations?.some(variation => {
+                    return Object.entries(selectedAttrs).every(([attrName, selectedValues]) => {
+                        if (selectedValues.length === 0) return true;
+                        const variationAttrValue = variation.attributes?.[attrName];
+                        return selectedValues.includes(variationAttrValue);
+                    });
                 });
-            });
+            };
+
+            return matchesBrand && matchesPrice && matchesAttributes();
+        });
+
+        // Sort by min or max price depending on price_order
+        const getComparablePrice = (product) => {
+            if (product.price_range) {
+                const [min, max] = product.price_range.split('-').map(p => parseInt(p));
+                return filterData.value.price_order === 'asc' ? min : max;
+            } else {
+                return product.price_us > 0 
+                    ? parseInt(product.price_us) 
+                    : parseInt(product.price_mmk);
+            }
         };
 
-        return matchesBrand && matchesPrice && matchesAttributes();
+        return filtered.sort((a, b) => {
+            const priceA = getComparablePrice(a);
+            const priceB = getComparablePrice(b);
+
+            return filterData.value.price_order === 'asc'
+                ? priceA - priceB
+                : priceB - priceA;
         });
-    })
+    });
 
     onMounted(async () => {
         initFlowbite();
@@ -214,6 +231,13 @@ import { onMounted } from 'vue';
                     </div>
                 </div>
 
+                <!-- price asc/desc filtr -->
+                <div class="mb-3">
+                    <select name="price_order" id="" class="border border-slate-400 rounded-lg px-3 py-[6px]  text-slate-700 placeholder:italic placeholder:text-sm focus:outline-none" v-model="filterData.price_order">
+                        <option value="asc">Price (Low to High)</option>
+                        <option value="desc">Price (High to Low)</option>
+                    </select>
+                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">

@@ -33,7 +33,8 @@
 
     const filterData = ref({
         series_slugs: [],
-        price: [0,2000000]
+        price: [0,2000000],
+        price_order: 'asc'
     })
 
 
@@ -50,21 +51,38 @@
     ]
 
     const filteredProducts = computed(() => {
-        return xppen_products.value.filter(product => {
-            if (filterData.value.series_slugs.length > 0) {
+        const filtered = xppen_products.value.filter(product => {
+            const isSeriesMatch = filterData.value.series_slugs.length === 0
+                || filterData.value.series_slugs.includes(product.series_slug);
 
-                return filterData.value.series_slugs.includes(product.series_slug)
-            } else {
-                const isPriceInRange = (price) => parseInt(price) >= parseInt(filterData.value.price[0]) && parseInt(price) <= parseInt(filterData.value.price[1]);
-                
-                // Check price for MMK and USD
-                const priceMatchesMMK = product.price_us == 0 && isPriceInRange(product.price_mmk);
-                const priceMatchesUSD = product.price_us > 0 && isPriceInRange(product.price_us);
+            if (!isSeriesMatch) return false;
 
-                return priceMatchesMMK || priceMatchesUSD;  // return true if either MMK or USD is within the range
-            }
-        })
-    })
+            const isPriceInRange = (price) =>
+                parseInt(price) >= parseInt(filterData.value.price[0]) &&
+                parseInt(price) <= parseInt(filterData.value.price[1]);
+
+            const priceMatchesMMK = product.price_us == 0 && isPriceInRange(product.price_mmk);
+            const priceMatchesUSD = product.price_us > 0 && isPriceInRange(product.price_us);
+
+            return priceMatchesMMK || priceMatchesUSD;
+        });
+
+        const getComparablePrice = (product) => {
+            return product.price_us > 0 
+                ? parseInt(product.price_us) 
+                : parseInt(product.price_mmk);
+        };
+
+        return filtered.sort((a, b) => {
+            const priceA = getComparablePrice(a);
+            const priceB = getComparablePrice(b);
+
+            return filterData.value.price_order === 'asc'
+                ? priceA - priceB
+                : priceB - priceA;
+        });
+    });
+
 
     const goDetail = (slug) => {
         router.push('/xp-pen-detail/'+slug)
@@ -196,6 +214,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- price asc/desc filtr -->
+                    <div class="mb-3">
+                        <select name="price_order" id="" class="border border-slate-400 rounded-lg px-3 py-[6px]  text-slate-700 placeholder:italic placeholder:text-sm focus:outline-none" v-model="filterData.price_order">
+                            <option value="asc">Price (Low to High)</option>
+                            <option value="desc">Price (High to Low)</option>
+                        </select>
                     </div>
 
                     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
