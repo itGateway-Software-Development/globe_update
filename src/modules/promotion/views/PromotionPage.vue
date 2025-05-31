@@ -15,14 +15,14 @@ import { onMounted } from 'vue';
     <Container className="py-10 md:pt-24" >
         <SectionHeader title="Promotion"  />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-14 mt-8" v-if="promotions.length > 0">
-            <div class="col-span-1 overflow-hidden rounded-lg" v-for="(item, index) in promotions" :key="index">
-                <RouterLink to="/" class="flex flex-col items-center gap-5"> 
-                    <img class="w-full h-[300px] object-cover rounded-lg hover:scale-110 duration-300" :src="item.image" alt="" />
-                    <p class="text-center text-slate-700 text-base 2xl:text-lg font-semibold">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-8 mt-8" v-if="promotions.length > 0">
+            <div class="col-span-1 overflow-hidden rounded-lg mb-5" v-for="(item, index) in promotions" :key="index">
+                <div class="flex flex-col items-center gap-5"> 
+                    <img class="w-full rounded-lg hover:scale-110 shadow-lg duration-300" :src="item.image" alt="" />
+                    <p class="text-center text-slate-700 text-base 2xl:text-lg font-bold">
                         {{item.description}}
                     </p>
-                </RouterLink>
+                </div>
             </div>
         </div>
 

@@ -11,6 +11,7 @@ export const submit = (payload, id) => {
     formData.append("state", payload.state);
     formData.append("zip_code", payload.zip_code);
     formData.append("address", payload.address);
+    formData.append("delivery_option", payload.delivery_option);
     formData.append("state_id", payload.state_id);
     formData.append("city_id", payload.city_id);
     formData.append("shipping_fee", payload.shipping_fee);

@@ -68,6 +68,18 @@ import WishList from '../components/WishList.vue';
             return;
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (formData.value.email && !emailRegex.test(formData.value.email)) {
+            warning("Incorrect email format")
+            return;
+        }
+
+        const phoneRegex = /^\d{8,15}$/;
+        if (!phoneRegex.test(formData.value.phone)) {
+            warning("Incorrect phone number format")
+            return;
+        }
+
         askConfirmation('Are you sure to update profile?', 'Yes, Update').then(async(result) => {
             if(result.isConfirmed) {
                 isLoading.value = true
@@ -80,7 +92,7 @@ import WishList from '../components/WishList.vue';
                     user = response.data.user
                 } else {
                     isLoading.value = false
-                    warning(response.message)
+                    warning('Something went wrong')
                 }
             }
         })

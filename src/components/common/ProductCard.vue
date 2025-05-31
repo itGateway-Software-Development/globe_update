@@ -109,9 +109,9 @@
 
             <Modal :item="item"  :isOpen="isModalOpen" @close="isModalOpen = false"  />
             
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`" :src="item.preview_images[0]?.image_url" alt="" />
+            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`" :src="item.preview_images[0]?.image_url" alt="" />
         
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] object-cover rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`" :src="item.preview_images[1]?.image_url" alt="" />
+            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[380px] lg:h-[310px] rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`" :src="item.preview_images[1]?.image_url" alt="" />
         </div>
 
         <div class="p-2">

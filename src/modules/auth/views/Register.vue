@@ -15,7 +15,7 @@ import { useRouter } from 'vue-router';
     const router = useRouter();
 
     const checkValidation = () => {
-        if(formValue.value.name == "" || formValue.value.email == "" || formValue.value.phone == "" || formValue.value.password == "") {
+        if(formValue.value.name == "" || formValue.value.phone == "" || formValue.value.password == "") {
             return false;
         }  else {
             return true;
@@ -24,6 +24,21 @@ import { useRouter } from 'vue-router';
 
     const handleSubmit = async() => {
         if(checkValidation()) {
+
+             // Email format check using regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (formValue.value.email && !emailRegex.test(formValue.value.email)) {
+                warning("Incorrect email format")
+                return;
+            }
+
+            const phoneRegex = /^\d{8,15}$/;
+            if (!phoneRegex.test(formValue.value.phone)) {
+                warning("Incorrect phone number format")
+                return;
+            }
+
+
             let response = await register(formValue.value);
             console.log(response);
 
@@ -53,7 +68,7 @@ import { useRouter } from 'vue-router';
 
             <div class="mt-8 flex flex-col gap-5">
                 <div class="flex flex-col gap-1">
-                    <label for="" class="text-base text-slate-600 font-bold">Name</label>
+                    <label for="" class="text-base text-slate-600 font-bold">Name <span class="text-red-600">*</span></label>
                     <input v-model="formValue.name" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-1">
@@ -61,11 +76,11 @@ import { useRouter } from 'vue-router';
                     <input v-model="formValue.email" type="email" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label for="" class="text-base text-slate-600 font-bold">Phone</label>
+                    <label for="" class="text-base text-slate-600 font-bold">Phone <span class="text-red-600">*</span></label>
                     <input v-model="formValue.phone" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-1">
-                    <label for="" class="text-base text-slate-600 font-bold">Password</label>
+                    <label for="" class="text-base text-slate-600 font-bold">Password <span class="text-red-600">*</span></label>
                     <input @blur="formValue.password.length < 6 ? warning('Password must be at least 6 characters', 'Error') : ''" v-model="formValue.password" type="password" min="6" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-4">

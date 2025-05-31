@@ -10,10 +10,10 @@
     <div class="flex flex-col gap-4">
         <input 
             type="email" 
-            :class="`${user ? 'bg-slate-100' : 'bg-white'} border ${formError.email ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-slate-500 placeholder:text-base px-5 py-[10px]`" 
+            :class="`${user ? 'bg-slate-100' : 'bg-white'} border border-slate-300 rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-slate-500 placeholder:text-base px-5 py-[10px]`" 
             v-model="formData.email"
-            placeholder="Enter Email"
-            :readonly="user ? true : false"
+            placeholder="Enter Email (optional)"
+            :readonly="user?.email ? true : false"
         >
 
         <input 
@@ -35,7 +35,7 @@
                 v-model="formData.phone"
             >
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input 
                 type="text" 
                 :class="`col-span-1 bg-white border ${formError.city ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-sm placeholder:text-slate-500 px-5 py-[10px]`" 
@@ -48,12 +48,7 @@
                 placeholder="State"
                 v-model="formData.state"
             >
-            <input 
-                type="text" 
-                :class="`col-span-1 bg-white border ${formError.zip_code ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-sm placeholder:text-slate-500 px-5 py-[10px]`" 
-                placeholder="Zip Code (optional)"
-                v-model="formData.zip_code"
-            >
+           
         </div>
         
         <textarea 

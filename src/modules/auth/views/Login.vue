@@ -12,6 +12,8 @@ import { useRouter } from 'vue-router';
 
     const router = useRouter();
 
+    const currentMode = ref('email')
+
     const checkValidation = () => {
         if(formValue.value.email == "" ||  formValue.value.password == "") {
             return false;
@@ -22,8 +24,23 @@ import { useRouter } from 'vue-router';
 
     const handleSubmit = async() => {
         if(checkValidation()) {
+
+            if(currentMode.value == 'phone') {
+                const phoneRegex = /^\d{8,15}$/;
+                if (!phoneRegex.test(formValue.value.email)) {
+                    warning("Incorrect phone number format")
+                    return;
+                }
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (formValue.value.email && !emailRegex.test(formValue.value.email)) {
+                    warning("Incorrect email format")
+                    return;
+                }
+            }
+
             let response = await login(formValue.value);
-            console.log(response);
+            
 
             if(response?.data?.ok) {
                 LocalStorage.store('token', response.data.token);
@@ -50,16 +67,21 @@ import { useRouter } from 'vue-router';
         <div class="max-w-lg mx-auto my-10">
             <h3 class="text-2xl text-slate-700 font-bold text-center">Login</h3>
 
+
             <div class="mt-8 flex flex-col gap-5">
-                <div class="flex flex-col gap-1">
-                    <label for="" class="text-base text-slate-600 font-bold">Email (or) Phone</label>
+                <div class="flex flex-col gap-1" >
+                    <label for="" class="text-base text-slate-600 font-bold"> {{ currentMode == 'email' ? 'Email' : 'Phone' }} </label>
                     <input v-model="formValue.email" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
+                
                 <div class="flex flex-col gap-1">
                     <label for="" class="text-base text-slate-600 font-bold">Password</label>
                     <input v-model="formValue.password" type="password" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-4">
+                    <span v-if="currentMode == 'email'" @click="currentMode = 'phone'" class="text-base text-rose-500 cursor-pointer text-center underline">Login using phone</span>
+                    <span v-if="currentMode == 'phone'" @click="currentMode = 'email'" class="text-base text-rose-500 cursor-pointer text-center underline">Login using email</span>
+
                     <p class="text-center">Don't have an account? <RouterLink to="/register" class="text-[#1162ad] font-bold">Register</RouterLink></p>
                     <button @click="handleSubmit" class="bg-[#1162ad] text-center text-lg font-bold text-white w-full rounded-full py-3">Login</button>
                 </div>

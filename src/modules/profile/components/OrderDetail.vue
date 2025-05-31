@@ -77,9 +77,12 @@
                         <p class="text-end font-bold">Payment Method</p>
                     </td>
                     <td class="py-3 pe-3">
-                        <p class="text-end font-bold">
+                        <p class="text-end font-bold" v-if="order.delivery_option == 'delivery'">
                             {{order.payment_method?.toUpperCase()}} <br>
                             <span class="text-cyan-500 text-sm">({{order.bank_account?.toUpperCase()}})</span>
+                        </p>
+                        <p class="text-end font-bold" v-else>
+                            Pickup in Store
                         </p>
                     </td>
                 </tr>

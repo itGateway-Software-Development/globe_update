@@ -31,12 +31,11 @@ import { onMounted } from 'vue';
                 >
                 <Paperclip class="absolute top-2 left-2 h-6 w-6 text-slate-600 z-10 pointer-events-none" />
             </div>
-            <!-- <input 
+            <input 
                 type="email" 
-                :class="`bg-slate-100 border ${formError.email ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-base px-5 py-[10px]`" 
+                :class="`bg-white border ${formError.email ? 'border-red-500' : 'border-slate-300'} rounded-lg text-slate-700 w-full focus:outline-none placeholder:italic placeholder:text-base px-5 py-[10px]`" 
                 v-model="formData.email"
-                readonly
-            > -->
+            >
     
             <input 
                 type="text" 
