@@ -118,10 +118,16 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
 
     // Debounced search to avoid too many API calls
     const debouncedSearch = () => {
+      if (!searchInput.value.trim()) {
+        results.value = []
+        return
+      }
+
       clearTimeout(debounceTimer)
       debounceTimer = setTimeout(handleSearch, 500)
     }
 
+ 
 
 </script>
 
