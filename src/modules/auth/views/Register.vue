@@ -34,7 +34,7 @@ import { useRouter } from 'vue-router';
 
             const phoneRegex = /^\d{8,15}$/;
             if (!phoneRegex.test(formValue.value.phone)) {
-                warning("Incorrect phone number format")
+                warning("Phone number must be 8 to 15 digits")
                 return;
             }
 
@@ -77,7 +77,7 @@ import { useRouter } from 'vue-router';
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="" class="text-base text-slate-600 font-bold">Phone <span class="text-red-600">*</span></label>
-                    <input v-model="formValue.phone" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
+                    <input v-model="formValue.phone" type="number" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="" class="text-base text-slate-600 font-bold">Password <span class="text-red-600">*</span></label>

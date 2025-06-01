@@ -4,7 +4,9 @@
     import PButton from './PButton.vue';
     import useCart from '@/composables/useCart';
     import { toastSuccess } from '@/utils/sweetalert';
-import { useRouter } from 'vue-router';
+    import { useRouter } from 'vue-router';
+    import { useBankAccountStore } from '@/store/useBankAccountStore';
+    import { storeToRefs } from 'pinia';
 
 
     const props = defineProps({
@@ -14,6 +16,9 @@ import { useRouter } from 'vue-router';
 
     const {addProduct, existsInCart} = useCart();
     const router = useRouter();
+    const bankAccountStore = useBankAccountStore();
+
+    const {bankAccounts} = storeToRefs(bankAccountStore)
 
     const currentImage = ref(props.item.images[0])
     const variation_price = ref(props.item.is_attribute ? (props.item.variations[0].price_us == 0 ? props.item.variations[0]?.price_mmk : props.item.variations[0]?.price_us) : 0)
@@ -128,6 +133,16 @@ import { useRouter } from 'vue-router';
                         <PButton v-else text="Already In Cart" class="bg-green-700" :alreadyAdded="true"  />
                       </div>
                       <RouterLink to='/cart'><PButton text="View Cart" className="bg-red-500"  /></RouterLink>
+                    </div>
+                    <hr>
+                    <div class="flex flex-wrap mt-3 gap-3">
+                      <img 
+                        v-for="account in bankAccounts" 
+                        :key="account.id" 
+                        :src="account.logo" 
+                        alt=""
+                        class="w-12 h-12 object-cover border rounded-lg"
+                      >
                     </div>
                   
                 </div>

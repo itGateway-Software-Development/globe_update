@@ -1,6 +1,10 @@
 <script setup>
 import { BriefcaseBusiness, Headphones, LaptopMinimal, Layers, Router } from 'lucide-vue-next';
 import { onMounted } from 'vue';
+import getCompanyProfiles from '../composables/getCompanyProfiles';
+
+const {profiles, errors, load} = getCompanyProfiles();
+load();
 
 onMounted(() => {
     window.scrollTo(0,0)
@@ -118,39 +122,18 @@ onMounted(() => {
                     <h3 class="text-2xl text-slate-700 font-bold mb-8">Our Profile</h3>
 
                     <ol class="relative border-s border-gray-200 dark:border-gray-700 ">                  
-                        <li class="mb-10 ms-6">            
+                        <li class="mb-10 ms-6" v-for="profile in profiles" :key="profile.id">            
                             <span class="absolute flex items-center justify-center w-6 h-6 bg-[#1162ad] rounded-full -start-3 ring-8 ring-[#1162ad] ">
                                 <Layers :size="20" class="text-white" />
                             </span>
-                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 ">Globe Trading Company Profile</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">You can download Globe Trading Company Profile pdf to explore more.</p>
-                            <a href="/profile/globe.pdf" download class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-100 bg-cyan-500 border border-gray-200 rounded-lg hover:bg-cyan-200 hover:text-slate-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 "><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 ">{{ profile.name }}</h3>
+                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{{ profile.description }}</p>
+                            <a :href="profile.file" target="_blank" download class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-100 bg-cyan-500 border border-gray-200 rounded-lg hover:bg-cyan-200 hover:text-slate-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 "><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
                             <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
                             </svg> Download</a>
                         </li>
-                        <li class="mb-10 ms-6">            
-                            <span class="absolute flex items-center justify-center w-6 h-6 bg-[#1162ad] rounded-full -start-3 ring-8 ring-[#1162ad] ">
-                                <Layers :size="20" class="text-white" />
-                            </span>
-                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 ">Globe Solar Brochure</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">You can download Globe Solar Brochure pdf to explore more.</p>
-                            <a href="/profile/solar.pdf" download class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-100 bg-cyan-500 border border-gray-200 rounded-lg hover:bg-cyan-200 hover:text-slate-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 "><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
-                            <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-                            </svg> Download</a>
-                        </li>
-                        <li class="mb-10 ms-6">            
-                            <span class="absolute flex items-center justify-center w-6 h-6 bg-[#1162ad] rounded-full -start-3 ring-8 ring-[#1162ad] ">
-                                <Layers :size="20" class="text-white" />
-                            </span>
-                            <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 ">XP-Pen_Profile by Globe</h3>
-                            <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">You can download XP-Pen_Profile by Globe pdf to explore more.</p>
-                            <a href="/profile/xppen.pdf" download class="inline-flex items-center px-4 py-2 text-sm font-medium text-slate-100 bg-cyan-500 border border-gray-200 rounded-lg hover:bg-cyan-200 hover:text-slate-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 "><svg class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
-                            <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
-                            </svg> Download</a>
-                        </li>
+                        
                     </ol>
                 </div>
             </div>

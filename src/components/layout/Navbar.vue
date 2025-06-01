@@ -29,6 +29,8 @@ import wishList from "@/utils/wishList";
 import getRandomProducts from "@/composables/getRandomProducts";
 import { api } from "@/utils/api";
 import axios from "axios";
+import getBankAccounts from "@/modules/cartCheckout/composables/getBankAccounts";
+
 
 const searchInput = ref("");
 const results = ref([])
@@ -54,7 +56,7 @@ const {category_lists: adreamer_category_lists, errors: adreamerErrors, load: ad
 const {xp_pens_category, error: xpPenErrors, load: xpPenLoad} = getXpPenCategory();
 const {category_lists: solar_category_lists, errors: solarErrors, load: solarCategoryLoad} = getSolarCategoryList();
 const {products, errors: productError, load: productLoad} = getRandomProducts();
-
+const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
     const getCurrentRoute = () => {
       let route_segment = router.currentRoute.value.path.split("/").filter(Boolean);
       return route_segment[0] || "/";
@@ -74,13 +76,13 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
     )
 
     onMounted(async() => {
-      await categoryLoad();
-      await xpPenLoad();
-      await solarCategoryLoad();
-      await productLoad();
-      await adreamerLoad();
-      await wishList.getWishList();
-
+        await categoryLoad();
+        await xpPenLoad();
+        await solarCategoryLoad();
+        await productLoad();
+        await adreamerLoad();
+        await wishList.getWishList();
+        await accountLoad()
 
         document.addEventListener("click", handleClickOutside);
       });
@@ -270,15 +272,6 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
                   </li>
                  
                   <li>
-                    <RouterLink data-drawer-hide="menu-drawer" aria-controls="menu-drawer" to="/promotions" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                          <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                          <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-                        </svg>
-                        <span class="ms-3 group-hover:text-white">Promotion</span>
-                    </RouterLink>
-                  </li>
-                  <li>
                     <RouterLink data-drawer-hide="menu-drawer" aria-controls="menu-drawer" to="/career" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                           <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -301,6 +294,9 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
                           <li data-drawer-hide="menu-drawer" aria-controls="menu-drawer" >
                               <RouterLink to="/about-us" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-white">About Us</RouterLink>
                           </li>
+                          <li data-drawer-hide="menu-drawer" aria-controls="menu-drawer" >
+                            <RouterLink to="/promotions" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-white">Promotions</RouterLink>
+                        </li>
                           <li data-drawer-hide="menu-drawer" aria-controls="menu-drawer" >
                             <RouterLink to="/contact-us" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-white">Contact Us</RouterLink>
                         </li>
@@ -676,16 +672,7 @@ const {products, errors: productError, load: productLoad} = getRandomProducts();
           </svg>
           <GlobeSolorMenus :solar_category_lists="solar_category_lists" />
         </li>
-        <li>
-          <RouterLink to="/promotions">
-            <span
-              :class="`font-bold text-[14px] xl:text-[17px] ${
-                getCurrentRoute() === 'promotions' ? 'text-slate-700' : 'text-white'
-              } hover:text-slate-700`"
-              >Promotion</span
-            >
-          </RouterLink>
-        </li>
+       
         <!-- <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >

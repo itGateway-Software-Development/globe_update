@@ -16,10 +16,24 @@ const formData = ref({
     message: ""
 })
 
+
 const handleSubmit = async() => {
     if(!formData.value.name || !formData.value.email || !formData.value.phone || !formData.value.message) {
         warning('Please fill all the fields', 'Error')
         return
+    }
+
+     // Email format check using regex
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.value.email && !emailRegex.test(formData.value.email)) {
+        warning("Incorrect email format")
+        return;
+    }
+
+    const phoneRegex = /^\d{8,15}$/;
+    if (!phoneRegex.test(formData.value.phone)) {
+        warning("Phone number must be 8 to 15 digits")  
+        return;
     }
 
     isSending.value = true
@@ -141,7 +155,7 @@ onMounted(() => {
                 </div>
             </div>
             <div class="col-span-1 shadow-lg bg-slate-100 p-10 rounded-lg border">
-                <h3 class="text-center text-slate-700 text-2xl font-bold mb-3">Message Us</h3>
+                <h3 class="text-center text-slate-700 text-2xl font-bold mb-3">Message Us </h3>
                 <p class="text-center text-slate-600">We'll get you back to you within 24 hours.</p>
 
                 <div class="mt-10 flex flex-col gap-5">

@@ -26,8 +26,8 @@ import { onMounted } from 'vue';
             </div>
         </div>
 
-        <div v-else>
-            <h3 class="text-2xl font-bold text-rose-700 text-center mt-20">No Promotion Today</h3>
-        </div>
+        <div v-else class="flex justify-center my-5">
+            <img class="w-[400px] lg:w-[50%]" src="@/assets/images/comming_soon.png" alt="">
+        </div> 
     </Container>
 </template>

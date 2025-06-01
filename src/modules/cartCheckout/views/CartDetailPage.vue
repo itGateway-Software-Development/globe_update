@@ -57,27 +57,27 @@
                         </thead>
                         <tbody>
                           <tr class="border-b" v-for="(item,index) in cartItems" :key="index">
-                            <td class="p-4">
+                            <td class="p-4 ">
                               <div class="flex items-center">
                                 <img :src="item.preview_images[0]?.image_url" alt="Product" class="w-16 h-16 object-cover rounded mr-4">
-                                <div>
+                                <div class="w-[250px] lg:w-auto">
                                   <p class="font-semibold">{{item.name}}</p>
                                   <p class="text-gray-500 text-sm" v-if="item.is_attribute">{{ Object.values(item.variations.attributes).join(', ') }}</p>
                                 </div>
                               </div>
                             </td>
                             <td class="py-4 text-center">
-                              <div class="flex justify-center" v-if="!item.is_attribute">
+                              <div class="flex justify-center w-[100px] lg:w-auto" v-if="!item.is_attribute">
                                 <span class="text-amber-700 text-lg font-bold" v-if="item.price_us == 0">{{item.price_mmk}} MMK</span>
                                 <span class="text-amber-700 text-lg font-bold flex items-center gap-1" v-else>{{item.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
                               </div>
-                              <div class="flex justify-center" v-else>
+                              <div class="flex justify-center w-[100px] lg:w-auto" v-else>
                                 <span class="text-amber-700 text-lg font-bold" v-if="item.variations.price_us == 0">{{item.variations.price_mmk}} MMK</span>
                                 <span class="text-amber-700 text-lg font-bold flex items-center gap-1" v-else>{{item.variations.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
                               </div>
                             </td>
                             <td class="py-4 text-center">
-                              <div class="inline-flex justify-center items-center gap-4 border-2 px-2 py-1 rounded-3xl">
+                              <div class="inline-flex justify-center items-center gap-4 border-2 px-2 py-1 rounded-3xl w-[150px] lg:w-auto">
                                 <div @click="decreaseQuantity(item.id, item.is_attribute ? item.variations.sku : item.sku)" @mousedown.prevent.stop class="bg-lime-600 rounded-full p-1 inline-block cursor-pointer active:scale-75">
                                     <Minus :size="19" class="text-slate-50" />
                                 </div>
@@ -88,7 +88,7 @@
                               </div>
                             </td>
                             <td class="py-4 text-center">
-                                <div class="flex justify-center" v-if="!item.is_attribute">
+                                <div class="flex justify-center w-[150px] lg:w-auto" v-if="!item.is_attribute">
                                   <span class="text-amber-700 text-lg font-bold" v-if="item.price_us == 0">
                                     {{ (item.price_mmk * item.quantity).toLocaleString() }} MMK
                                   </span>
@@ -98,7 +98,7 @@
                                   </span>
                                 </div>
                               
-                                <div class="flex justify-center" v-else>
+                                <div class="flex justify-center w-[150px] lg:w-auto" v-else>
                                   <span class="text-amber-700 text-lg font-bold" v-if="item.variations.price_us == 0">
                                     {{ (item.variations.price_mmk * item.quantity).toLocaleString() }} MMK
                                   </span>
@@ -110,7 +110,7 @@
                               </td>
                               
                               <td class="py-4 text-center">
-                                <div class="flex justify-end pe-2" v-if="!item.is_attribute">
+                                <div class="flex justify-end pe-2 w-[150px] lg:w-auto" v-if="!item.is_attribute">
                                   <span class="text-amber-700 text-lg font-bold" v-if="item.price_us == 0">
                                     {{ (item.price_mmk * item.quantity).toLocaleString() }} 
                                   </span>
@@ -119,7 +119,7 @@
                                   </span>
                                 </div>
                               
-                                <div class="flex justify-end pe-2" v-else>
+                                <div class="flex justify-end pe-2 w-[150px] lg:w-auto" v-else>
                                   <span class="text-amber-700 text-lg font-bold" v-if="item.variations.price_us == 0">
                                     {{ (item.variations.price_mmk * item.quantity).toLocaleString() }} 
                                   </span>

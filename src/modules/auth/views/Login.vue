@@ -28,7 +28,7 @@ import { useRouter } from 'vue-router';
             if(currentMode.value == 'phone') {
                 const phoneRegex = /^\d{8,15}$/;
                 if (!phoneRegex.test(formValue.value.email)) {
-                    warning("Incorrect phone number format")
+                    warning("Phone number must be 8 to 15 digits")
                     return;
                 }
             } else {
@@ -71,7 +71,7 @@ import { useRouter } from 'vue-router';
             <div class="mt-8 flex flex-col gap-5">
                 <div class="flex flex-col gap-1" >
                     <label for="" class="text-base text-slate-600 font-bold"> {{ currentMode == 'email' ? 'Email' : 'Phone' }} </label>
-                    <input v-model="formValue.email" type="text" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
+                    <input v-model="formValue.email" :type="currentMode == 'email' ? 'email' : 'number'" class="bg-slate-50 border border-slate-600 rounded-full text-slate-700 w-full focus:outline-none mb-3 placeholder:italic placeholder:text-base px-5 py-[10px]" >
                 </div>
                 
                 <div class="flex flex-col gap-1">

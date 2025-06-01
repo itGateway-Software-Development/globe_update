@@ -57,16 +57,33 @@ import { ref } from 'vue';
         <div class="mt-2 border border-slate-300 rounded-lg " v-if="formData.payment_method == 'bank_pay'">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="col-span-1 bg-slate-200 p-3">
-                    <div class="`flex items-center ps-3 mb-2 `" v-for="(account, index) in accounts" :key="index">
-                        <input 
-                            :id="`horizontal-list-radio-${account.slug}`" 
-                            @input="handleBankAccountChange(account)"
-                            v-model="formData.bank_account_id"
-                            type="radio" :value="account.id" name="bank_accounts" 
-                            class="w-4 h-4 text-amber-600 bg-gray-200 border-gray-300 focus:ring-amber-500 focus:ring-2 "
-                        >
-                        <label :for="`horizontal-list-radio-${account.slug}`" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 ">{{account.name}}</label>
-                    </div>
+                    <div 
+                    class="flex items-center ps-3 mb-2 " 
+                    v-for="(account, index) in accounts" 
+                    :key="index"
+                  >
+                    <input 
+                      :id="`horizontal-list-radio-${account.slug}`" 
+                      @change="handleBankAccountChange(account)"
+                      v-model="formData.bank_account_id"
+                      type="radio" 
+                      :value="account.id" 
+                      name="bank_accounts"
+                      class="w-4 h-4 text-amber-600 bg-gray-300 border-gray-600 focus:ring-amber-500 focus:ring-2"
+                    >
+                    <img 
+                      :src="account.logo" 
+                      alt="Bank Logo" 
+                      class="w-8 h-8 ms-3 rounded object-cover"
+                    >
+                    <label 
+                      :for="`horizontal-list-radio-${account.slug}`" 
+                      class="w-full py-3 ms-2 text-sm font-medium text-gray-900"
+                    >
+                      {{ account.name }}
+                    </label>
+                  </div>
+                  
                     
                 </div>
                 <div class="col-span-1 flex flex-col justify-center py-5 pe-3 gap-10">

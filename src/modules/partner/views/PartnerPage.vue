@@ -16,7 +16,14 @@ import { onMounted } from 'vue';
         <img class="w-full h-[300px] object-cover object-top brightness-75" src="@/assets/images/partner_banner.jpg" alt="">
     </div>
     <Container>
-        <SectionHeader class="mt-10 mb-7" title="Our Partners"   />
+        <div class="px-10 lg:px-[100px] xl:px-[150px] 2xl:px-[300px] mb-10">
+            <SectionHeader 
+            class="mt-10 mb-7" 
+            title="Building Strong Partnerships for a Better Future"   
+            description="We believe in the power of collaboration. Our partnerships are built on trust, innovation, and shared goals to deliver exceptional value to our clients and communities.
+                    We work with industry leaders, startups, and non-profits to drive innovation. Our partners gain access to cutting-edge technology, global networks, and dedicated support to scale their businesses."
+            />
+        </div>
         
         <section class="mb-20">
             <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-3">

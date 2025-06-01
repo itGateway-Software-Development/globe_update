@@ -10,6 +10,8 @@ import { toastSuccess } from '@/utils/sweetalert';
 import { storeToRefs } from 'pinia';
 import { useWishListStore } from '@/store/useWishListStore';
 import wishList from '@/utils/wishList';
+import { useBankAccountStore } from '@/store/useBankAccountStore';
+
 
 const route = useRoute();
 const slug = ref(route.params.slug);
@@ -23,6 +25,9 @@ const wishListStore = useWishListStore();
 
 const { product,relatedProducts, errors, load } = getProduct();
 const {wishLists} = storeToRefs(wishListStore)
+const bankAccountStore = useBankAccountStore();
+
+const {bankAccounts} = storeToRefs(bankAccountStore)
 
 
 // Watch for changes in the route and update slug
@@ -218,6 +223,17 @@ const isAlreadyWishList = computed(() => {
           <Heart @click="handleAddWish(product)" :fill="isAlreadyWishList ? 'red' : 'white'" :size="24" :class="`text-red-500 cursor-pointer hover:scale-110 duration-200`" />
         </div>
         <hr />
+
+        <div class="flex flex-wrap mt-3 gap-3">
+          <img 
+            v-for="account in bankAccounts" 
+            :key="account.id" 
+            :src="account.logo" 
+            alt=""
+            class="w-12 h-12 object-cover border rounded-lg"
+          >
+        </div>
+        
       </div>
     </div>
 

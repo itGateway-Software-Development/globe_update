@@ -76,7 +76,7 @@ import WishList from '../components/WishList.vue';
 
         const phoneRegex = /^\d{8,15}$/;
         if (!phoneRegex.test(formData.value.phone)) {
-            warning("Incorrect phone number format")
+            warning("Phone number must be 8 to 15 digits")
             return;
         }
 

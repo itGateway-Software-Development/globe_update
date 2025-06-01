@@ -6,6 +6,8 @@ import { onMounted, ref } from "vue";
 import { toast } from "vue3-toastify";
 import { submitCv } from "../composable/submitCv";
 import { tailspin } from "ldrs";
+import { toastSuccess, warning } from '@/utils/sweetalert';
+
 
 tailspin.register();
 
@@ -39,6 +41,19 @@ const submitCV = async () => {
     submitData.value.phone != "" &&
     submitData.value.cv != ""
   ) {
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (submitData.value.email && !emailRegex.test(submitData.value.email)) {
+        warning("Incorrect email format")
+        return;
+    }
+
+    const phoneRegex = /^\d{8,15}$/;
+    if (!phoneRegex.test(submitData.value.phone)) {
+        warning("Phone number must be 8 to 15 digits")
+        return;
+    }
+
     try {
       loading.value = true;
       let response = await submitCv(submitData.value, id);
@@ -50,7 +65,7 @@ const submitCV = async () => {
         email_err.value = false;
         phone_err.value = false;
         cv_err.value = false;
-        toast.success("Your CV is submitted.");
+        toastSuccess("Your CV is submitted.");
       }
     } catch (error) {
       loading.value = false;
@@ -131,7 +146,7 @@ onMounted(() => {
             />
             <input
               v-model="submitData.phone"
-              type="text"
+              type="number"
               :class="{
                 'border-red-500': phone_err,
                 'border-slate-700': !phone_err,
@@ -165,9 +180,16 @@ onMounted(() => {
             <button
               @click="submitCV"
               class="flex bg-sky-400 justify-center rounded-lg text-white w-full active:scale-95 duration-150 gap-4 hover:bg-sky-600 items-center py-3"
-              :disabled="loading"
+              v-if="!loading"
             >
               Apply
+            </button>
+
+            <button
+              class="flex bg-sky-200 justify-center rounded-lg text-white w-full  gap-4 items-center py-3"
+              v-else
+            >
+              Applying ...
               <l-tailspin
                 v-if="loading"
                 size="20"

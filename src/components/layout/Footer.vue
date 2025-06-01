@@ -127,7 +127,7 @@ const navigate = (route) => {
                             <i class="text-[23px] fa-brands fa-tiktok group-hover:text-white"></i>
                         </a> -->
                         <a href="https://twitter.com/globe_trading" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
-                            <i class="text-[23px] text-blue-400 fa-twitter fab group-hover:text-white"></i>
+                            <i class="text-[23px] text-slate-700 fa-x-twitter fab group-hover:text-white"></i>
                         </a>
                         <a href="https://www.instagram.com/globetrading4?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="flex bg-slate-200 h-12 justify-center rounded-lg w-12 duration-200 group hover:bg-slate-500 items-center">
                             <i class="text-[23px] text-rose-600 fa-brands fa-instagram group-hover:text-white"></i>
@@ -138,9 +138,9 @@ const navigate = (route) => {
         </Container>
 
         <div class="bg-slate-700">
-            <Container className="flex justify-between items-center py-3">
+            <Container className="flex flex-col lg:flex-row gap-3 lg:gap-0 justify-between items-center py-3">
                 <p class="text-white">
-                    © Copyright <span class="text-amber-500 font-bold">itGateway Technology Group Ltd.</span> All RightsReserved.
+                    © Copyright <span class="text-amber-500 font-bold">Globe Trading Co.,Ltd.</span> All RightsReserved.
                 </p>
                 <p class="text-white">
                     Developed by

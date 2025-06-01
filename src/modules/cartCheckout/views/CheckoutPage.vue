@@ -141,6 +141,18 @@
             return;
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (formData.value.email && !emailRegex.test(formData.value.email)) {
+                warning("Incorrect email format")
+                return;
+            }
+
+            const phoneRegex = /^\d{8,15}$/;
+            if (!phoneRegex.test(formData.value.phone)) {
+                warning("Phone number must be 8 to 15 digits")
+                return;
+            }
+
         askConfirmation('Are you sure to submit order?', 'Yes, Submit').then(async(result) => {
             if(result.isConfirmed) {
                 isSubmittingOrder.value = true

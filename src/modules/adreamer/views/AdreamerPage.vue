@@ -237,7 +237,7 @@
                     </select>
                  </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
                        <ProductCard :item="item" :goDetail="goDetail"/>
                     </div>
@@ -251,7 +251,7 @@
         </div>
 
         <div v-else class="flex justify-center my-5">
-            <img class="w-[400px] lg:w-full" src="@/assets/images/comming_soon.png" alt="">
+            <img class="w-[400px] lg:w-[50%]" src="@/assets/images/comming_soon.png" alt="">
         </div>  
     </Container>
 </template>
