@@ -3,7 +3,7 @@ import { Earth } from 'lucide-vue-next';
 import getPartners from '../composables/getPartners';
 import { onMounted } from 'vue';
 
-    const {partners, error, load} = getPartners();
+    const {partners, partner_heading, error, load} = getPartners();
     load();
 
     onMounted(() => {
@@ -19,9 +19,8 @@ import { onMounted } from 'vue';
         <div class="px-10 lg:px-[100px] xl:px-[150px] 2xl:px-[300px] mb-10">
             <SectionHeader 
             class="mt-10 mb-7" 
-            title="Building Strong Partnerships for a Better Future"   
-            description="We believe in the power of collaboration. Our partnerships are built on trust, innovation, and shared goals to deliver exceptional value to our clients and communities.
-                    We work with industry leaders, startups, and non-profits to drive innovation. Our partners gain access to cutting-edge technology, global networks, and dedicated support to scale their businesses."
+            :title="partner_heading.title"   
+            :description="partner_heading.description"
             />
         </div>
         

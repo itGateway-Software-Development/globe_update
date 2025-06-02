@@ -1,5 +1,5 @@
 <script setup>
-import { BriefcaseBusiness, Headphones, LaptopMinimal, Layers, Router } from 'lucide-vue-next';
+import { BriefcaseBusiness, GalleryHorizontalEnd, Headphones, LaptopMinimal, Layers, Router } from 'lucide-vue-next';
 import { onMounted } from 'vue';
 import getCompanyProfiles from '../composables/getCompanyProfiles';
 
@@ -37,23 +37,32 @@ onMounted(() => {
 
             <div class="mt-24">
                 <h3 class="text-2xl font-bold text-slate-700">What We Offer</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-8">
                     <div class="col-span-1 flex">
                         <div class="w-20">
-                            <LaptopMinimal :size="50" />
+                            <GalleryHorizontalEnd :size="50" />
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-[22px] font-bold text-slate-700">Laptops & PC</h3>
+                            <h3 class="text-[22px] font-bold text-slate-700">Portable</h3>
                             <p class="text-lg text-slate-600 mt-3">Premium devices <br> for every budget.</p>
                         </div>
                     </div>
                     <div class="col-span-1 flex">
                         <div class="w-20">
-                            <Router :size="50" />
+                            <LaptopMinimal :size="50" />
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-[22px] font-bold text-slate-700">Networking Devices</h3>
-                            <p class="text-lg text-slate-600 mt-3">Reliable routers, <br> switches and accessories.</p>
+                            <h3 class="text-[22px] font-bold text-slate-700">Laptops & Tablet</h3>
+                            <p class="text-lg text-slate-600 mt-3">Premium devices <br> for every budget.</p>
+                        </div>
+                    </div>
+                    <div class="col-span-1 flex">
+                        <div class="w-20">
+                            <BriefcaseBusiness :size="50" />
+                        </div>
+                        <div class="pt-2">
+                            <h3 class="text-[22px] font-bold text-slate-700">Tech Gadgets</h3>
+                            <p class="text-lg text-slate-600 mt-3">Premium devices <br> for every budget.</p>
                         </div>
                     </div>
                     <div class="col-span-1 flex">
@@ -67,11 +76,11 @@ onMounted(() => {
                     </div>
                     <div class="col-span-1 flex">
                         <div class="w-20">
-                            <BriefcaseBusiness :size="50" />
+                            <Router :size="50" />
                         </div>
                         <div class="pt-2">
-                            <h3 class="text-[22px] font-bold text-slate-700">Business Solutions</h3>
-                            <p class="text-lg text-slate-600 mt-3">Bulk purchase aftersales <br> service and support.</p>
+                            <h3 class="text-[22px] font-bold text-slate-700">Networking</h3>
+                            <p class="text-lg text-slate-600 mt-3">Reliable routers, <br> switches and accessories.</p>
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ const generalStore = useGeneralStore();
 
 const getPartners = () => {
     const partners = ref([]);
+    const partner_heading = ref({})
     const errors = ref();
 
     const load = async() => {
@@ -18,6 +19,7 @@ const getPartners = () => {
                 throw new Error("page not found");
             }
             partners.value = response.data.partners;
+            partner_heading.value = response.data.partner_heading;
             generalStore.toggleLoading();
 
         } catch (error) {
@@ -26,7 +28,7 @@ const getPartners = () => {
         }
     }
 
-    return {partners,  errors, load}
+    return {partners, partner_heading,  errors, load}
 }
 
 export default getPartners
