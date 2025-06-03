@@ -13,7 +13,7 @@ import { onMounted } from 'vue';
 
 <template>
     <div>
-        <img class="w-full h-[300px] object-cover object-top brightness-75" src="@/assets/images/partner_banner.jpg" alt="">
+        <img class="w-full h-auto xl:h-[300px] object-cover object-top brightness-75" src="@/assets/images/partner_banner.jpg" alt="">
     </div>
     <Container>
         <div class="px-10 lg:px-[100px] xl:px-[150px] 2xl:px-[300px] mb-10">

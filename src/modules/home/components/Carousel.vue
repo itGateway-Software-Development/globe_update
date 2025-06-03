@@ -40,7 +40,7 @@ onMounted(async() => {
       @swiper="onSwiper"
     >
       <swiper-slide v-for="(slider, index) in sliders" :key="index">
-        <img class="w-full h-full xl:h-[500px]  2xl:h-[700px] object-fill md:object-cover carousel-images" :src="slider.image" alt="" />
+        <img class="w-full h-full  object-fill md:object-cover carousel-images" :src="slider.image" alt="" />
       </swiper-slide>
     </swiper>
     
