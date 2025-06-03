@@ -21,7 +21,7 @@ import { onMounted } from 'vue';
     watch(() => route.params.slug, async (newSlug) => {
         slug.value = newSlug;
         await load(newSlug);
-        category_name.value = ref(slugToCap(slug.value))
+        category_name.value = ref(products.value.length > 0 ? products.value[0].category : '')
         attributes.value.forEach(attr => {
             if (!filterData.value.attributes[attr.name]) {
                 filterData.value.attributes[attr.name] = [];
@@ -117,9 +117,11 @@ import { onMounted } from 'vue';
         <div class="grid grid-cols-5 gap-1 xl:gap-10 2xl:gap-16">
             <div class="col-span-1 sticky top-[160px] h-[calc(100vh-160px)] overflow-y-auto hidden lg:block">
                 <div class="flex flex-col gap-7">
-                    <div class="flex gap-2 items-center">
-                        <h3 class="text-slate-500">Home</h3>
-                        <ChevronRight :size="20" class="text-slate-500" />
+                    <div class="flex gap-2 items-center" v-if="products.length > 0">
+                        <h3 v-if="!products[0].parent_category" class="text-slate-500">Solar</h3>
+                        <ChevronRight v-if="!products[0].parent_category" :size="20" class="text-slate-500" />
+                        <h3 v-if="products[0].parent_category" class="text-slate-500">{{products[0].parent_category}}</h3>
+                        <ChevronRight v-if="products[0].parent_category" :size="20" class="text-slate-500" />
                         <h3 class="text-slate-500">{{category_name}}</h3>
                     </div>
 
@@ -239,7 +241,7 @@ import { onMounted } from 'vue';
                     </select>
                  </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
+                <div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
                        <ProductCard :item="item" :goDetail="goDetail"/>
                     </div>

@@ -118,7 +118,7 @@
                 <div class="flex flex-col gap-7">
                     <!-- breadcrumb -->
                     <div class="flex gap-2 items-center">
-                        <h3 class="text-slate-500">Home</h3>
+                        <h3 class="text-slate-500">Category</h3>
                         <ChevronRight :size="20" class="text-slate-500" />
                         <h3 class="text-slate-500">{{category_name}}</h3>
                     </div>
@@ -267,7 +267,7 @@
                     </select>
                  </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
+                <div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
                        <ProductCard :item="item" :goDetail="goDetail"/>
                     </div>

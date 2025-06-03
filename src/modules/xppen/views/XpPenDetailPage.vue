@@ -3,7 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import getProduct from '../composables/getProduct';
 import PButton from '@/components/common/PButton.vue';
-import { DollarSign, Layers2, Heart } from 'lucide-vue-next';
+import { DollarSign, Layers2, Heart, ChevronRight } from 'lucide-vue-next';
 import ProductCard from '@/components/common/ProductCard.vue';
 import useCart from '@/composables/useCart';
 import { toastSuccess } from '@/utils/sweetalert';
@@ -123,6 +123,13 @@ const isAlreadyWishList = computed(() => {
 
 <template>
   <Container class="py-5 px-0 lg:px-28">
+    <div class="flex gap-2 items-center my-3">
+      <RouterLink :to="`/xp-pen/${product?.category_slug}`" class="text-slate-500 underline underline-offset-4">{{ product?.category.charAt(0).toUpperCase() + product?.category.slice(1) }}</RouterLink>
+        <ChevronRight :size="20" class="text-slate-500" />
+        <h3 class="text-slate-500">Product Detail</h3>
+        <ChevronRight :size="20" class="text-slate-500" />
+        <h3 class="text-slate-500">{{product?.name}}</h3>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-7 mt-5" v-if="product && currentImage">
       <div class="col-span-1 ">
         <div class="border border-3 rounded-lg shadow-lg overflow-hidden flex justify-center max-w-[700px] relative">

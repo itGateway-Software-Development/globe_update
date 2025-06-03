@@ -140,7 +140,7 @@ const isAlreadyWishList = computed(() => {
   <Container class="py-5 px-0 lg:px-28">
 
     <div class="flex gap-2 items-center my-3">
-        <h3 class="text-slate-500">Home</h3>
+        <RouterLink :to="`/category/${product?.category_slug}`" class="text-slate-500 underline underline-offset-4">{{ product?.category.charAt(0).toUpperCase() + product?.category.slice(1) }}</RouterLink>
         <ChevronRight :size="20" class="text-slate-500" />
         <h3 class="text-slate-500">Product Detail</h3>
         <ChevronRight :size="20" class="text-slate-500" />
