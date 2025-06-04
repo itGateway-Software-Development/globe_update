@@ -56,7 +56,7 @@ import ProductCard from '@/components/common/ProductCard.vue';
               </div>
     
             <div class="mt-10">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+                <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 lg:gap-5">
                     <div class="col-span-1" v-for="(product, index) in products" :key="index" >
                         <ProductCard v-if="index < 5" :item="product" :goDetail="goDetail"/>
                     </div>

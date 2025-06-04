@@ -241,7 +241,7 @@ import { onMounted } from 'vue';
                     </select>
                  </div>
 
-                <div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5" v-if="filteredProducts.length > 0">
+                <div class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2 lg:gap-5" v-if="filteredProducts.length > 0">
                     <div class="col-span-1" v-for="(item, index) in filteredProducts" :key="index">
                        <ProductCard :item="item" :goDetail="goDetail"/>
                     </div>
