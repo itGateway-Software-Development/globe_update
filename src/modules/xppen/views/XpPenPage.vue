@@ -15,7 +15,7 @@
     const category_name = ref('');
 
     const { xppen_series, error: series_error, load: loadSeries } = getSeries();
-    const { xppen_products, error, load: loadProducts } = getProducts();
+    const { xppen_products, is_series, error, load: loadProducts } = getProducts();
 
     // Watch for changes in the route and update slug
     watch(() => route.params.slug, async (newSlug) => {
@@ -106,7 +106,7 @@
                             <h3 class="text-slate-500">{{category_name}}</h3>
                         </div>
     
-                        <div>
+                        <div v-if="is_series">
                             <h3 class="text-xl text-slate-700 font-bold">Series</h3>
                             <Divider />
                             <div class="mt-3 ps-2">
