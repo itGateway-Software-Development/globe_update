@@ -113,7 +113,7 @@
 
 <template>
     <Container className="py-10">
-        <div class="grid grid-cols-5 gap-1 xl:gap-10 2xl:gap-16" v-if="filterData.length == 0">
+        <div class="grid grid-cols-5 gap-1 xl:gap-10 2xl:gap-16" v-if="filteredProducts.length > 0">
             <div class="col-span-1 sticky top-[160px] h-[calc(100vh-160px)] overflow-y-auto hidden lg:block">
                 <div class="flex flex-col gap-7 ">
                     <div class="flex gap-2 items-center">
