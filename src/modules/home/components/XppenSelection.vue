@@ -35,7 +35,7 @@ const goDetail = (slug) => {
 </script>
 
 <template>
-    <section class="bg-slate-200 mt-20 py-20">
+    <section class="bg-slate-200 mt-10 lg:mt-20 py-20">
         <Container>
             <SectionHeader title="XP Pen Selection" link_name="View All" :link="`/xp-pen/${currentSelect}`" description="All available laptops" />
 
@@ -46,8 +46,8 @@ const goDetail = (slug) => {
     
             <div class="mt-10">
                 <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 lg:gap-5">
-                    <div class="col-span-1" v-for="(product, index) in xppen_products" :key="index">
-                        <ProductCard v-if="index < 5" :item="product" :goDetail="goDetail"/>
+                    <div class="col-span-1" v-for="(product, index) in xppen_products.slice(0, 5)" :key="index">
+                        <ProductCard :item="product" :goDetail="goDetail"/>
                     </div>
                 </div>
             </div>

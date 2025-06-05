@@ -9,10 +9,10 @@ const getSeries = () => {
     const xppen_series = ref([]);
     const errors = ref();
 
-    const load = async() => {
+    const load = async(cate_slug) => {
         generalStore.toggleLoading();
         try {
-            let response = await axios.get(api + "xp-pens-series");
+            let response = await axios.get(api + "xp-pens-series/" + cate_slug);
 
             if (response.status === 404) {
                 throw new Error("page not found");

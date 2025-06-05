@@ -21,6 +21,8 @@
     watch(() => route.params.slug, async (newSlug) => {
         slug.value = newSlug;
         await loadProducts(newSlug);
+        await loadSeries(newSlug);
+
         category_name.value = ref(slugToCap(slug.value))
     }, { immediate: true }); // Run immediately on mount
 
@@ -28,7 +30,6 @@
     onMounted(async () => {
         initFlowbite();
         window.scrollTo(0, 0);
-        await loadSeries();
     });
 
     const filterData = ref({

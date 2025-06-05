@@ -62,6 +62,12 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
       return route_segment[0] || "/";
     };
 
+
+    const last_route_name = computed(() => {
+      const routeSegments = router.currentRoute.value.path.split("/").filter(Boolean);
+      return routeSegments.at(-1) || "/";
+    });
+
     const handleClickOutside = (event) => {
       if (searchBox.value && !searchBox.value.contains(event.target)) {
         isSearch.value = false;
@@ -594,7 +600,11 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
-            class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
+            :class="`font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] ${
+              getCurrentRoute() === 'category'
+                ? 'text-slate-700'
+                : 'text-white'
+            }`"
             >Category</span
           >
           <svg
@@ -611,13 +621,17 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
               d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
-          <CategoryMenus :category_lists="category_lists" />
+          <CategoryMenus :category_lists="category_lists" :last_route_name="last_route_name" />
         </li>
         <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
-            class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
+            :class="`font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] ${
+              getCurrentRoute() === 'chuwi'
+                ? 'text-slate-700'
+                : 'text-white'
+            }`"
             >CHUWI</span
           >
           <svg
@@ -634,13 +648,17 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
               d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
-          <AdreamerMenus :category_lists="adreamer_category_lists" />
+          <AdreamerMenus :category_lists="adreamer_category_lists" :last_route_name="last_route_name" />
         </li>
         <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
-            class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
+            :class="`font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] ${
+              getCurrentRoute() === 'xp-pen'
+                ? 'text-slate-700'
+                : 'text-white'
+            }`"
             >XP-Pen</span
           >
           <svg
@@ -657,13 +675,17 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
               d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
-          <XpMenus :xp_pens_category="xp_pens_category" />
+          <XpMenus :xp_pens_category="xp_pens_category" :last_route_name="last_route_name" />
         </li>
         <li
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
-            class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
+            :class="`font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] ${
+              getCurrentRoute() === 'solar'
+                ? 'text-slate-700'
+                : 'text-white'
+            }`"
             >Globe Solar Solution</span
           >
           <svg
@@ -680,7 +702,7 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
               d="m19.5 8.25-7.5 7.5-7.5-7.5"
             />
           </svg>
-          <GlobeSolorMenus :solar_category_lists="solar_category_lists" />
+          <GlobeSolorMenus :solar_category_lists="solar_category_lists" :last_route_name="last_route_name" />
         </li>
        
         <!-- <li
@@ -722,7 +744,11 @@ const {accounts, errors: accountError, load: accountLoad} = getBankAccounts();
           class="flex items-center gap-1 group cursor-pointer duration-150 relative"
         >
           <span
-            class="font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] text-white"
+            :class="`font-bold group-hover:text-slate-700 text-[14px] xl:text-[17px] ${
+              getCurrentRoute() === 'about-us' || getCurrentRoute() === 'career' || getCurrentRoute() === 'contact-us'
+                ? 'text-slate-700'
+                : 'text-white'
+            }`"
             >About Us</span
           >
           <svg

@@ -12,9 +12,8 @@ import getPopularProducts from '../composable/getPopularProducts';
         <SectionHeader title="Popular Items" />
 
         <div class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-14">
-            <div class="col-span-1" v-for="(item, index) in products" :key="index">
+            <div class="col-span-1" v-for="(item, index) in products.slice(0, 6)" :key="index">
                 <RouterLink 
-                    v-if="index < 6"
                     :to="`/${item.product_type == 'normal' ? 'product-detail': (item.product_type == 'xp_pen' ? 'xp-pen-detail': (item.product_type == 'solar_product' ? 'solar-product-detail': 'chuwi-product-detail'))}/${item.slug}`"
                 >
                     <div :style="{ backgroundColor: bgColors[index] }" class="w-full h-[120px] xl:h-[200px] group flex items-center justify-center rounded-lg  shadow overflow-hidden">

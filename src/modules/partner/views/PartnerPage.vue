@@ -25,7 +25,7 @@ import { onMounted } from 'vue';
         </div>
         
         <section class="mb-20">
-            <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-3">
+            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-3">
                 <div
                     class="col-span-1 relative group"
                     v-for="(partner, index) in partners"

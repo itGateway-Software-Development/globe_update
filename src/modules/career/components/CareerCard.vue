@@ -64,13 +64,13 @@ import { CircleDollarSign, Dot, Mail, Navigation } from 'lucide-vue-next';
             </p>
         </div>
 
-        <div class="flex flex-row gap-8 md:flex-col pt-10 xl:flex-row">
+        <div class="flex flex-row flex-wrap gap-5 2xl:gap-8 md:flex-col pt-10 xl:flex-row">
             <div class="flex flex-col gap-1 items-center">
                 <h2 class="text-sky-500 text-xl font-bold underline underline-offset-8">Department</h2>
                 <h4 class="text-center text-lg font-bold">{{career.department}}</h4>
             </div>
 
-            <div class="pt-3">
+            <div class="pt-1 xl:pt-3">
                 <RouterLink :to="`/career-detail/${career.position_slug}/${career.id}`" class="bg-sky-700 rounded-lg text-white w-full duration-200 font-bold hover:bg-sky-800 px-4 py-2">JD & Apply</RouterLink>
             </div>
         </div>
