@@ -28,7 +28,7 @@ import { onMounted } from 'vue';
             }
         });
 
-        filterData.value.price = [0, 2000000];
+        filterData.value.price = [0, 9000000];
 
         window.scrollTo(0, 0);
 
@@ -40,7 +40,7 @@ import { onMounted } from 'vue';
 
     const filterData = ref({
         brand_slugs: [],
-        price: [0, 2000000],
+        price: [0, 9000000],
         attributes: {},
         price_order: 'asc'
     })
@@ -148,7 +148,7 @@ import { onMounted } from 'vue';
                         <Divider />
                         <div class="mt-3 px-0 xl:px-5">
                             <div class="slider-demo-block">
-                                <el-slider v-model="filterData.price" range :max="2000000"  />
+                                <el-slider v-model="filterData.price" range :max="9000000"  />
                             </div>
 
                             <div class="mt-2 flex flex-col 2xl:flex-row items-center gap-1">
@@ -220,7 +220,7 @@ import { onMounted } from 'vue';
                             <Divider />
                             <div class="mt-3 px-0 xl:px-5">
                                 <div class="slider-demo-block">
-                                    <el-slider v-model="filterData.price" range :max="2000000"  />
+                                    <el-slider v-model="filterData.price" range :max="9000000"  />
                                 </div>
     
                                 <div class="mt-2 flex flex-col 2xl:flex-row items-center gap-1">

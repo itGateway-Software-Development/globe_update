@@ -115,7 +115,7 @@
     <Container className="py-20">
         <SectionHeader title="Brands" description="Explore all available brands"  />
 
-        <div class="mt-8 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 md:gap-5">
+        <div class="mt-8 grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-3 md:gap-5">
             <RouterLink to="/" class="col-span-1" v-for="(item,i) in logo" :key="i">
                 <div class="p-3 rounded-lg overflow-hidden border border-slate-200 bg-white shadow hover:-translate-y-1 duration-200">
                     <img :src="item.img" alt="">
