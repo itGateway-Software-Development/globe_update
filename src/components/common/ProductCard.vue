@@ -134,8 +134,8 @@
                     <span class="text-amber-700 text-sm md:text-base lg:text-lg font-bold flex items-center gap-2" v-else>{{item.price_us}} <DollarSign class="text-green-700" :size="20" /></span>
                 </div>
                 <div v-else>
-                    <span class="text-amber-700 text-sm md:text-base lg:text-lg font-bold" v-if="item.currency == 'MMK'">{{item.price_range}} MMK</span>
-                    <span class="text-amber-700 text-sm md:text-base lg:text-lg font-bold flex items-center gap-2" v-else>{{item.price_range}} <DollarSign class="text-green-700" :size="20" /></span>
+                    <span class="text-amber-700 text-sm md:text-base lg:text-lg font-bold" v-if="item.currency == 'MMK'">{{item.variations.length == 1 ? item.price_range.split('-')[0] : item.price_range}} MMK</span>
+                    <span class="text-amber-700 text-sm md:text-base lg:text-lg font-bold flex items-center gap-2" v-else>{{item.variations.length == 1 ? item.price_range.split('-')[0] : item.price_range}} <DollarSign class="text-green-700" :size="20" /></span>
                 </div>
                 <div v-if="!existsInCart(item.id, item.sku)" @click="handleAddCart(item)" class="flex justify-center items-center w-8 md:w-10 h-8 md:h-10 rounded-lg bg-sky-400 cursor-pointer overflow-hidden p-2 group">
                     <ShoppingCart class="text-white group-hover:scale-125 duration-200" :size="20" />
