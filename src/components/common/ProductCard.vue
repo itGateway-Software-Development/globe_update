@@ -44,7 +44,7 @@
             return;
         }
 
-        if(product.qty == 0) {
+        if(!product.qty || product.qty == 0) {
             warning('Product out of stock')
             return
         }
