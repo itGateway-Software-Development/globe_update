@@ -88,9 +88,7 @@ onMounted(() => {
         </Container>
 
         <section class="bg-[#4c4c4c] my-20">
-            <Container class="py-20 xl:py-32">
-                <h2 class="text-2xl lg:text-4xl font-bold text-center italic text-green-600">We Offer Your Quality Products</h2>
-            </Container>
+            <img class="w-full h-auto border" src="@/assets/images/about_us/banner.jpg" alt="">
         </section>
 
         <Container>
@@ -125,7 +123,7 @@ onMounted(() => {
         <Container class="mt-28 xl:ps-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="col-span-1">
-                    <img class="rounded-xl" src="@/assets/images/room.jpg" alt="">
+                    <img class="rounded-xl" src="@/assets/images/about_us/room.jpg" alt="">
                 </div>
                 <div class="col-span-1">
                     <h3 class="text-2xl text-slate-700 font-bold mb-8">Our Profile</h3>

@@ -99,21 +99,32 @@
 
 <template>
     <div class="flex flex-col gap-2 shadow-xl border border-slate-300 rounded-lg overflow-hidden">
-        <div class="bg-slate-200 relative group h-[180px] md:h-[380px] lg:h-[310px]">
-            <!-- <span class="absolute top-3 left-3 z-20 text-white text-xs font-semibold bg-sky-600 px-3 py-1 rounded-lg">{{ item.category }}</span> -->
+        <div class="bg-slate-200 relative group">
+            <div class="relative w-full">
+              <img
+                @click="goDetail(item.slug)"
+                :class="`cursor-pointer w-full h-auto rounded-lg transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`"
+                :src="item.preview_images[0]?.image_url"
+                alt=""
+              />
+              <img
+                @click="goDetail(item.slug)"
+                :class="`cursor-pointer w-full h-auto rounded-lg transition-opacity duration-500 ease-in-out absolute top-0 left-0 opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`"
+                :src="item.preview_images[1]?.image_url"
+                alt=""
+              />
+            </div>
+          
+            <!-- Action buttons -->
             <div class="absolute hidden group-hover:flex top-3 right-3 items-center gap-2 z-20">
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="handleAddWish"><Heart :size="20" :fill="isAlreadyWishList ? 'red' : 'transparent'" :class="`${isAlreadyWishList ? 'text-rose-800' : 'text-slate-700'} group-hover/icon:text-rose-800`" /></span>
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="goDetail(item.slug)"><Eye :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
                 <span class="cursor-pointer bg-slate-300 rounded-full group/icon p-2" @click="openModal"><ZoomIn :size="20" class="text-slate-700 group-hover/icon:text-rose-800" /></span>
             </div>
-
-            <Modal :item="item"  :isOpen="isModalOpen" @close="isModalOpen = false"  />
-            
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[180px] md:h-[380px] lg:h-[310px] rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out ${item.preview_images.length > 1 ? 'group-hover:opacity-0' : ''}`" :src="item.preview_images[0]?.image_url" alt="" />
-        
-            <img @click="goDetail(item.slug)" :class="`cursor-pointer w-full h-[180px] md:h-[380px] lg:h-[310px] rounded-lg absolute top-0 left-0 transition-opacity duration-500 ease-in-out opacity-0 ${item.preview_images.length > 1 ? 'group-hover:opacity-100' : ''}`" :src="item.preview_images[1]?.image_url" alt="" />
+          
+            <!-- Modal -->
+            <Modal :item="item" :isOpen="isModalOpen" @close="isModalOpen = false" />
         </div>
-
         <div class="p-2">
             <h2 class="text-base md:text-lg lg:text-xl font-bold my-2 h-12 md:h-16 line-clamp-2">{{ item.name }}</h2>
             <div class="h-[80px] md:h-[100px] overflow-hidden">
